@@ -3,192 +3,162 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laurie — Writer</title>
-  <meta name="description" content="The portfolio of Laurie, a creative writing student: stories, poems, and the occasional stray thought.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet">
+  <title>Laurie Legault — Writer</title>
+  <meta name="description" content="Laurie Legault is an emerging English writer from Québec City, now based in Montréal. Short fiction, poetry and the stories of her Québécois roots.">
+  <meta name="theme-color" content="#5a1418">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <a class="skip" href="#prologue">Skip to content</a>
+  <a class="skip" href="#note">Skip to content</a>
 
-  <button type="button" class="lamp" id="lamp" aria-label="Toggle night reading" title="Turn the lamp on or off">
-    <span aria-hidden="true">☾</span>
-  </button>
+  <!-- =====================================================
+       FRONTISPIECE — portrait plate + title page
+       ===================================================== -->
+  <header class="frontispiece" id="top">
+    <figure class="plate">
+      <div class="plate__frame">
+        <img
+          src="assets/img/laurie-portrait-640.webp"
+          srcset="assets/img/laurie-portrait-640.webp 640w, assets/img/laurie-portrait-1000.webp 1000w"
+          sizes="(min-width: 60rem) 26rem, 72vw"
+          width="640" height="960"
+          alt="Portrait of Laurie Legault in a white sweater, resting her chin on her hand against a dark grey backdrop.">
+      </div>
+      <figcaption>
+        <span class="plate__label">Plate I.</span> <em>The Author</em>
+        <span class="plate__credit">Photograph © Justine Latour</span>
+      </figcaption>
+    </figure>
 
-  <!-- ============ TITLE PAGE ============ -->
-  <header class="title-page" id="top">
-    <p class="imprint">A portfolio in five chapters</p>
-    <h1 class="name">Laurie</h1>
-    <p class="subtitle"><em>writer, reader, collector of overheard sentences</em></p>
-    <p class="typed" aria-live="polite"><span id="typed"></span><span class="caret" aria-hidden="true">|</span></p>
+    <div class="title-page">
+      <p class="eyebrow">A Portfolio</p>
+      <h1 class="title-page__name">Laurie <span>Legault</span></h1>
+      <p class="ornament" aria-hidden="true">❦</p>
+      <p class="title-page__sub"><em>Fiction &amp; Poetry</em></p>
+      <p class="title-page__place">Québec City · Montréal</p>
 
-    <nav class="contents" aria-label="Table of contents">
-      <h2 class="contents-title">Contents</h2>
-      <ol>
-        <li><a href="#prologue"><span class="num">I</span><span class="label">Prologue</span><span class="dots"></span><span class="pg">1</span></a></li>
-        <li><a href="#works"><span class="num">II</span><span class="label">Selected Works</span><span class="dots"></span><span class="pg">7</span></a></li>
-        <li><a href="#craft"><span class="num">III</span><span class="label">On Craft</span><span class="dots"></span><span class="pg">23</span></a></li>
-        <li><a href="#marginalia"><span class="num">IV</span><span class="label">Marginalia</span><span class="dots"></span><span class="pg">31</span></a></li>
-        <li><a href="#epilogue"><span class="num">V</span><span class="label">Epilogue</span><span class="dots"></span><span class="pg">40</span></a></li>
-      </ol>
-    </nav>
+      <nav class="contents" aria-label="Contents">
+        <ol>
+          <li><a href="#note"><span class="contents__num">I</span>A Note on the Author</a></li>
+          <li><a href="#shelf"><span class="contents__num">II</span>The Shelf</a></li>
+          <li><a href="#correspondence"><span class="contents__num">III</span>Correspondence</a></li>
+        </ol>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <!-- ============ I. PROLOGUE ============ -->
-    <section class="chapter" id="prologue">
-      <header class="chapter-head">
-        <p class="chapter-num">Chapter I</p>
-        <h2>Prologue</h2>
-      </header>
-      <div class="prose">
-        <p class="dropcap">I started writing because I could not stop noticing things: the way my grandmother folded letters in thirds, the silence after a train leaves, the word people almost say before they choose a kinder one. I am a creative writing student, and most days I am trying to put those small things down before they leave.</p>
-        <p>I write short fiction, poetry, and the kind of essay that begins as one thing and ends as another.<sup class="fn" tabindex="0" data-note="Usually by accident. Occasionally on purpose.">1</sup> I like quiet stories with a crack running through them, and poems that sound good read aloud in an empty kitchen.</p>
-        <p>This site is a small book of what I have made so far. Read it in order, or open it anywhere.</p>
-      </div>
-      <p class="ornament" aria-hidden="true">❦</p>
-    </section>
-
-    <!-- ============ II. SELECTED WORKS ============ -->
-    <section class="chapter" id="works">
-      <header class="chapter-head">
-        <p class="chapter-num">Chapter II</p>
-        <h2>Selected Works</h2>
-      </header>
-
-      <div class="filters" role="group" aria-label="Filter works">
-        <button type="button" class="filter is-active" data-filter="all">All</button>
-        <button type="button" class="filter" data-filter="fiction">Fiction</button>
-        <button type="button" class="filter" data-filter="poetry">Poetry</button>
-        <button type="button" class="filter" data-filter="essay">Essay</button>
-      </div>
-
-      <div class="works">
-        <article class="work" data-kind="fiction">
-          <p class="work-meta">Short fiction · 2,400 words</p>
-          <h3>The Cartographer's Daughter</h3>
-          <blockquote>“She drew the river the way it used to run, because no one had told the paper it had moved.”</blockquote>
-          <details>
-            <summary>Read an excerpt</summary>
-            <div class="excerpt">
-              <p>Every map in the house was wrong by at least one street. Her father said this was a kindness: a map should leave room for the town to change its mind.</p>
-              <p>Replace this with an excerpt of your own work, a paragraph or two.</p>
-            </div>
-          </details>
-        </article>
-
-        <article class="work" data-kind="poetry">
-          <p class="work-meta">Poem · from a sequence in progress</p>
-          <h3>Inventory of a Small Weather</h3>
-          <blockquote class="verse">“one umbrella, unopened —<br>two hands, deciding<br>whether rain is worth it.”</blockquote>
-          <details>
-            <summary>Read the poem</summary>
-            <div class="excerpt verse">
-              <p>Place the full poem here.<br>Line breaks are kept with &lt;br&gt;.</p>
-            </div>
-          </details>
-        </article>
-
-        <article class="work" data-kind="essay">
-          <p class="work-meta">Personal essay · published in a student journal</p>
-          <h3>On Keeping Unsent Letters</h3>
-          <blockquote>“An unsent letter is not a failure of courage. It is a conversation that chose to stay in the room.”</blockquote>
-          <details>
-            <summary>Read an excerpt</summary>
-            <div class="excerpt">
-              <p>Add a short excerpt and, if it was published, a link to the full piece.</p>
-            </div>
-          </details>
-        </article>
-
-        <article class="work" data-kind="fiction">
-          <p class="work-meta">Flash fiction · 500 words</p>
-          <h3>Lost Property, Platform Four</h3>
-          <blockquote>“Among the umbrellas there was, inexplicably, a violin, and a note that said <em>please don't tune it</em>.”</blockquote>
-          <details>
-            <summary>Read the piece</summary>
-            <div class="excerpt"><p>Flash fiction is short enough to include whole.</p></div>
-          </details>
-        </article>
+    <!-- =====================================================
+         I. A NOTE ON THE AUTHOR — bio (Laurie's own words)
+         ===================================================== -->
+    <section class="page" id="note" aria-labelledby="note-title">
+      <div class="page__inner">
+        <p class="eyebrow eyebrow--dark">I</p>
+        <h2 id="note-title">A Note on the Author</h2>
+        <div class="prose">
+          <p class="dropcap">Born and raised in Québec City, Laurie Legault is an emerging English writer. Bilingual in French and English, she grew up on the Valcartier military base and attended the Dollard-des-Ormeaux English school, where she gained her writing confidence through yearly nominations for poetry slams.</p>
+          <p>Later, she began writing fiction on an online platform and gained over ten thousand readers, prompting her to pursue her writing more seriously. By the time she graduated high school, Laurie won the Quebec Chronicle Telegraph English Prize award and went on to complete a DEC in languages.</p>
+          <p>Today, Laurie lives in Montréal and is a third-year creative writing major with a minor in professional writing. She continues to expand and polish her narrative voice through a collection of short stories, one of which, <cite>Sandhill Cranes</cite>, has been featured in Humber College’s student-run literature and art magazine, <cite>Arrival</cite>. In her pieces, Laurie embraces her Québécois roots and explores themes of anger, grief, nostalgia, denial, and love, while continuing to draw inspiration from her and her family’s lives. She hopes to pursue a career in fiction writing and novel editing.</p>
+        </div>
+        <p class="ornament ornament--dark" aria-hidden="true">✦</p>
       </div>
     </section>
 
-    <!-- ============ III. ON CRAFT ============ -->
-    <section class="chapter" id="craft">
-      <header class="chapter-head">
-        <p class="chapter-num">Chapter III</p>
-        <h2>On Craft</h2>
-      </header>
-      <dl class="glossary">
-        <div><dt>Voice</dt><dd>Intimate first person, close third, and the occasional second person when a story needs to look the reader in the eye.</dd></div>
-        <div><dt>Form</dt><dd>Short story, flash fiction, lyric and narrative poetry, the personal essay, prose poems.</dd></div>
-        <div><dt>Revision</dt><dd>I cut until it hurts, then put one sentence back.</dd></div>
-        <div><dt>Workshop</dt><dd>Giving and taking critique with care, editing peers' manuscripts, reading aloud.</dd></div>
-        <div><dt>Editing</dt><dd>Copyediting, line editing, and editorial work on a student literary magazine.</dd></div>
-        <div><dt>Languages</dt><dd>English and French; I like the gaps between them most.</dd></div>
-      </dl>
-    </section>
+    <!-- =====================================================
+         II. THE SHELF — projects as books
+         To add a book: copy one <li class="book"> block,
+         give it a new id (book-7, …) and change the text.
+         Cover:  book--wine | book--oxblood | book--claret | book--ink | book--vellum
+         Height: book--short | (default) | book--tall
+         Width:  book--thin  | (default) | book--thick
+         ===================================================== -->
+    <section class="library" id="shelf" aria-labelledby="shelf-title">
+      <div class="library__inner">
+        <p class="eyebrow">II</p>
+        <h2 id="shelf-title">The Shelf</h2>
+        <p class="library__hint">Hover over a spine, or tap it, to take a book from the shelf.</p>
 
-    <!-- ============ IV. MARGINALIA ============ -->
-    <section class="chapter" id="marginalia">
-      <header class="chapter-head">
-        <p class="chapter-num">Chapter IV</p>
-        <h2>Marginalia</h2>
-        <p class="chapter-sub">Notes scribbled at the edge of the page: who I am when I'm not writing.</p>
-      </header>
+        <div class="bookcase">
+          <ul class="shelf">
+            <li class="book book--claret book--tall book--thick">
+              <button type="button" class="book__spine" aria-expanded="false" aria-controls="book-1">
+                <span class="book__title">Sandhill Cranes</span>
+              </button>
+              <div class="book__details" id="book-1">
+                <p class="book__meta">Short story · Published in <cite>Arrival</cite></p>
+                <h3><cite>Sandhill Cranes</cite></h3>
+                <p>Featured in <cite>Arrival</cite>, Humber College’s student-run literature and art magazine.</p>
+                <!-- TODO: add a link to the story or the issue -->
+              </div>
+            </li>
 
-      <div class="notes">
-        <div class="note tilt-l">
-          <h3>Currently reading</h3>
-          <p>A battered secondhand novel with someone else's underlining, and arguing with them in pencil.</p>
-        </div>
-        <div class="note tilt-r">
-          <h3>Writing ritual</h3>
-          <p>Tea gone cold. Window cracked open. A first draft always written by hand.</p>
-        </div>
-        <div class="note tilt-l">
-          <h3>Words I love</h3>
-          <p><em>petrichor</em>, <em>dépaysement</em>, <em>susurrus</em>, <em>lagom</em>.</p>
-        </div>
-        <div class="note tilt-r">
-          <h3>Small truths</h3>
-          <p>I have opinions about fountain pen ink, and I will share them if asked. Or not asked.</p>
+            <li class="book book--ink book--short">
+              <button type="button" class="book__spine" aria-expanded="false" aria-controls="book-2">
+                <span class="book__title">English Prize</span>
+              </button>
+              <div class="book__details" id="book-2">
+                <p class="book__meta">Award</p>
+                <h3>Quebec Chronicle Telegraph English Prize</h3>
+                <p>Won by the time she graduated high school.</p>
+              </div>
+            </li>
+
+            <li class="book book--wine book--thin">
+              <button type="button" class="book__spine" aria-expanded="false" aria-controls="book-3">
+                <span class="book__title">Poetry Slams</span>
+              </button>
+              <div class="book__details" id="book-3">
+                <p class="book__meta">Poetry · Dollard-des-Ormeaux English school</p>
+                <h3>Poetry Slam Nominations</h3>
+                <p>Nominated every year — where her writing confidence began.</p>
+              </div>
+            </li>
+
+            <li class="book book--vellum book--tall">
+              <button type="button" class="book__spine" aria-expanded="false" aria-controls="book-4">
+                <span class="book__title">Ten Thousand Readers</span>
+              </button>
+              <div class="book__details" id="book-4">
+                <p class="book__meta">Online fiction</p>
+                <h3>Ten Thousand Readers</h3>
+                <p>Fiction written on an online platform that gathered over ten thousand readers.</p>
+              </div>
+            </li>
+
+            <li class="book book--oxblood book--thick">
+              <button type="button" class="book__spine" aria-expanded="false" aria-controls="book-5">
+                <span class="book__title">Short Stories</span>
+              </button>
+              <div class="book__details" id="book-5">
+                <p class="book__meta">Collection · In progress</p>
+                <h3>A Collection of Short Stories</h3>
+                <p>Stories of Québécois roots — of anger, grief, nostalgia, denial, and love.</p>
+              </div>
+            </li>
+          </ul>
+
+          <!-- The opened book appears here, below the shelf -->
+          <p class="reading-table__empty" aria-hidden="true">— the reading table —</p>
         </div>
       </div>
-
-      <figure class="commonplace">
-        <figcaption>From the commonplace book</figcaption>
-        <p id="quote" class="quote">“Write it down before it becomes a memory.”</p>
-        <button type="button" class="turn" id="turn">Turn the page →</button>
-      </figure>
     </section>
 
-    <!-- ============ V. EPILOGUE ============ -->
-    <section class="chapter" id="epilogue">
-      <header class="chapter-head">
-        <p class="chapter-num">Chapter V</p>
-        <h2>Epilogue</h2>
-      </header>
-      <div class="prose centered">
-        <p>Every story ends with an open door. If you'd like to talk about writing, editing, a collaboration, or a book you think I should read, write to me.</p>
-        <p class="letter">
-          <a href="mailto:hello@example.com" class="seal">Send a letter</a>
-        </p>
-        <ul class="elsewhere">
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Substack</a></li>
-          <li><a href="#">LinkedIn</a></li>
-        </ul>
-      </div>
+    <!-- =====================================================
+         III. CORRESPONDENCE — contact
+         ===================================================== -->
+    <section class="correspondence" id="correspondence" aria-labelledby="corr-title">
+      <p class="eyebrow">III</p>
+      <h2 id="corr-title">Correspondence</h2>
+      <p>For editing, readings, or a conversation about stories.</p>
+      <!-- TODO (placeholder): replace with Laurie's real email -->
+      <p><a class="letter" href="mailto:hello@example.com">Write to Laurie</a></p>
     </section>
   </main>
 
   <footer class="colophon">
-    <p class="ornament" aria-hidden="true">✦</p>
-    <p><strong>Colophon.</strong> Set in Cormorant Garamond and EB Garamond. Made by hand, and revised more than once.</p>
-    <p>© <span id="year"></span> Laurie · <a href="#top">Back to the title page</a></p>
+    <p class="ornament" aria-hidden="true">❦</p>
+    <p><strong>Colophon.</strong> Set in Cormorant Garamond and EB Garamond. Portrait by Justine Latour.</p>
+    <p>© <span id="year">2026</span> Laurie Legault · <a href="#top">Return to the frontispiece</a></p>
   </footer>
 
   <script src="js/main.js"></script>

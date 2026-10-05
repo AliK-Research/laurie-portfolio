@@ -9,3 +9,8 @@ Thumbs.db
 
 # Files saved by the Claude app
 Claude outputs/
+
+# Original, full-size photos (keep them out of the public repo)
+assets/LaurieLegault_2025*.jpg
+*.raw
+*.NEF
