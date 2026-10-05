@@ -36,7 +36,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; overflow-x: clip; }
-body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -44,6 +43,7 @@ body { overflow-x: clip; }
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--serif-text);

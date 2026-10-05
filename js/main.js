@@ -11,12 +11,12 @@
     lamp.querySelector("span").textContent = t === "night" ? "☀" : "☾";
   };
   let saved = null;
-  try { saved = localStorage.getItem("laurie-theme"); } catch (_) {}
+  try { saved = localStorage.getItem("laurie-theme"); } catch { /* storage unavailable (private mode) */ }
   setTheme(saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day"));
   lamp.addEventListener("click", () => {
     const next = root.getAttribute("data-theme") === "night" ? "day" : "night";
     setTheme(next);
-    try { localStorage.setItem("laurie-theme", next); } catch (_) {}
+    try { localStorage.setItem("laurie-theme", next); } catch { /* storage unavailable (private mode) */ }
   });
 
   /* ---- Typewriter line on the title page ---- */

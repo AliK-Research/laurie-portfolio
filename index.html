@@ -13,7 +13,7 @@
 <body>
   <a class="skip" href="#prologue">Skip to content</a>
 
-  <button class="lamp" id="lamp" aria-label="Toggle night reading" title="Turn the lamp on or off">
+  <button type="button" class="lamp" id="lamp" aria-label="Toggle night reading" title="Turn the lamp on or off">
     <span aria-hidden="true">☾</span>
   </button>
 
@@ -59,10 +59,10 @@
       </header>
 
       <div class="filters" role="group" aria-label="Filter works">
-        <button class="filter is-active" data-filter="all">All</button>
-        <button class="filter" data-filter="fiction">Fiction</button>
-        <button class="filter" data-filter="poetry">Poetry</button>
-        <button class="filter" data-filter="essay">Essay</button>
+        <button type="button" class="filter is-active" data-filter="all">All</button>
+        <button type="button" class="filter" data-filter="fiction">Fiction</button>
+        <button type="button" class="filter" data-filter="poetry">Poetry</button>
+        <button type="button" class="filter" data-filter="essay">Essay</button>
       </div>
 
       <div class="works">
@@ -140,28 +140,28 @@
       </header>
 
       <div class="notes">
-        <aside class="note tilt-l">
+        <div class="note tilt-l">
           <h3>Currently reading</h3>
           <p>A battered secondhand novel with someone else's underlining, and arguing with them in pencil.</p>
-        </aside>
-        <aside class="note tilt-r">
+        </div>
+        <div class="note tilt-r">
           <h3>Writing ritual</h3>
           <p>Tea gone cold. Window cracked open. A first draft always written by hand.</p>
-        </aside>
-        <aside class="note tilt-l">
+        </div>
+        <div class="note tilt-l">
           <h3>Words I love</h3>
           <p><em>petrichor</em>, <em>dépaysement</em>, <em>susurrus</em>, <em>lagom</em>.</p>
-        </aside>
-        <aside class="note tilt-r">
+        </div>
+        <div class="note tilt-r">
           <h3>Small truths</h3>
           <p>I have opinions about fountain pen ink, and I will share them if asked. Or not asked.</p>
-        </aside>
+        </div>
       </div>
 
       <figure class="commonplace">
         <figcaption>From the commonplace book</figcaption>
         <p id="quote" class="quote">“Write it down before it becomes a memory.”</p>
-        <button class="turn" id="turn">Turn the page →</button>
+        <button type="button" class="turn" id="turn">Turn the page →</button>
       </figure>
     </section>
 
