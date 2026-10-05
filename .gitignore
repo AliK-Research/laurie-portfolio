@@ -3,11 +3,9 @@ Thumbs.db
 *.log
 .vscode/
 .idea/
-node_modules/
-dist/
 .netlify/
+.env
+.env.*
 
 # Files saved by the Claude app
 Claude outputs/
-.env
-.env.*
