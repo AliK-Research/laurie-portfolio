@@ -1,0 +1,282 @@
+/* =========================================================
+   Laurie — a portfolio set like a small book
+   ========================================================= */
+
+:root {
+  --paper: #f6f1e7;
+  --paper-deep: #ece4d3;
+  --ink: #2a2420;
+  --ink-soft: #5c524a;
+  --ink-faint: #9a8f84;
+  --accent: #8b2e2a;          /* oxblood, like a wax seal */
+  --rule: #d8cdb8;
+  --note: #fbf6dc;
+  --shadow: 0 1px 2px rgba(60, 40, 20, .08), 0 8px 24px rgba(60, 40, 20, .08);
+
+  --serif-display: "Cormorant Garamond", Georgia, serif;
+  --serif-text: "EB Garamond", Georgia, serif;
+  --mono: "Courier Prime", "Courier New", monospace;
+
+  --measure: 34rem;
+}
+
+/* Night reading */
+:root[data-theme="night"] {
+  --paper: #1c1a17;
+  --paper-deep: #24211d;
+  --ink: #e9e1d2;
+  --ink-soft: #b9ae9c;
+  --ink-faint: #7d7365;
+  --accent: #d98a6a;
+  --rule: #3a352e;
+  --note: #2b2720;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { overflow-x: clip; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif-text);
+  font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.2rem);
+  line-height: 1.7;
+  transition: background .6s ease, color .6s ease;
+  /* faint paper grain */
+  background-image:
+    radial-gradient(rgba(120, 90, 50, .035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+::selection { background: var(--accent); color: var(--paper); }
+
+a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: .2em; }
+a:hover { color: var(--accent); }
+
+.skip {
+  position: absolute; left: -999px; top: 1rem;
+  background: var(--ink); color: var(--paper); padding: .5rem 1rem;
+}
+.skip:focus { left: 1rem; z-index: 10; }
+
+:focus-visible { outline: 2px dashed var(--accent); outline-offset: 3px; }
+
+/* ---------- Lamp toggle ---------- */
+.lamp {
+  position: fixed; top: 1rem; right: 1rem; z-index: 5;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  border: 1px solid var(--rule); background: var(--paper);
+  color: var(--ink); font-size: 1.2rem; cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform .3s ease, background .6s ease;
+}
+.lamp:hover { transform: rotate(-15deg); }
+
+/* ---------- Title page ---------- */
+.title-page {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 4rem 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.imprint {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--ink-faint); margin: 0 0 1.5rem;
+}
+.name {
+  font-family: var(--serif-display); font-weight: 500;
+  font-size: clamp(4rem, 3rem + 9vw, 9rem); line-height: .9;
+  margin: 0; letter-spacing: -.01em;
+  animation: ink-in 1.6s ease both;
+}
+.subtitle {
+  font-family: var(--serif-display); font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+  color: var(--ink-soft); margin: 1rem 0 0;
+  animation: ink-in 1.6s .4s ease both;
+}
+.typed {
+  font-family: var(--mono); font-size: .95rem; color: var(--ink-soft);
+  min-height: 1.7em; margin: 2rem 0 3rem; max-width: 30rem;
+}
+.caret { animation: blink 1s steps(1) infinite; color: var(--accent); }
+
+@keyframes ink-in {
+  from { opacity: 0; filter: blur(6px); letter-spacing: .08em; }
+  to   { opacity: 1; filter: blur(0);   }
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Table of contents */
+.contents { width: min(100%, 24rem); animation: ink-in 1.6s .8s ease both; }
+.contents-title {
+  font-family: var(--mono); font-weight: 400; font-size: .8rem;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--ink-faint);
+  margin: 0 0 1rem;
+}
+.contents ol { list-style: none; padding: 0; margin: 0; }
+.contents a {
+  display: flex; align-items: baseline; gap: .6rem;
+  padding: .3rem 0; text-decoration: none;
+  font-family: var(--serif-display); font-size: 1.25rem;
+}
+.contents .num { width: 2rem; text-align: left; color: var(--accent); font-size: 1rem; }
+.contents .dots { flex: 1; border-bottom: 1px dotted var(--ink-faint); transform: translateY(-.3em); }
+.contents .pg { font-family: var(--mono); font-size: .85rem; color: var(--ink-faint); }
+.contents a:hover .label { font-style: italic; }
+
+/* ---------- Chapters ---------- */
+.chapter {
+  max-width: 64rem; margin: 0 auto;
+  padding: clamp(4rem, 3rem + 6vw, 8rem) 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.chapter-head { text-align: center; margin-bottom: 3rem; }
+.chapter-num {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--accent); margin: 0;
+}
+.chapter-head h2 {
+  font-family: var(--serif-display); font-weight: 500;
+  font-size: clamp(2.4rem, 2rem + 3vw, 4rem); margin: .3rem 0 0; line-height: 1.1;
+}
+.chapter-sub { color: var(--ink-soft); font-style: italic; margin: .75rem auto 0; max-width: var(--measure); }
+
+.prose { max-width: var(--measure); margin: 0 auto; }
+.prose p { margin: 0 0 1.2em; text-indent: 1.5em; hyphens: auto; }
+.prose p:first-child, .prose.centered p { text-indent: 0; }
+.prose.centered { text-align: center; }
+
+.dropcap::first-letter {
+  float: left; font-family: var(--serif-display);
+  font-size: 4.6em; line-height: .8; padding: .08em .1em 0 0;
+  color: var(--accent);
+}
+
+.ornament { text-align: center; color: var(--ink-faint); font-size: 1.5rem; margin: 2.5rem 0 0; }
+
+/* Footnotes */
+.fn {
+  position: relative; color: var(--accent); cursor: help;
+  font-family: var(--mono); font-size: .7em; padding: 0 .1em;
+}
+.fn::after {
+  content: attr(data-note);
+  position: absolute; bottom: 1.8em; left: 50%; transform: translateX(-50%) translateY(4px);
+  width: max-content; max-width: 14rem;
+  background: var(--note); color: var(--ink); border: 1px solid var(--rule);
+  font-family: var(--serif-text); font-style: italic; font-size: 1rem; line-height: 1.4;
+  padding: .5rem .75rem; box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .25s, transform .25s, visibility .25s;
+}
+.fn:hover::after, .fn:focus::after { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Works ---------- */
+.filters { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.5rem; }
+.filter {
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
+  background: none; border: 1px solid var(--rule); color: var(--ink-soft);
+  padding: .45rem 1rem; cursor: pointer; transition: all .25s;
+}
+.filter:hover { border-color: var(--ink); color: var(--ink); }
+.filter.is-active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.works { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1.5rem; }
+.work {
+  background: var(--paper-deep); padding: 2rem 1.75rem; position: relative;
+  border: 1px solid var(--rule);
+  transition: transform .35s ease, box-shadow .35s ease, opacity .35s ease;
+}
+.work:hover { transform: translateY(-3px) rotate(-.3deg); box-shadow: var(--shadow); }
+.work.is-hidden { display: none; }
+.work-meta { font-family: var(--mono); font-size: .75rem; color: var(--ink-faint); margin: 0 0 .5rem; letter-spacing: .05em; }
+.work h3 { font-family: var(--serif-display); font-weight: 600; font-size: 1.7rem; line-height: 1.15; margin: 0 0 1rem; }
+.work blockquote {
+  margin: 0 0 1.25rem; padding-left: 1rem; border-left: 2px solid var(--accent);
+  font-style: italic; color: var(--ink-soft);
+}
+.work details summary {
+  cursor: pointer; font-family: var(--mono); font-size: .8rem; color: var(--accent);
+  list-style: none;
+}
+.work details summary::-webkit-details-marker { display: none; }
+.work details summary::before { content: "+ "; }
+.work details[open] summary::before { content: "– "; }
+.excerpt { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--rule); }
+.excerpt p { margin: 0 0 1em; }
+.verse { white-space: normal; }
+
+/* ---------- Craft (glossary) ---------- */
+.glossary { max-width: 44rem; margin: 0 auto; }
+.glossary > div {
+  display: grid; grid-template-columns: 9rem 1fr; gap: 1.5rem;
+  padding: 1.1rem 0; border-bottom: 1px solid var(--rule);
+}
+.glossary dt { font-family: var(--serif-display); font-style: italic; font-size: 1.4rem; color: var(--accent); }
+.glossary dd { margin: 0; }
+@media (max-width: 34rem) {
+  .glossary > div { grid-template-columns: 1fr; gap: .25rem; }
+}
+
+/* ---------- Marginalia ---------- */
+.notes {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1.75rem; margin-bottom: 4rem;
+}
+.note {
+  background: var(--note); padding: 1.5rem 1.25rem; box-shadow: var(--shadow);
+  font-size: 1rem; transition: transform .3s ease;
+}
+.note h3 { font-family: var(--mono); font-weight: 400; font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin: 0 0 .5rem; }
+.note p { margin: 0; }
+.tilt-l { transform: rotate(-1.2deg); }
+.tilt-r { transform: rotate(1deg); }
+.note:hover { transform: rotate(0) scale(1.02); }
+
+.commonplace { max-width: var(--measure); margin: 0 auto; text-align: center; }
+.commonplace figcaption { font-family: var(--mono); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint); }
+.quote {
+  font-family: var(--serif-display); font-style: italic;
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.2rem); line-height: 1.3;
+  margin: 1rem 0 1.5rem; min-height: 3em;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.quote.is-turning { opacity: 0; transform: translateX(-12px); }
+.turn {
+  background: none; border: none; cursor: pointer; color: var(--accent);
+  font-family: var(--mono); font-size: .85rem;
+}
+.turn:hover { text-decoration: underline; }
+
+/* ---------- Epilogue ---------- */
+.letter { margin: 2.5rem 0; }
+.seal {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 9rem; height: 9rem; border-radius: 50%;
+  background: var(--accent); color: var(--paper);
+  font-family: var(--serif-display); font-style: italic; font-size: 1.25rem;
+  text-decoration: none; box-shadow: inset 0 0 0 6px rgba(0,0,0,.12), var(--shadow);
+  transition: transform .3s ease;
+}
+.seal:hover { color: var(--paper); transform: rotate(-8deg) scale(1.04); }
+.elsewhere { list-style: none; padding: 0; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-family: var(--mono); font-size: .85rem; }
+
+/* ---------- Colophon ---------- */
+.colophon { text-align: center; padding: 3rem 1rem 4rem; color: var(--ink-faint); font-size: .95rem; }
+.colophon p { margin: .4rem 0; }
+
+/* ---------- Reveal on scroll ---------- */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .9s ease, transform .9s ease; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+@media (max-width: 34rem) {
+  .fn::after { left: auto; right: -1rem; transform: translateY(4px); max-width: 12rem; }
+  .fn:hover::after, .fn:focus::after { transform: translateY(0); }
+}

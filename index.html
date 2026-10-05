@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laurie — Writer</title>
+  <meta name="description" content="The portfolio of Laurie, a creative writing student: stories, poems, and the occasional stray thought.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#prologue">Skip to content</a>
+
+  <button class="lamp" id="lamp" aria-label="Toggle night reading" title="Turn the lamp on or off">
+    <span aria-hidden="true">☾</span>
+  </button>
+
+  <!-- ============ TITLE PAGE ============ -->
+  <header class="title-page" id="top">
+    <p class="imprint">A portfolio in five chapters</p>
+    <h1 class="name">Laurie</h1>
+    <p class="subtitle"><em>writer, reader, collector of overheard sentences</em></p>
+    <p class="typed" aria-live="polite"><span id="typed"></span><span class="caret" aria-hidden="true">|</span></p>
+
+    <nav class="contents" aria-label="Table of contents">
+      <h2 class="contents-title">Contents</h2>
+      <ol>
+        <li><a href="#prologue"><span class="num">I</span><span class="label">Prologue</span><span class="dots"></span><span class="pg">1</span></a></li>
+        <li><a href="#works"><span class="num">II</span><span class="label">Selected Works</span><span class="dots"></span><span class="pg">7</span></a></li>
+        <li><a href="#craft"><span class="num">III</span><span class="label">On Craft</span><span class="dots"></span><span class="pg">23</span></a></li>
+        <li><a href="#marginalia"><span class="num">IV</span><span class="label">Marginalia</span><span class="dots"></span><span class="pg">31</span></a></li>
+        <li><a href="#epilogue"><span class="num">V</span><span class="label">Epilogue</span><span class="dots"></span><span class="pg">40</span></a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ I. PROLOGUE ============ -->
+    <section class="chapter" id="prologue">
+      <header class="chapter-head">
+        <p class="chapter-num">Chapter I</p>
+        <h2>Prologue</h2>
+      </header>
+      <div class="prose">
+        <p class="dropcap">I started writing because I could not stop noticing things: the way my grandmother folded letters in thirds, the silence after a train leaves, the word people almost say before they choose a kinder one. I am a creative writing student, and most days I am trying to put those small things down before they leave.</p>
+        <p>I write short fiction, poetry, and the kind of essay that begins as one thing and ends as another.<sup class="fn" tabindex="0" data-note="Usually by accident. Occasionally on purpose.">1</sup> I like quiet stories with a crack running through them, and poems that sound good read aloud in an empty kitchen.</p>
+        <p>This site is a small book of what I have made so far. Read it in order, or open it anywhere.</p>
+      </div>
+      <p class="ornament" aria-hidden="true">❦</p>
+    </section>
+
+    <!-- ============ II. SELECTED WORKS ============ -->
+    <section class="chapter" id="works">
+      <header class="chapter-head">
+        <p class="chapter-num">Chapter II</p>
+        <h2>Selected Works</h2>
+      </header>
+
+      <div class="filters" role="group" aria-label="Filter works">
+        <button class="filter is-active" data-filter="all">All</button>
+        <button class="filter" data-filter="fiction">Fiction</button>
+        <button class="filter" data-filter="poetry">Poetry</button>
+        <button class="filter" data-filter="essay">Essay</button>
+      </div>
+
+      <div class="works">
+        <article class="work" data-kind="fiction">
+          <p class="work-meta">Short fiction · 2,400 words</p>
+          <h3>The Cartographer's Daughter</h3>
+          <blockquote>“She drew the river the way it used to run, because no one had told the paper it had moved.”</blockquote>
+          <details>
+            <summary>Read an excerpt</summary>
+            <div class="excerpt">
+              <p>Every map in the house was wrong by at least one street. Her father said this was a kindness: a map should leave room for the town to change its mind.</p>
+              <p>Replace this with an excerpt of your own work, a paragraph or two.</p>
+            </div>
+          </details>
+        </article>
+
+        <article class="work" data-kind="poetry">
+          <p class="work-meta">Poem · from a sequence in progress</p>
+          <h3>Inventory of a Small Weather</h3>
+          <blockquote class="verse">“one umbrella, unopened —<br>two hands, deciding<br>whether rain is worth it.”</blockquote>
+          <details>
+            <summary>Read the poem</summary>
+            <div class="excerpt verse">
+              <p>Place the full poem here.<br>Line breaks are kept with &lt;br&gt;.</p>
+            </div>
+          </details>
+        </article>
+
+        <article class="work" data-kind="essay">
+          <p class="work-meta">Personal essay · published in a student journal</p>
+          <h3>On Keeping Unsent Letters</h3>
+          <blockquote>“An unsent letter is not a failure of courage. It is a conversation that chose to stay in the room.”</blockquote>
+          <details>
+            <summary>Read an excerpt</summary>
+            <div class="excerpt">
+              <p>Add a short excerpt and, if it was published, a link to the full piece.</p>
+            </div>
+          </details>
+        </article>
+
+        <article class="work" data-kind="fiction">
+          <p class="work-meta">Flash fiction · 500 words</p>
+          <h3>Lost Property, Platform Four</h3>
+          <blockquote>“Among the umbrellas there was, inexplicably, a violin, and a note that said <em>please don't tune it</em>.”</blockquote>
+          <details>
+            <summary>Read the piece</summary>
+            <div class="excerpt"><p>Flash fiction is short enough to include whole.</p></div>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ III. ON CRAFT ============ -->
+    <section class="chapter" id="craft">
+      <header class="chapter-head">
+        <p class="chapter-num">Chapter III</p>
+        <h2>On Craft</h2>
+      </header>
+      <dl class="glossary">
+        <div><dt>Voice</dt><dd>Intimate first person, close third, and the occasional second person when a story needs to look the reader in the eye.</dd></div>
+        <div><dt>Form</dt><dd>Short story, flash fiction, lyric and narrative poetry, the personal essay, prose poems.</dd></div>
+        <div><dt>Revision</dt><dd>I cut until it hurts, then put one sentence back.</dd></div>
+        <div><dt>Workshop</dt><dd>Giving and taking critique with care, editing peers' manuscripts, reading aloud.</dd></div>
+        <div><dt>Editing</dt><dd>Copyediting, line editing, and editorial work on a student literary magazine.</dd></div>
+        <div><dt>Languages</dt><dd>English and French; I like the gaps between them most.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ============ IV. MARGINALIA ============ -->
+    <section class="chapter" id="marginalia">
+      <header class="chapter-head">
+        <p class="chapter-num">Chapter IV</p>
+        <h2>Marginalia</h2>
+        <p class="chapter-sub">Notes scribbled at the edge of the page: who I am when I'm not writing.</p>
+      </header>
+
+      <div class="notes">
+        <aside class="note tilt-l">
+          <h3>Currently reading</h3>
+          <p>A battered secondhand novel with someone else's underlining, and arguing with them in pencil.</p>
+        </aside>
+        <aside class="note tilt-r">
+          <h3>Writing ritual</h3>
+          <p>Tea gone cold. Window cracked open. A first draft always written by hand.</p>
+        </aside>
+        <aside class="note tilt-l">
+          <h3>Words I love</h3>
+          <p><em>petrichor</em>, <em>dépaysement</em>, <em>susurrus</em>, <em>lagom</em>.</p>
+        </aside>
+        <aside class="note tilt-r">
+          <h3>Small truths</h3>
+          <p>I have opinions about fountain pen ink, and I will share them if asked. Or not asked.</p>
+        </aside>
+      </div>
+
+      <figure class="commonplace">
+        <figcaption>From the commonplace book</figcaption>
+        <p id="quote" class="quote">“Write it down before it becomes a memory.”</p>
+        <button class="turn" id="turn">Turn the page →</button>
+      </figure>
+    </section>
+
+    <!-- ============ V. EPILOGUE ============ -->
+    <section class="chapter" id="epilogue">
+      <header class="chapter-head">
+        <p class="chapter-num">Chapter V</p>
+        <h2>Epilogue</h2>
+      </header>
+      <div class="prose centered">
+        <p>Every story ends with an open door. If you'd like to talk about writing, editing, a collaboration, or a book you think I should read, write to me.</p>
+        <p class="letter">
+          <a href="mailto:hello@example.com" class="seal">Send a letter</a>
+        </p>
+        <ul class="elsewhere">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Substack</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p class="ornament" aria-hidden="true">✦</p>
+    <p><strong>Colophon.</strong> Set in Cormorant Garamond and EB Garamond. Made by hand, and revised more than once.</p>
+    <p>© <span id="year"></span> Laurie · <a href="#top">Back to the title page</a></p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
