@@ -17,3 +17,8 @@ assets/LaurieLegault_2025*.jpg
 
 # Original documents (CV with phone/address, Word files): never published
 private/
+
+# Old unused pages, kept on this computer only
+about.html
+bio.html
+cover-letter.html
