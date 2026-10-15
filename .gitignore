@@ -14,3 +14,6 @@ Claude outputs/
 assets/LaurieLegault_2025*.jpg
 *.raw
 *.NEF
+
+# Original documents (CV with phone/address, Word files): never published
+private/

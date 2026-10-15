@@ -4,13 +4,15 @@
    ========================================================= */
 
 /* ---------- Fonts (self-hosted, SIL Open Font License — see assets/fonts/OFL.txt) ---------- */
-@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
-@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+/* font-display: block = wait for these fonts (small, self-hosted, cached) instead of
+   flashing a bigger backup font first, so text never jumps in size. */
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: block; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
+@font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
 
 :root {
   /* Palette */
@@ -18,9 +20,10 @@
   --oxblood: #7b1e24;     /* richer red: accents, hover */
   --claret: #9b2c33;      /* lighter red: highlights */
   --ink: #1e1412;         /* warm near-black brown */
-  --wood: #3a2219;        /* the shelf */
+  --paper: #fbf6ec;       /* document previews: a whiter sheet */
   --parchment: #f1e6d2;   /* main light / text on dark */
   --vellum: #cbb89a;      /* muted text on dark */
+  --muted: #6b5848;       /* muted text on parchment */
   --brass: #b08d57;       /* ornaments & rules only, never body text */
 
   /* Type */
@@ -33,18 +36,34 @@
   --section-pad: clamp(4rem, 3rem + 6vw, 8rem);
 
   /* Focus ring (overridden on light pages) */
-  --focus: var(--brass);
+  --focus: var(--oxblood);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+/* Smooth scrolling for same-page links is done in js/main.js */
+
+/* Page background is set on <html> too, so there's never a white flash */
+html { background: var(--parchment); }
+
+/* Moving between pages: a soft cross-fade, the red bar stays still.
+   (Chrome, Edge, Safari; other browsers just change page as usual.) */
+@view-transition { navigation: auto; }
+.site-nav { view-transition-name: site-nav; }
+/* While a page opens at a #section (see js/reveal.js): content hidden, bar visible */
+.is-arriving .frontispiece,
+.is-arriving main,
+.is-arriving .colophon { visibility: hidden; }
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: .35s; animation-timing-function: ease; }
+/* Jump links land below the sticky nav bar */
+[id] { scroll-margin-top: 6rem; }
 
 body {
   margin: 0;
   overflow-x: clip;
-  background: var(--ink);
-  color: var(--parchment);
+  background: var(--parchment);
+  color: var(--ink);
   font-family: var(--text);
   font-size: clamp(1.05rem, 1rem + .3vw, 1.2rem);
   line-height: 1.7;
@@ -53,7 +72,7 @@ body {
 img { display: block; max-width: 100%; height: auto; }
 
 a { color: inherit; text-decoration-color: var(--brass); text-underline-offset: .2em; }
-a:hover { color: var(--vellum); }
+a:hover { color: var(--oxblood); }
 
 :focus-visible { outline: 2px dashed var(--focus); outline-offset: 4px; }
 
@@ -61,6 +80,11 @@ a:hover { color: var(--vellum); }
 
 .skip { position: absolute; left: -999px; top: 1rem; padding: .5rem 1rem; background: var(--parchment); color: var(--ink); }
 .skip:focus { left: 1rem; z-index: 10; }
+/* Hidden on screen, still read by screen readers and search engines */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
 
 h2 {
   font-family: var(--display);
@@ -78,7 +102,7 @@ cite { font-style: italic; }
   font-variant: small-caps;
   letter-spacing: .25em;
   font-size: 1.05rem;
-  color: var(--vellum);
+  color: var(--muted);
 }
 .eyebrow--dark { color: var(--oxblood); }
 
@@ -86,7 +110,7 @@ cite { font-style: italic; }
 /* ---------- Background images ----------
    1. Put a compressed .webp in assets/backgrounds/
    2. Add a class like the example below
-   3. Add both classes to a section:  class="library has-bg bg-library"
+   3. Add both classes to a section:  class="projects has-bg bg-library"
    The dark overlay keeps text readable. */
 .has-bg {
   background:
@@ -95,6 +119,132 @@ cite { font-style: italic; }
     var(--bg-fallback, var(--ink));
 }
 /* .bg-library { --bg-image: url("../assets/backgrounds/library.webp"); } */
+
+/* =========================================================
+   SITE NAV — the same bar on every page
+   ========================================================= */
+.site-nav {
+  position: sticky; top: 0; z-index: 5;
+  --focus: var(--parchment);
+  background: var(--wine);
+  color: var(--parchment);
+  border-bottom: 1px solid var(--brass);
+}
+.site-nav__inner {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: .25rem 2rem;
+  max-width: 72rem; min-height: 4rem;
+  margin: 0 auto; padding: .5rem var(--gutter);
+}
+/* Laurie's name on the left */
+.site-nav__name {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.9rem;
+  line-height: 1;
+  letter-spacing: .01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-nav__name em { font-weight: 400; color: var(--vellum); }
+.site-nav__name:hover { color: var(--parchment); }
+/* The links on the right: small spaced capitals */
+.site-nav ul {
+  display: flex; flex-wrap: wrap;
+  gap: .25rem clamp(1rem, 2.5vw, 2.25rem);
+  margin: 0; padding: 0;
+  list-style: none;
+}
+.site-nav ul a {
+  font-family: var(--text);
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  text-decoration: none;
+  color: var(--vellum);
+}
+.site-nav ul a:hover { color: var(--parchment); }
+.site-nav ul a[aria-current="page"] {
+  color: var(--parchment);
+  text-decoration: underline;
+  text-decoration-color: var(--brass);
+  text-underline-offset: .5em;
+}
+/* Phones: name on its own line, links spread underneath */
+@media (max-width: 48rem) {
+  .site-nav__inner { justify-content: center; padding-block: .6rem; }
+  .site-nav ul { width: 100%; justify-content: space-between; gap: .25rem .5rem; }
+  .site-nav ul a { font-size: .75rem; letter-spacing: .1em; }
+}
+
+/* ---------- Inner pages (About, Bio, CV, Cover Letter) ---------- */
+.page h1 {
+  margin: 0 0 2.5rem;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.6rem, 2rem + 3vw, 4rem);
+  line-height: 1.1;
+  color: var(--oxblood);
+  text-align: center;
+}
+.page h2 { font-size: clamp(1.7rem, 1.5rem + 1vw, 2.2rem); margin: 2.5rem 0 1rem; }
+.placeholder { font-style: italic; color: var(--muted); }
+
+/* ---------- CV page: CV & cover letter, two document boxes ---------- */
+.page--wide .page__inner { max-width: 60rem; }
+.docs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 2.5rem clamp(2rem, 5vw, 4rem);
+}
+.doc-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.doc-card h2 { margin: 0 0 1.25rem; font-style: italic; }
+/* The preview: a sheet of paper, letter-size proportions */
+.doc-card__preview {
+  display: block;
+  width: min(20rem, 100%);
+  aspect-ratio: 8.5 / 11;
+  background: var(--paper);
+  border: 1px solid var(--brass);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .15), 0 12px 28px rgb(0 0 0 / .18);
+  overflow: hidden;
+}
+.doc-card__preview img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+a.doc-card__preview { transition: transform .3s ease, box-shadow .3s ease; }
+a.doc-card__preview:hover { transform: translateY(-4px); box-shadow: 0 1px 2px rgb(0 0 0 / .15), 0 18px 34px rgb(0 0 0 / .22); }
+.doc-card__sheet {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100%; padding: 1.5rem;
+}
+.doc-card__sheet p { margin: 0; }
+.doc-card__sheet-name { font-family: var(--display); font-size: 1.6rem; }
+.doc-card__sheet-title {
+  margin: .25rem 0 1.5rem !important;
+  font-variant: small-caps; letter-spacing: .14em; color: var(--muted);
+}
+/* View · Download: two text links under each preview */
+.doc-card__links {
+  display: flex; justify-content: center; align-items: baseline; gap: 1.25rem;
+  margin: 1.5rem 0 0;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.3rem;
+}
+.doc-card__links a {
+  color: var(--oxblood);
+  text-decoration: underline;
+  text-decoration-color: var(--brass);
+  text-underline-offset: .25em;
+}
+.doc-card__links a:hover { color: var(--wine); text-decoration-color: var(--oxblood); }
+.doc-card__links a:not([hidden]) + a::before {
+  content: "·";
+  display: inline-block;
+  margin-right: 1.25rem;
+  color: var(--muted);
+  font-style: normal;
+}
+.doc-card__links--pending { color: var(--muted); font-size: 1.1rem; }
 
 /* =========================================================
    FRONTISPIECE
@@ -107,10 +257,10 @@ cite { font-style: italic; }
   justify-items: center;
   gap: clamp(2.5rem, 5vw, 6rem);
   padding: clamp(3rem, 6vw, 6rem) var(--gutter);
-  background: var(--wine);
+  background: var(--parchment);
 }
 @media (min-width: 60rem) {
-  .frontispiece { grid-template-columns: auto minmax(0, 30rem); justify-content: center; }
+  .frontispiece { grid-template-columns: auto minmax(0, 36rem); justify-content: center; }
 }
 
 .plate { margin: 0; width: min(26rem, 72vw); }
@@ -127,9 +277,10 @@ cite { font-style: italic; }
   font-size: 1.2rem;
 }
 .plate__label { font-variant: small-caps; letter-spacing: .12em; }
-.plate__credit { display: block; margin-top: .2rem; font-family: var(--text); font-size: .85rem; color: var(--vellum); }
+.plate__credit { display: block; margin-top: .2rem; font-family: var(--text); font-size: .85rem; color: var(--muted); }
 
 .title-page { text-align: center; }
+.masthead { grid-column: 1 / -1; }
 .title-page__name {
   margin: .75rem 0 0;
   font-family: var(--display);
@@ -137,20 +288,11 @@ cite { font-style: italic; }
   font-size: clamp(3.6rem, 2.5rem + 6vw, 6.5rem);
   line-height: .95;
 }
-.title-page__name span { display: block; font-style: italic; }
+.title-page__name span { font-style: italic; }
 .title-page__sub { margin: 1.5rem 0 0; font-family: var(--display); font-size: 1.5rem; }
-.title-page__place { margin: .25rem 0 0; font-variant: small-caps; letter-spacing: .2em; color: var(--vellum); }
+.title-page__place { margin: .25rem 0 0; font-variant: small-caps; letter-spacing: .2em; color: var(--muted); }
 
-.contents { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--brass); }
-.contents ol { list-style: none; margin: 0; padding: 0; }
-.contents a {
-  display: inline-flex; gap: .75rem; align-items: baseline;
-  padding: .3rem 0;
-  font-family: var(--display); font-size: 1.3rem;
-  text-decoration: none;
-}
-.contents a:hover { font-style: italic; color: var(--parchment); }
-.contents__num { min-width: 1.5rem; font-size: 1rem; color: var(--vellum); }
+.title-page__bio { margin-top: 0; text-align: left; font-size: 1rem; line-height: 1.65; }
 
 /* =========================================================
    I. A NOTE ON THE WRITER — a light page
@@ -178,175 +320,109 @@ cite { font-style: italic; }
 }
 
 /* =========================================================
-   II. THE SHELF
+   II. PROJECTS — academic and personal, side by side
    ========================================================= */
-.library { padding: var(--section-pad) var(--gutter); background: var(--ink); }
-.library__inner { max-width: 60rem; margin: 0 auto; text-align: center; }
-.library h2 { margin-bottom: .5rem; }
-.library__hint { margin: 0 0 1rem; font-style: italic; color: var(--vellum); }
-
-/* The bookcase reserves room under the shelf for the opened book */
-.bookcase { --table: 15rem; position: relative; padding-bottom: var(--table); }
-@media (max-width: 40rem) { .bookcase { --table: 19rem; } }
-
-.shelf {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: .3rem;
-  margin: 0;
-  padding: 2.5rem 1.5rem 0;       /* top room so books can rise */
-  list-style: none;
-  border-bottom: 1rem solid var(--wood);
-  box-shadow: 0 1.1rem 1rem -1rem rgb(0 0 0 / .8);
-  overflow-x: auto;
-  scrollbar-width: thin;
+.projects { padding: var(--section-pad) var(--gutter); }
+.projects__inner { max-width: 60rem; margin: 0 auto; }
+.projects h2 { text-align: center; color: var(--oxblood); }
+.projects__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 3rem clamp(2rem, 5vw, 4.5rem);
 }
-@media (max-width: 40rem) { .shelf { justify-content: flex-start; } }
-
-/* One book. Size and color come from these three variables. */
-.book { --h: 15rem; --w: 3.3rem; --cover: var(--wine); --title: var(--parchment); flex: 0 0 auto; }
-.book--short { --h: 12rem; }
-.book--tall  { --h: 18rem; }
-.book--thin  { --w: 2.5rem; }
-.book--thick { --w: 4.3rem; }
-.book--wine    { --cover: var(--wine); }
-.book--oxblood { --cover: var(--oxblood); }
-.book--claret  { --cover: var(--claret); }
-.book--ink     { --cover: #2c1d1a; }
-.book--vellum  { --cover: var(--vellum); --title: var(--ink); }
-
-.book__spine {
-  position: relative;
-  display: flex; align-items: center; justify-content: center;
-  width: var(--w);
-  height: var(--h);
-  padding: 1.5rem 0;
-  border: 0;
-  border-radius: 3px 3px 0 0;
-  background: var(--cover);
-  color: var(--title);
-  cursor: pointer;
-  /* rounded leather */
-  box-shadow:
-    inset 4px 0 6px rgb(255 255 255 / .08),
-    inset -5px 0 8px rgb(0 0 0 / .35);
-  transition: transform .35s ease, box-shadow .35s ease;
-}
-/* brass bands near the top and bottom of the spine */
-.book__spine::before,
-.book__spine::after {
-  content: "";
-  position: absolute; left: 0; right: 0;
-  height: .35rem;
-  border-block: 1px solid var(--brass);
-  opacity: .8;
-}
-.book__spine::before { top: .7rem; }
-.book__spine::after  { bottom: .7rem; }
-
-.book__title {
-  writing-mode: vertical-rl;
+.projects__group h3 {
+  margin: 0 0 1.5rem;
   font-family: var(--display);
-  font-size: 1.05rem;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.8rem;
+  text-align: center;
+}
+.projects__list { margin: 0; padding: 0; list-style: none; }
+.project { margin-bottom: 2rem; }
+.project p { margin: 0; }
+.project__meta {
   font-variant: small-caps;
-  letter-spacing: .12em;
-  white-space: nowrap;
-  overflow: hidden;
-  max-height: 100%;
+  letter-spacing: .1em;
+  font-size: .95rem;
+  color: var(--muted);
 }
+.project__title {
+  margin: .15rem 0 .4rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: var(--oxblood);
+}
+.project__title cite { font-style: italic; }
+.project__title a { text-decoration: none; }
+.project__title a:hover { text-decoration: underline; text-decoration-color: var(--brass); }
 
-/* Pull the book out: hover (peek), keyboard focus, or tapped/clicked (pinned) */
-.book:hover .book__spine,
-.book:focus-within .book__spine,
-.book.is-open .book__spine {
-  transform: translateY(-1.5rem);
-  box-shadow:
-    inset 4px 0 6px rgb(255 255 255 / .1),
-    inset -5px 0 8px rgb(0 0 0 / .35),
-    0 10px 18px rgb(0 0 0 / .5);
+/* =========================================================
+   PROJECT PAGES — one piece of writing per page
+   ========================================================= */
+.article__back { margin: 0 0 2rem; font-variant: small-caps; letter-spacing: .1em; }
+.article__back a { text-decoration: none; color: var(--muted); }
+.article__back a:hover { color: var(--oxblood); }
+.article__header { margin-bottom: 2rem; text-align: center; }
+.article__header h1 { margin: .3rem 0 0; }
+.doc-viewer {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; height: min(85vh, 70rem);
+  background: var(--paper);
+  border: 1px solid var(--brass);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .15), 0 12px 28px rgb(0 0 0 / .18);
 }
-
-/* The opened book, shown on the "reading table" under the shelf */
-.book__details {
-  position: absolute;
-  left: 50%;
-  top: calc(100% - var(--table) + 1.75rem);
-  width: min(34rem, 100%);
-  padding: 1.5rem 1.75rem;
-  background: var(--parchment);
-  color: var(--ink);
-  text-align: left;
-  box-shadow: 0 12px 30px rgb(0 0 0 / .45);
-  opacity: 0;
-  visibility: hidden;
-  transform: translate(-50%, .75rem);
-  transition: opacity .3s ease, transform .3s ease, visibility .3s;
-  --focus: var(--oxblood);
-}
-.book__details h3 { margin: 0 0 .5rem; font-family: var(--display); font-size: 1.7rem; font-weight: 600; line-height: 1.15; color: var(--oxblood); }
-.book__details p { margin: 0 0 .5rem; }
-.book__details a { text-decoration-color: var(--oxblood); }
-.book__meta { font-variant: small-caps; letter-spacing: .1em; color: #5c4a3e; }
-
-.book:hover .book__details,
-.book:focus-within .book__details,
-.book.is-open .book__details {
-  opacity: 1; visibility: visible; transform: translate(-50%, 0);
-}
-/* While hovering one book, hide a different pinned one */
-.shelf:hover .book.is-open:not(:hover) .book__details { opacity: 0; visibility: hidden; }
-.shelf:hover .book.is-open:not(:hover) .book__spine { transform: none; }
-
-.reading-table__empty {
-  position: absolute; left: 0; right: 0; bottom: calc(var(--table) / 2 - 1rem);
-  margin: 0;
-  font-family: var(--display); font-style: italic; color: var(--vellum);
-  transition: opacity .3s ease;
-}
-.bookcase:has(.book:hover, .book:focus-within, .book.is-open) .reading-table__empty { opacity: 0; }
+.doc-viewer iframe { width: 100%; height: 100%; border: 0; }
+.doc-viewer__fallback { margin: 0; padding: 2rem; text-align: center; }
 
 /* =========================================================
    III. CORRESPONDENCE
    ========================================================= */
 .correspondence {
   padding: var(--section-pad) var(--gutter);
-  background: var(--wine);
+  background: var(--parchment);
   text-align: center;
 }
-.correspondence h2 { margin-bottom: 1rem; }
-.letter {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 9rem; height: 9rem; margin-top: 1.5rem;
-  border-radius: 50%;
-  background: var(--claret);
-  outline: 1px solid var(--brass); outline-offset: -.6rem;
-  box-shadow: 0 8px 20px rgb(0 0 0 / .35);
-  font-family: var(--display); font-style: italic; font-size: 1.2rem;
-  text-decoration: none;
-  transition: transform .3s ease;
+.correspondence h2 { margin-bottom: 1rem; color: var(--oxblood); }
+/* Contact list: one line per contact, like the index of a book */
+.contact-list {
+  width: min(28rem, 100%);
+  margin: 2.5rem auto 0; padding: 0;
+  list-style: none;
+  text-align: left;
 }
-.letter:hover { color: var(--parchment); transform: rotate(-6deg); }
-.letter:focus-visible { outline: 2px dashed var(--brass); outline-offset: 4px; }
+.contact-list li + li { border-top: 1px solid var(--brass); }
+.contact-list a {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  align-items: baseline;
+  gap: 1rem;
+  padding: .9rem .5rem;
+  text-decoration: none;
+}
+.contact-list__label {
+  font-variant: small-caps;
+  letter-spacing: .14em;
+  font-size: 1rem;
+  color: var(--muted);
+}
+.contact-list__value { font-style: italic; font-size: 1.15rem; transition: color .2s ease; }
+.contact-list a:hover .contact-list__value,
+.contact-list a:focus-visible .contact-list__value { color: var(--oxblood); }
+@media (max-width: 24rem) { .contact-list a { grid-template-columns: 6.5rem 1fr; gap: .5rem; } }
 
 /* =========================================================
    COLOPHON
    ========================================================= */
-.colophon { padding: 3rem var(--gutter) 4rem; text-align: center; font-size: .95rem; color: var(--vellum); }
+.colophon { padding: 3rem var(--gutter) 4rem; text-align: center; font-size: .95rem; color: var(--muted); }
 .colophon p { margin: .4rem 0; }
 
 /* =========================================================
    Reduced motion: fades only, no movement
    ========================================================= */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  @view-transition { navigation: none; }
   *, *::before, *::after { transition-duration: .01ms !important; }
-  .book:hover .book__spine,
-  .book:focus-within .book__spine,
-  .book.is-open .book__spine { transform: none; }
-  .book__details,
-  .book:hover .book__details,
-  .book:focus-within .book__details,
-  .book.is-open .book__details { transform: translate(-50%, 0); }
-  .letter:hover { transform: none; }
 }
