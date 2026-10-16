@@ -170,3 +170,4 @@ What we've tried, what we kept, and what we dropped, so no idea gets tried twice
 - Pictures in cover/Awards cards: centred in their space again (bottom-aligned was tried; the wide certificate then sat lower than the crane).
 - Links: "Read the full work" → "View the work", "See the full certificate" → "View the certificate".
 - All "work-detail__links" link texts are now just "View" (pitch, profile, certificate); Sandhill Cranes keeps "Read it in Arrival".
+- README: Security section removed; link to the live site (https://laurie-legault.netlify.app) added.
