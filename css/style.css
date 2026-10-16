@@ -942,8 +942,10 @@ a.sheet--cv:focus-visible { transform: rotate(-3deg) translateY(-12px); }
 }
 
 /* Address shown (and copied) after clicking Email; it is a mailto: link too */
-.contact-copied { margin: .5rem 0 0; font-family: var(--cover-sans); font-size: .85rem; color: var(--scarlet); user-select: all; }
-.contact-copied[hidden] { display: none; }
+.contact-copied { margin: .5rem 0 0; min-height: 1.5em; line-height: 1.5; font-family: var(--cover-sans); font-size: .85rem; color: var(--scarlet); user-select: all; }
+.contact-copied[hidden] { display: block; visibility: hidden; }   /* keeps its line, so nothing moves when it shows or fades */
+.contact-copied { transition: opacity .8s ease; }
+.contact-copied.is-fading { opacity: 0; }   /* fades away a few seconds after the click (js/main.js) */
 .contact-copied a { color: inherit; text-underline-offset: .25em; }
 
 /* Thank-you page after sending the form */

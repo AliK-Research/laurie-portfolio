@@ -131,10 +131,24 @@
      A mailto: link fails for visitors with no mail app set up (Gmail in the browser,
      Windows asking "how do you want to open this?"). So clicking Email shows the address
      and copies it; the address shown is itself a mailto: link for those who have a mail app.
-     Without JavaScript the Email link stays a plain mailto: link. */
+     Without JavaScript the Email link stays a plain mailto: link.
+     The address fades away after 3 s (it waits while the mouse or keyboard is on it). */
   const email = document.querySelector(".contact-email");
   const copied = document.querySelector(".contact-copied");
   if (email && copied) {
+    let timer;
+    const hide = () => {
+      copied.classList.add("is-fading");
+      const done = () => { if (copied.classList.contains("is-fading")) { copied.hidden = true; copied.classList.remove("is-fading"); } };
+      if (reduceMotion.matches) done();
+      else setTimeout(done, 900);   // a little after the 0.8 s fade in the CSS
+    };
+    const later = () => { clearTimeout(timer); timer = setTimeout(hide, 3000); };
+    const wait = () => { clearTimeout(timer); copied.classList.remove("is-fading"); };
+    copied.addEventListener("mouseenter", wait);
+    copied.addEventListener("focusin", wait);
+    copied.addEventListener("mouseleave", () => { if (!copied.contains(document.activeElement)) later(); });
+    copied.addEventListener("focusout", (e) => { if (!copied.contains(e.relatedTarget) && !copied.matches(":hover")) later(); });
     email.addEventListener("click", (e) => {
       e.preventDefault();
       const address = email.getAttribute("href").replace(/^mailto:/, "");
@@ -143,7 +157,9 @@
       link.textContent = address;
       const status = document.createElement("span");
       copied.replaceChildren(link, status);
+      copied.classList.remove("is-fading");
       copied.hidden = false;
+      later();
       if (navigator.clipboard) {
         navigator.clipboard.writeText(address).then(() => { status.textContent = " · copied"; }, () => {});
       }
