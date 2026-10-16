@@ -168,3 +168,5 @@ What we've tried, what we kept, and what we dropped, so no idea gets tried twice
 - Wattpad logo: back on cream paper, on both the Projects card and its page (the dark box felt off). Same paper as the Pitch and Student profile cards.
 - Book cover and Awards cards: dark box behind the picture removed; the picture stands alone (same size and place).
 - Pictures in cover/Awards cards: centred in their space again (bottom-aligned was tried; the wide certificate then sat lower than the crane).
+- Links: "Read the full work" → "View the work", "See the full certificate" → "View the certificate".
+- All "work-detail__links" link texts are now just "View" (pitch, profile, certificate); Sandhill Cranes keeps "Read it in Arrival".
