@@ -145,13 +145,18 @@
           </p>
         </div>
 
-        <!-- Contact form, handled by Netlify Forms: messages appear in the Netlify dashboard
-             (Forms → "contact") and can be emailed to Laurie. "bot-field" is a hidden spam trap (a name browsers never autofill). -->
+        <!-- Contact form, sent by Web3Forms (free): each message is emailed to Laurie.
+             The access key is meant to be public: it only lets people send messages to her address.
+             "botcheck" is a hidden spam trap (Web3Forms rejects the message if it is ticked).
+             Without JavaScript the form posts straight to Web3Forms, then comes back to thanks.html. -->
         <!-- The form and, once sent, the thank-you card share this spot (same size, nothing moves) -->
         <div class="letter-slot">
-        <form class="letter-form" name="contact" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
-          <p class="visually-hidden"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <form class="letter-form" name="contact" method="POST" action="https://api.web3forms.com/submit">
+          <input type="hidden" name="access_key" value="e7557c56-b1d2-4d3a-9ac9-1337c833900e">
+          <input type="hidden" name="subject" value="New message from your website">
+          <input type="hidden" name="from_name" value="Laurie Legault — website">
+          <input type="hidden" name="redirect" value="https://laurie-legault.netlify.app/thanks.html">
+          <p class="visually-hidden"><label>Leave this unticked <input type="checkbox" name="botcheck" tabindex="-1"></label></p>
           <p class="letter-form__field">
             <label for="cf-name">Your name <span class="req" aria-hidden="true">*</span></label>
             <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required>

@@ -64,8 +64,8 @@
   }
 
   /* ---- Contact form: send it without leaving the page ----
-     Posts to Netlify Forms in the background, then shows the thank-you note in place
-     of the form. Never opens another page: if sending fails, a short note appears under
+     Posts to Web3Forms in the background (it emails the message to Laurie), then shows
+     the thank-you note in place of the form. Never opens another page: if sending fails, a short note appears under
      the button. (Without JavaScript the form still goes to thanks.html.) */
   const form = document.querySelector(".letter-form");
   const sent = document.querySelector(".letter-sent");
@@ -106,17 +106,18 @@
         return;
       }
       if (missing) missing.hidden = true;
-      // Opened as a file on this computer (no Netlify to receive it): just preview the note
+      // Opened as a file on this computer: just preview the note (nothing is sent)
       if (location.protocol === "file:") { showSent(); return; }
       button.disabled = true;
       button.textContent = "Sending…";
       try {
-        const res = await fetch("/", {
+        const res = await fetch(form.action, {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(new FormData(form)).toString(),
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
         });
-        if (!res.ok) throw new Error(String(res.status));
+        const reply = await res.json().catch(() => ({}));
+        if (!res.ok || !reply.success) throw new Error(reply.message || String(res.status));
         showSent();
       } catch {
         button.disabled = false;
