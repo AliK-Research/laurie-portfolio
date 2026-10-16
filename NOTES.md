@@ -162,3 +162,9 @@ What we've tried, what we kept, and what we dropped, so no idea gets tried twice
 - **Award pages**, same layout as the project pages: `award-sandhill-cranes.html` (crane plate, "Read it in Arrival" link) and `award-qct-english-prize.html` (certificate, 2019, link to the full certificate). The Awards cards now open these pages instead of the outside link / the certificate. Bar stays dark on them (`js/reveal.js`). Texts are drafts from facts already on the site; to confirm with Laurie.
 - Wattpad page: the logo now sits on the same dark box as its card on Projects (was cream paper), so it looks the same everywhere.
 - Email button (after a test on Windows): clicking Email no longer tries to open a mail app; it shows the address (itself a mailto: link) and copies it. Without JS it is still a plain mailto: link.
+- Project pages: the back link returns to its own section of Projects ("← Academic works" → projects.html#academic, "← Personal projects" → projects.html#personal) instead of "← All projects" at the top.
+- "Personal projects" renamed "Personal works" (Projects title, back links, page description).
+- Sandhill Cranes page: italic caption under the crane picture with its credit, as given in Arrival: *Hooping Crane*, by Robert Havell after John James Audubon. Courtesy National Gallery of Art, Washington. Alt texts (page + Awards card) updated to match.
+- Wattpad logo: back on cream paper, on both the Projects card and its page (the dark box felt off). Same paper as the Pitch and Student profile cards.
+- Book cover and Awards cards: dark box behind the picture removed; the picture stands alone (same size and place).
+- Pictures in cover/Awards cards: centred in their space again (bottom-aligned was tried; the wide certificate then sat lower than the crane).
