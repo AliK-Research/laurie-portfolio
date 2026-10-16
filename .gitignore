@@ -22,3 +22,9 @@ private/
 about.html
 bio.html
 cover-letter.html
+
+# Design mockups (local only)
+_mockups/
+
+# Local preview config (Claude)
+.claude/

@@ -13,6 +13,13 @@
 @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
 @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
 @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* Cover only: the faces closest to the Canva "Creative Portfolio" slide */
+@font-face { font-family: "Playfair Display"; src: url("../assets/fonts/playfair-display-latin-800-italic.woff2") format("woff2"); font-weight: 800; font-style: italic; font-display: block; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fonts/montserrat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fonts/montserrat-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fonts/montserrat-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fonts/montserrat-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: "Montserrat"; src: url("../assets/fonts/montserrat-latin-700-italic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: block; }
 
 :root {
   /* Palette */
@@ -25,14 +32,25 @@
   --vellum: #cbb89a;      /* muted text on dark */
   --muted: #6b5848;       /* muted text on parchment */
   --brass: #b08d57;       /* ornaments & rules only, never body text */
+  --scarlet: #7a0000;     /* cover + nav bar: the red of the Canva slide */
+  --cream: #fcf2db;       /* cover + nav bar: text and fine lines */
+  --night: #1f1f1f;       /* Projects page: the dark sheet of the "featured works" slide */
+  --white: #fefefe;       /* About Me: the white sheet of the second slide */
+  --line: rgb(252 242 219 / .6);           /* the slide's fine cream lines */
+  --inset: clamp(.9rem, 2vw, 1.25rem);     /* where its two vertical lines sit */
+  --line-red: rgb(122 0 0 / .55);          /* the same fine lines, in red, on light sections */
 
   /* Type */
   --display: "Cormorant Garamond", Georgia, serif;
   --text: "EB Garamond", Georgia, serif;
+  --cover-script: "Playfair Display", Georgia, serif;
+  --cover-sans: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 
   /* Space */
   --measure: 36rem;
   --gutter: clamp(1rem, 4vw, 3rem);
+  --nav-h: calc(4rem + 1px);  /* height of the red bar (2 rows on phones, see below) */
+  --footer-h: 5rem;            /* height of the © footer (measured in js/main.js) */
   --section-pad: clamp(4rem, 3rem + 6vw, 8rem);
 
   /* Focus ring (overridden on light pages) */
@@ -51,7 +69,7 @@ html { background: var(--parchment); }
 @view-transition { navigation: auto; }
 .site-nav { view-transition-name: site-nav; }
 /* While a page opens at a #section (see js/reveal.js): content hidden, bar visible */
-.is-arriving .frontispiece,
+.is-arriving .cover,
 .is-arriving main,
 .is-arriving .colophon { visibility: hidden; }
 ::view-transition-old(root),
@@ -121,34 +139,40 @@ cite { font-style: italic; }
 /* .bg-library { --bg-image: url("../assets/backgrounds/library.webp"); } */
 
 /* =========================================================
-   SITE NAV — the same bar on every page
+   SITE NAV — the same bar on every page, in the style of the
+   cover's top row (red, cream line, small spaced capitals)
    ========================================================= */
 .site-nav {
   position: sticky; top: 0; z-index: 5;
-  --focus: var(--parchment);
-  background: var(--wine);
-  color: var(--parchment);
-  border-bottom: 1px solid var(--brass);
+  --focus: var(--cream);
+  color: var(--cream);
+  padding-top: clamp(.6rem, 1.5vw, .9rem);   /* a strip of red above the first line, as on the slide */
+  /* red, plus the two vertical lines running through the bar (they continue down the cover) */
+  background:
+    linear-gradient(var(--line), var(--line)) left var(--inset) top / 1px 100% no-repeat,
+    linear-gradient(var(--line), var(--line)) right var(--inset) top / 1px 100% no-repeat,
+    var(--scarlet);
+  font-family: var(--cover-sans);
+  text-transform: uppercase;
 }
 .site-nav__inner {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: .25rem 2rem;
-  max-width: 72rem; min-height: 4rem;
-  margin: 0 auto; padding: .5rem var(--gutter);
+  min-height: 2.75rem;   /* full width, so the name lines up with the cover's text */
+  border-block: 1px solid var(--line);   /* the two horizontal cream lines, edge to edge */
+  padding: .4rem calc(var(--inset) + clamp(1rem, 2.5vw, 2rem));
 }
 /* Laurie's name on the left */
 .site-nav__name {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: 1.9rem;
-  line-height: 1;
-  letter-spacing: .01em;
+  font-weight: 600;
+  font-size: clamp(.72rem, .65rem + .25vw, .85rem);
+  letter-spacing: .24em;
   text-decoration: none;
   white-space: nowrap;
 }
-.site-nav__name em { font-weight: 400; color: var(--vellum); }
-.site-nav__name:hover { color: var(--parchment); }
-/* The links on the right: small spaced capitals */
+.site-nav__name em { font-style: normal; }
+.site-nav__name:hover { color: var(--cream); }
+/* The links on the right */
 .site-nav ul {
   display: flex; flex-wrap: wrap;
   gap: .25rem clamp(1rem, 2.5vw, 2.25rem);
@@ -156,25 +180,35 @@ cite { font-style: italic; }
   list-style: none;
 }
 .site-nav ul a {
-  font-family: var(--text);
-  font-size: .85rem;
-  text-transform: uppercase;
-  letter-spacing: .16em;
+  font-weight: 500;
+  font-size: clamp(.62rem, .55rem + .2vw, .72rem);
+  letter-spacing: .2em;
   text-decoration: none;
-  color: var(--vellum);
+  color: rgb(252 242 219 / .78);
 }
-.site-nav ul a:hover { color: var(--parchment); }
-.site-nav ul a[aria-current="page"] {
-  color: var(--parchment);
+/* The current page is simply brighter; underline only on hover / keyboard focus */
+.site-nav ul a[aria-current="page"] { color: var(--cream); }
+.site-nav ul a:hover,
+.site-nav ul a:focus-visible {
+  color: var(--cream);
   text-decoration: underline;
-  text-decoration-color: var(--brass);
+  text-decoration-color: var(--line);
   text-underline-offset: .5em;
 }
+/* Projects page: the bar takes the page's dark colour. Moving to or from it, the
+   colour fades (js/reveal.js adds the class on arrival from a page of the other colour). */
+.works-page .site-nav { background-color: var(--night); }
+.nav-fade-to-dark .site-nav { animation: nav-to-dark .9s ease both; }
+.nav-fade-to-red .site-nav { animation: nav-to-red .9s ease both; }
+@keyframes nav-to-dark { from { background-color: var(--scarlet); } to { background-color: var(--night); } }
+@keyframes nav-to-red { from { background-color: var(--night); } to { background-color: var(--scarlet); } }
+
 /* Phones: name on its own line, links spread underneath */
 @media (max-width: 48rem) {
-  .site-nav__inner { justify-content: center; padding-block: .6rem; }
+  :root { --nav-h: 4.5rem; }
+  .site-nav__inner { justify-content: center; padding: .5rem calc(var(--inset) + .9rem); }
   .site-nav ul { width: 100%; justify-content: space-between; gap: .25rem .5rem; }
-  .site-nav ul a { font-size: .75rem; letter-spacing: .1em; }
+  .site-nav ul a { font-size: .6rem; letter-spacing: .1em; }
 }
 
 /* ---------- Inner pages (About, Bio, CV, Cover Letter) ---------- */
@@ -188,111 +222,182 @@ cite { font-style: italic; }
   text-align: center;
 }
 .page h2 { font-size: clamp(1.7rem, 1.5rem + 1vw, 2.2rem); margin: 2.5rem 0 1rem; }
-.placeholder { font-style: italic; color: var(--muted); }
-
-/* ---------- CV page: CV & cover letter, two document boxes ---------- */
-.page--wide .page__inner { max-width: 60rem; }
-.docs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-  gap: 2.5rem clamp(2rem, 5vw, 4rem);
-}
-.doc-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.doc-card h2 { margin: 0 0 1.25rem; font-style: italic; }
-/* The preview: a sheet of paper, letter-size proportions */
-.doc-card__preview {
-  display: block;
-  width: min(20rem, 100%);
-  aspect-ratio: 8.5 / 11;
-  background: var(--paper);
-  border: 1px solid var(--brass);
-  box-shadow: 0 1px 2px rgb(0 0 0 / .15), 0 12px 28px rgb(0 0 0 / .18);
-  overflow: hidden;
-}
-.doc-card__preview img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-a.doc-card__preview { transition: transform .3s ease, box-shadow .3s ease; }
-a.doc-card__preview:hover { transform: translateY(-4px); box-shadow: 0 1px 2px rgb(0 0 0 / .15), 0 18px 34px rgb(0 0 0 / .22); }
-.doc-card__sheet {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  height: 100%; padding: 1.5rem;
-}
-.doc-card__sheet p { margin: 0; }
-.doc-card__sheet-name { font-family: var(--display); font-size: 1.6rem; }
-.doc-card__sheet-title {
-  margin: .25rem 0 1.5rem !important;
-  font-variant: small-caps; letter-spacing: .14em; color: var(--muted);
-}
-/* View · Download: two text links under each preview */
-.doc-card__links {
-  display: flex; justify-content: center; align-items: baseline; gap: 1.25rem;
-  margin: 1.5rem 0 0;
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 1.3rem;
-}
-.doc-card__links a {
-  color: var(--oxblood);
-  text-decoration: underline;
-  text-decoration-color: var(--brass);
-  text-underline-offset: .25em;
-}
-.doc-card__links a:hover { color: var(--wine); text-decoration-color: var(--oxblood); }
-.doc-card__links a:not([hidden]) + a::before {
-  content: "·";
-  display: inline-block;
-  margin-right: 1.25rem;
-  color: var(--muted);
-  font-style: normal;
-}
-.doc-card__links--pending { color: var(--muted); font-size: 1.1rem; }
 
 /* =========================================================
-   FRONTISPIECE
+   COVER — the first screen, after the Canva "Creative Portfolio" slide:
+   red sheet with fine cream lines, then a photo band
    ========================================================= */
-.frontispiece {
-  min-height: 100vh;
-  min-height: 100svh;
+.cover {
   display: grid;
-  align-items: center;
-  justify-items: center;
-  gap: clamp(2.5rem, 5vw, 6rem);
-  padding: clamp(3rem, 6vw, 6rem) var(--gutter);
-  background: var(--parchment);
+  grid-template-rows: 1fr clamp(10rem, 38svh, 26rem);   /* red sheet, then the photo band */
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100svh - var(--nav-h));
+  background: var(--scarlet);
+  color: var(--cream);
+  --focus: var(--cream);
 }
-@media (min-width: 60rem) {
-  .frontispiece { grid-template-columns: auto minmax(0, 36rem); justify-content: center; }
+.cover__sheet {
+  display: flex; flex-direction: column;
+  padding-top: clamp(1rem, 3svh, 1.75rem);
+  /* the two vertical lines, running down to the photo */
+  background:
+    linear-gradient(var(--line), var(--line)) left var(--inset) top / 1px 100% no-repeat,
+    linear-gradient(var(--line), var(--line)) right var(--inset) top / 1px 100% no-repeat;
 }
+/* A row of three small capitals (left · middle · right), as on the slides */
+.slide-row {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
+  padding: .7rem calc(var(--inset) + clamp(1rem, 2.5vw, 2rem));
+  font-family: var(--cover-sans);
+  font-weight: 600;
+  font-size: clamp(.58rem, .5rem + .25vw, .75rem);
+  line-height: 1.5;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.slide-row p { margin: 0; }
+.slide-row p:last-child { text-align: right; }
+.slide-row__mid { font-weight: 700; letter-spacing: .12em; }
+.cover__row { align-items: end; padding-bottom: clamp(1rem, 3svh, 1.75rem); }
+/* Three round dots, in the text colour */
+.dots { display: flex; gap: .45em; margin: 0; font-size: clamp(.9rem, .7rem + .5vw, 1.2rem); }
+.dots span { width: .75em; height: .75em; border-radius: 50%; background: currentColor; }
 
-.plate { margin: 0; width: min(26rem, 72vw); }
-.plate__frame {
-  padding: clamp(.6rem, 1.5vw, 1rem);
-  background: var(--parchment);
-  box-shadow: 0 1px 2px rgb(0 0 0 / .3), 0 18px 40px rgb(0 0 0 / .35);
-}
-.plate__frame img { outline: 1px solid rgb(30 20 18 / .5); }
-.plate figcaption {
-  margin-top: 1rem;
+.cover__title {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin: 0; padding: 1rem var(--inset);
   text-align: center;
-  font-family: var(--display);
-  font-size: 1.2rem;
+  line-height: 1;
 }
-.plate__label { font-variant: small-caps; letter-spacing: .12em; }
-.plate__credit { display: block; margin-top: .2rem; font-family: var(--text); font-size: .85rem; color: var(--muted); }
-
-.title-page { text-align: center; }
-.masthead { grid-column: 1 / -1; }
-.title-page__name {
-  margin: .75rem 0 0;
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(3.6rem, 2.5rem + 6vw, 6.5rem);
-  line-height: .95;
+.cover__script {
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: min(15vw, 19svh);
+  letter-spacing: -.035em;
+  line-height: .9;
 }
-.title-page__name span { font-style: italic; }
-.title-page__sub { margin: 1.5rem 0 0; font-family: var(--display); font-size: 1.5rem; }
-.title-page__place { margin: .25rem 0 0; font-variant: small-caps; letter-spacing: .2em; color: var(--muted); }
+.cover__caps {
+  margin-top: -.05em;
+  font-family: var(--cover-sans);
+  font-weight: 700;
+  font-style: italic;
+  font-size: min(5vw, 6.2svh);
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+/* The photo band (ivy walls). To change it, replace the two cover-photo files in assets/img/ */
+.cover__photo {
+  background: url("../assets/img/cover-photo-1920.webp") center 45% / cover no-repeat, #6b6a3c;
+}
+/* Phones and small tablets: the lighter copy */
+@media (max-width: 48rem) {
+  .cover__photo { background-image: url("../assets/img/cover-photo-1200.webp"); }
+}
+/* Phones */
+@media (max-width: 34rem) {
+  .cover__row { gap: .5rem; letter-spacing: .14em; }
+  .cover__script { font-size: 19vw; }
+  .cover__caps { font-size: 6.4vw; }
+}
 
-.title-page__bio { margin-top: 0; text-align: left; font-size: 1rem; line-height: 1.65; }
+/* =========================================================
+   ABOUT ME — after the Canva "About Me" slide: white sheet,
+   text on the left, photo flush to the right edge
+   ========================================================= */
+.about {
+  display: grid; grid-template-rows: auto 1fr;
+  --about-gap: clamp(1rem, 3svh, 1.75rem);
+  padding-bottom: var(--about-gap);   /* a strip of white under the photo */
+  background:
+    linear-gradient(var(--line-red), var(--line-red)) left var(--inset) top / 1px 100% no-repeat,  /* left line, full height */
+    var(--white);
+  color: var(--scarlet);
+  --focus: var(--scarlet);
+}
+#about { scroll-margin-top: var(--nav-h); }
+/* Three dots + "More about me" (link to more-about-me.html) */
+.about__more { display: flex; align-items: center; gap: 1.1rem; margin-top: clamp(1rem, 4svh, 2.5rem); }
+.about__more .dots { margin-top: 0; }
+.about__more-link {
+  font-family: var(--cover-sans);
+  font-weight: 600;
+  font-size: .72rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-underline-offset: .45em;
+  color: var(--scarlet);
+}
+.about__more-link:hover,
+.about__more-link:focus-visible { color: var(--scarlet); text-decoration: underline; }
+/* Empty band between two lines; the right-hand line runs down to the photo */
+.about__head {
+  padding: var(--inset) 0 clamp(1rem, 3svh, 1.75rem);
+  background: linear-gradient(var(--line-red), var(--line-red)) right var(--inset) top / 1px 100% no-repeat;
+}
+.about__band { border-top: 1px solid var(--line-red); }   /* a single line between sections */
+.about__body { display: grid; }
+.about__text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: clamp(1.5rem, 4svh, 2.5rem) calc(var(--inset) + clamp(1rem, 2.5vw, 2rem));
+}
+.about__title {
+  margin: 0 0 clamp(.75rem, 2.5svh, 1.25rem);
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(2.6rem, 1.5rem + 3.5vw, 4.6rem);
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+.about__bio {
+  font-family: var(--cover-sans);
+  font-size: .85rem;
+  line-height: 1.6;
+  text-align: justify;
+  hyphens: auto;
+}
+.about__bio p { margin: 0 0 .8em; }
+.about .dots { font-size: 1.1rem; }
+.about__photo { min-height: 20rem; }
+.about__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+
+/* Computers and wide tablets: one screen, text left, photo right (to the edge and the bottom) */
+@media (min-width: 56rem) {
+  .about { min-height: calc(100vh - var(--nav-h)); min-height: calc(100svh - var(--nav-h)); }
+  .about__body { grid-template-columns: minmax(0, 58fr) minmax(0, 42fr); }
+  .about__text { padding-right: clamp(2rem, 4vw, 3.5rem); }
+  .about__bio { font-size: clamp(.78rem, .45rem + .75vh, .95rem); line-height: 1.55; }
+  .about__photo { min-height: 0; position: relative; }
+  .about__photo img { position: absolute; inset: 0; }
+  /* the right-hand line also shows in the white strip under the photo */
+  .about {
+    background:
+      linear-gradient(var(--line-red), var(--line-red)) left var(--inset) top / 1px 100% no-repeat,
+      linear-gradient(var(--line-red), var(--line-red)) right var(--inset) bottom / 1px var(--about-gap) no-repeat,
+      var(--white);
+  }
+}
+/* Tablets and small laptops: a wider text column so the bio fits */
+@media (min-width: 56rem) and (max-width: 75rem) {
+  .about__body { grid-template-columns: minmax(0, 64fr) minmax(0, 36fr); }
+}
+/* Short laptops: a little tighter so the bio still fits one screen */
+@media (min-width: 56rem) and (max-height: 45rem) {
+  .about__title { font-size: clamp(2.4rem, 8svh, 3.6rem); }
+  .about__bio p { margin-bottom: .6em; }
+  .about__more { margin-top: 1rem; }
+}
+/* Phones: left-aligned text (justified leaves gaps on a narrow column) */
+@media (max-width: 34rem) {
+  .about__bio { text-align: left; }
+}
+/* Stacked layout: the photo is far below, so no right-hand line running down to it */
+@media (max-width: 55.99rem) {
+  .about__head { background: none; }
+}
 
 /* =========================================================
    I. A NOTE ON THE WRITER — a light page
@@ -308,121 +413,571 @@ a.doc-card__preview:hover { transform: translateY(-4px); box-shadow: 0 1px 2px r
 .page__inner { max-width: var(--measure); margin: 0 auto; }
 .page h2 { color: var(--oxblood); }
 
-.prose p { margin: 0 0 1.2em; hyphens: auto; }
-.prose p + p { text-indent: 1.5em; margin-top: -.6em; }
-.dropcap::first-letter {
-  float: left;
-  font-family: var(--display);
-  font-size: 4.4em;
-  line-height: .8;
-  padding: .08em .1em 0 0;
-  color: var(--oxblood);
-}
 
 /* =========================================================
-   II. PROJECTS — academic and personal, side by side
+   SECTION FRAME — the lines of the About Me slide, on other sections:
+   an empty band between two lines at the top (edge to edge) and a
+   vertical line on each side. Add class="framed" to a section;
+   red lines by default, cream lines on red sections (.framed--light).
    ========================================================= */
-.projects { padding: var(--section-pad) var(--gutter); }
-.projects__inner { max-width: 60rem; margin: 0 auto; }
-.projects h2 { text-align: center; color: var(--oxblood); }
-.projects__columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-  gap: 3rem clamp(2rem, 5vw, 4.5rem);
+.framed { position: relative; --frame-line: var(--line-red); }
+.framed--light { --frame-line: var(--line); }
+.framed::before,
+.framed::after { content: ""; position: absolute; pointer-events: none; }
+.framed::before { inset: 0 var(--inset); border-inline: 1px solid var(--frame-line); }   /* left + right lines */
+.framed::after {                                                                          /* top band */
+  top: var(--inset); left: 0; right: 0;
+  border-top: 1px solid var(--frame-line);   /* a single line between sections */
 }
-.projects__group h3 {
-  margin: 0 0 1.5rem;
-  font-family: var(--display);
-  font-weight: 500;
-  font-style: italic;
-  font-size: 1.8rem;
+/* Room under the band before the content starts */
+.framed { --frame-top: calc(var(--inset) + clamp(1.25rem, 4svh, 2.25rem)); }
+/* Side lines only, no band at the top (More About Me) */
+.framed--sides::after { content: none; }
+
+/* =========================================================
+   MORE ABOUT ME — one continuous, centred stream (more-about-me.html):
+   parchment like Contact, no band or lines; text and pictures follow each other
+   ========================================================= */
+.journal {
+  min-height: calc(100vh - var(--nav-h) - var(--footer-h));
+  min-height: calc(100svh - var(--nav-h) - var(--footer-h));
+  padding: clamp(2.5rem, 7vh, 4.5rem) calc(var(--inset) + clamp(1rem, 2.5vw, 2rem)) clamp(2.5rem, 6vh, 4rem);   /* inside the side lines */
+  background: var(--parchment);
+  color: var(--scarlet);
+  font-family: var(--cover-sans);
+}
+.journal__inner { max-width: 38rem; margin: 0 auto; }
+.journal__back { margin: 0 0 2rem; text-align: center; font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+.journal__back a { text-decoration: none; text-underline-offset: .45em; }
+.journal__back a:hover,
+.journal__back a:focus-visible { color: var(--scarlet); text-decoration: underline; }
+.journal__title {
+  margin: 0 0 .9rem;
   text-align: center;
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(2.6rem, 1.5rem + 3.5vw, 4.6rem);
+  letter-spacing: -.035em;
+  line-height: 1;
 }
-.projects__list { margin: 0; padding: 0; list-style: none; }
-.project { margin-bottom: 2rem; }
-.project p { margin: 0; }
-.project__meta {
-  font-variant: small-caps;
-  letter-spacing: .1em;
-  font-size: .95rem;
-  color: var(--muted);
-}
-.project__title {
-  margin: .15rem 0 .4rem;
-  font-family: var(--display);
+.journal__intro { margin: 0 auto 3.5rem; max-width: 30rem; text-align: center; font-size: .95rem; line-height: 1.6; }
+/* Entries simply follow each other: space between them, no lines */
+.entry + .entry { margin-top: clamp(3rem, 8vh, 4.5rem); }
+.entry p { margin: 0 0 1em; font-size: .95rem; line-height: 1.75; }
+.entry p:last-child { margin-bottom: 0; }
+.entry__meta {
+  text-align: center;
   font-weight: 600;
-  font-size: 1.5rem;
-  line-height: 1.2;
-  color: var(--oxblood);
+  font-size: .68rem !important;
+  letter-spacing: .2em;
+  text-transform: uppercase;
 }
-.project__title cite { font-style: italic; }
-.project__title a { text-decoration: none; }
-.project__title a:hover { text-decoration: underline; text-decoration-color: var(--brass); }
+.entry__title {
+  margin: .35rem 0 1.4rem;
+  text-align: center;
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.5rem);
+  letter-spacing: -.02em;
+  line-height: 1.1;
+}
+/* Pictures sit in the same column as the text */
+.entry__img { margin: 1.75rem 0; }
+.entry__img img { width: 100%; height: auto; }
+.entry__img figcaption { margin-top: .6rem; text-align: center; font-size: .75rem; font-style: italic; }
 
 /* =========================================================
-   PROJECT PAGES — one piece of writing per page
+   PROJECTS PAGE (projects.html) — after the Canva "featured works" slide:
+   dark sheet, big italic title, a row of pictures with small captions
    ========================================================= */
-.article__back { margin: 0 0 2rem; font-variant: small-caps; letter-spacing: .1em; }
-.article__back a { text-decoration: none; color: var(--muted); }
-.article__back a:hover { color: var(--oxblood); }
-.article__header { margin-bottom: 2rem; text-align: center; }
-.article__header h1 { margin: .3rem 0 0; }
-.doc-viewer {
-  display: flex; align-items: center; justify-content: center;
-  width: 100%; height: min(85vh, 70rem);
-  background: var(--paper);
-  border: 1px solid var(--brass);
-  box-shadow: 0 1px 2px rgb(0 0 0 / .15), 0 12px 28px rgb(0 0 0 / .18);
+.works-page { background: var(--night); }
+.works {
+  display: flex; flex-direction: column;
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100svh - var(--nav-h));
+  padding: clamp(1.5rem, 6vh, 3.5rem) calc(var(--inset) + clamp(1rem, 2.5vw, 2rem)) clamp(.75rem, 2vh, 1.25rem);   /* inside the side lines */
+  background: var(--night);
+  color: var(--cream);
+  font-family: var(--cover-sans);
 }
-.doc-viewer iframe { width: 100%; height: 100%; border: 0; }
-.doc-viewer__fallback { margin: 0; padding: 2rem; text-align: center; }
+.works + .works { border-top: 1px solid rgb(252 242 219 / .12); }
+/* The last part and the © footer fill exactly one screen together */
+.works--last {
+  min-height: calc(100vh - var(--nav-h) - var(--footer-h));
+  min-height: calc(100svh - var(--nav-h) - var(--footer-h));
+}
+.works__title {
+  margin: 0 0 clamp(1.25rem, 6vh, 4rem);
+  text-align: center;
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: min(clamp(3rem, 2rem + 4vw, 6.2rem), 11svh);   /* smaller on short screens */
+  letter-spacing: -.035em;
+  line-height: 1;
+}
+.works__row {
+  display: flex; justify-content: center; align-items: flex-start;
+  gap: clamp(1rem, 1.8vw, 1.6rem);
+  width: min(62rem, 100%);
+  margin: auto auto;
+  padding: 0;
+  list-style: none;
+}
+/* All cards the same size; a card grows a little when the pointer is over it */
+.work { flex: 0 1 min(15rem, (100svh - var(--nav-h) - var(--footer-h)) * .32); min-width: 0; transition: transform .35s ease; }   /* cards shrink on short screens */
+.work:hover { transform: scale(1.06); position: relative; z-index: 1; }
+/* The picture (a dark placeholder until a real one is added) */
+.work__img {
+  aspect-ratio: 8 / 9;
+  overflow: hidden;
+  background: linear-gradient(160deg, #3b3734, #262321);
+  outline: 1px solid rgb(252 242 219 / .08);
+}
+.work__img img { width: 100%; height: 100%; object-fit: cover; }
+/* A page of the work as the picture: show its top, on paper */
+.work__img--page { background: #fbf8ea; }
+.work__img--page img { object-position: top; }
+/* A book cover or a tall picture: shown whole, standing in the box */
+.work__img--cover { position: relative; }
+.work__img--cover img { position: absolute; inset: 0; margin: auto; width: auto; height: auto; max-width: 90%; max-height: 88%; box-shadow: 0 6px 18px rgb(0 0 0 / .45); }   /* tall or wide, it fits */
+/* A logo instead of a picture (Wattpad: the "W" mark from Simple Icons, in Wattpad orange) */
+.work__img--logo { display: grid; place-items: center; }
+.work__img--logo svg { width: 42%; height: auto; fill: #ff500a; }
+/* Cards with their own page: the whole card is the link */
+.work__link { display: block; color: inherit; text-decoration: none; }
+.work__link:hover { color: inherit; }
+.work__link:focus-visible { outline: 2px dashed var(--cream); outline-offset: 6px; }
+.work:has(.work__link:focus-visible) { transform: scale(1.06); position: relative; z-index: 1; }
+.work__cap { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem; margin: .8rem 0 .45rem; }
+.work__name,
+.work__cat {
+  margin: 0;
+  font-family: var(--cover-sans);
+  font-weight: 700;
+  font-size: .62rem;
+  line-height: 1.35;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.work__name cite { font-style: normal; }
+.work__cat { flex-shrink: 0; font-weight: 600; opacity: .85; }
+.work__text { margin: 0; font-size: .7rem; line-height: 1.55; text-align: justify; hyphens: auto; opacity: .85; }
+.work--feature .work__name { margin-top: .9rem; text-align: center; font-size: .8rem; }
+.works__foot { display: flex; justify-content: space-between; margin-top: clamp(1.5rem, 5vh, 3rem); padding-inline: 0; }
+/* Short laptops: a little tighter so each part still fits one screen */
+@media (min-width: 48.01rem) and (max-height: 45rem) {
+  .works { padding-top: 1rem; padding-bottom: .5rem; }
+  .works__title { margin-bottom: 1rem; }
+  .work__cap { margin: .5rem 0 .3rem; }
+  .work__text { font-size: .64rem; line-height: 1.45; }
+  .works__foot { margin-top: 1rem; }
+}
+/* Phones and narrow tablets: two cards per row */
+@media (max-width: 48rem) {
+  .works__row { flex-wrap: wrap; margin: 0 auto; }
+  .work { flex: 0 1 calc(50% - .75rem); }
+  .work__text { text-align: left; }   /* justified leaves big gaps in narrow cards */
+  .works__foot { gap: .5rem; letter-spacing: .1em; }
+}
+/* ---------- One project (project-*.html): preview left, details right ---------- */
+.work-detail {
+  display: grid; align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  min-height: calc(100vh - var(--nav-h) - var(--footer-h));
+  min-height: calc(100svh - var(--nav-h) - var(--footer-h));
+  padding: clamp(1.5rem, 5vh, 3rem) calc(var(--inset) + clamp(1rem, 4vw, 4rem));
+  background: var(--night);
+  color: var(--cream);
+  font-family: var(--cover-sans);
+}
+.work-detail__preview { display: flex; justify-content: center; }
+.work-detail__paper {
+  display: block;
+  width: min(100%, 30rem, (100svh - var(--nav-h) - var(--footer-h) - 6rem) * .772);   /* a whole page fits on screen */
+  background: #fbf8ea;
+  box-shadow: 0 2px 4px rgb(0 0 0 / .35), 0 22px 50px rgb(0 0 0 / .45);
+  transition: transform .35s ease;
+}
+.work-detail__paper img { width: 100%; height: auto; }
+.work-detail__paper--book { width: min(100%, 24rem, (100svh - var(--nav-h) - var(--footer-h) - 6rem) * .626); }   /* book proportions */
+a.work-detail__paper:hover,
+a.work-detail__paper:focus-visible { transform: translateY(-6px); }
+a.work-detail__paper:focus-visible { outline: 2px dashed var(--cream); outline-offset: 6px; }
+.work-detail__text { max-width: 32rem; }
+.work-detail__back,
+.work-detail__work,
+.work-detail__date,
+.work-detail__label {
+  margin: 0;
+  font-weight: 600;
+  font-size: .7rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.work-detail__back { margin-bottom: 1.5rem; }
+.work-detail__back a,
+.work-detail__links a { text-decoration: none; text-underline-offset: .45em; }
+.work-detail__back a:hover, .work-detail__back a:focus-visible,
+.work-detail__links a:hover, .work-detail__links a:focus-visible { color: var(--cream); text-decoration: underline; }
+.work-detail__course {
+  margin: 0 0 1rem;
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(2.2rem, 1.5rem + 2.6vw, 3.8rem);
+  letter-spacing: -.03em;
+  line-height: 1.05;
+}
+.work-detail__work cite { font-style: normal; }
+.work-detail__date { margin-top: .35rem; opacity: .75; }
+.work-detail__purpose { margin: 1.5rem 0 1.75rem; font-size: .95rem; line-height: 1.7; }
+.work-detail__skills { margin: .6rem 0 0; padding-left: 1.1rem; font-size: .9rem; line-height: 1.8; }
+.work-detail__links { margin: 1.75rem 0 0; font-weight: 600; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
+@media (min-width: 56rem) {
+  .work-detail { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .work-detail__preview { justify-content: flex-end; }
+}
+
+/* Footer on the dark page */
+.colophon--dark { background: var(--night); }   /* the side lines carry on through it; no line across */
+.colophon.colophon--dark.framed { padding: var(--inset) 0; }   /* the text sits in a band, like the home page footer */
+.colophon.colophon--dark.framed p { border-block: 0; border-top: 1px solid var(--frame-line); padding: .6rem var(--gutter); }   /* single cream line above, cream text */
+.colophon.colophon--dark.framed p { margin: 0; font-family: var(--cover-sans); font-weight: 600; font-size: clamp(.6rem, .52rem + .25vw, .72rem); letter-spacing: .2em; text-transform: uppercase; color: var(--cream); }
+.colophon--dark a:hover,
+.colophon--dark a:focus-visible { color: var(--cream); text-decoration-color: var(--cream); }
+
+/* =========================================================
+   CV & COVER LETTER — after the Canva "Working Experiences" slide:
+   striped red sheet, title left, two tilted sheets of paper right
+   ========================================================= */
+.cv {
+  overflow: hidden;           /* the sheets run off the bottom edge, as on the slide */
+  display: grid;
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100svh - var(--nav-h));
+  padding-top: var(--frame-top);   /* the band (cream lines, on the red) sits above the papers */
+  background: var(--scarlet);
+  color: var(--cream);
+  --focus: var(--cream);
+}
+#cv { scroll-margin-top: var(--nav-h); }
+.cv__text {
+  display: flex; flex-direction: column; gap: clamp(1.25rem, 4svh, 2.5rem);
+  padding: 0 calc(var(--inset) + clamp(1rem, 2.5vw, 2rem)) clamp(1.5rem, 5svh, 3rem);
+}
+.cv__title { display: flex; flex-direction: column; align-items: flex-start; margin: auto 0; line-height: 1; }   /* centred in the space above the links */
+.cv__script {
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(3.4rem, min(9vw, 15svh), 8rem);
+  letter-spacing: -.035em;
+  line-height: .95;
+}
+.cv__caps {
+  margin-top: .1em;
+  font-family: var(--cover-sans);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(1.3rem, min(3.3vw, 5.4svh), 3rem);
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.cv__entry { max-width: 30rem; }
+.cv__entry-title {
+  margin: 0 0 .8rem;
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem);
+  line-height: 1.05;
+}
+.cv__links {
+  display: flex; flex-wrap: wrap; gap: .4rem 1.4rem;
+  margin: 0;
+  font-family: var(--cover-sans);
+  font-size: .85rem;
+}
+/* Underlined only on hover / keyboard focus */
+.cv__links a { text-decoration: none; text-underline-offset: .3em; }
+.cv__links a:hover,
+.cv__links a:focus-visible { color: var(--cream); text-decoration: underline; text-decoration-color: var(--cream); }
+.cv__pending { opacity: .6; cursor: default; }   /* not a link until the cover letter arrives */
+
+/* The papers */
+.cv__papers { position: relative; min-height: 26rem; }
+.cv__star { position: absolute; width: clamp(1.4rem, 2.6vw, 2.2rem); fill: var(--cream); z-index: 2; pointer-events: none; }
+.cv__star--top { top: 9%; left: -1%; }
+.cv__star--side { bottom: 5%; right: 3%; }   /* on the red, beside the bottom of the cover letter */
+.sheet {
+  position: absolute;
+  width: min(78%, 42rem);
+  aspect-ratio: 800 / 1035;
+  background: #fbf8ea;
+  box-shadow: 0 2px 4px rgb(0 0 0 / .25), 0 22px 50px rgb(0 0 0 / .35);
+  transition: transform .35s ease;
+}
+.sheet img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.sheet--letter { left: 17%; top: 8%; transform: rotate(5deg); }
+.sheet--cv { left: 5%; top: 13%; transform: rotate(-4deg); }
+a.sheet--cv:hover,
+a.sheet--cv:focus-visible { transform: rotate(-3deg) translateY(-12px); }
+.sheet--cv:focus-visible { outline: 2px dashed var(--cream); outline-offset: 6px; }
+/* Placeholder cover letter sheet */
+.sheet__blank {
+  display: flex; flex-direction: column; align-items: flex-end;
+  height: 100%; padding: 12% 10% 0 0;
+  color: var(--ink); text-align: right;
+}
+.sheet__blank p { margin: 0; }
+.sheet__blank-name { font-family: var(--cover-script); font-weight: 800; font-style: italic; font-size: clamp(1rem, 1.6vw, 1.5rem); color: var(--scarlet); }
+.sheet__blank-title { margin-top: .3rem !important; font-family: var(--cover-sans); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; }
+.sheet__blank-note { margin-top: .3rem !important; font-family: var(--cover-sans); font-style: italic; font-size: .7rem; color: var(--muted); }
+
+/* Computers and wide tablets: text left, papers right, one screen */
+@media (min-width: 56rem) {
+  .cv { grid-template-columns: minmax(0, 46fr) minmax(0, 54fr); }
+  .cv__papers { min-height: 0; }
+}
+/* Phones and narrow tablets: papers under the text */
+@media (max-width: 55.99rem) {
+  .cv__papers { height: min(100vw, 34rem); }
+  .sheet { width: 72%; }
+}
 
 /* =========================================================
    III. CORRESPONDENCE
    ========================================================= */
+/* With the © footer below it, exactly one screen under the red bar; content near the top */
 .correspondence {
-  padding: var(--section-pad) var(--gutter);
+  display: flex; align-items: flex-start; justify-content: center;
+  min-height: calc(100vh - var(--nav-h) - var(--footer-h));
+  min-height: calc(100svh - var(--nav-h) - var(--footer-h));
+  padding: var(--frame-top) var(--gutter) clamp(1rem, 3vh, 2rem);
   background: var(--parchment);
+  color: var(--scarlet);
+  font-family: var(--cover-sans);   /* same fonts as the other sections */
+  font-size: .95rem;
   text-align: center;
 }
-.correspondence h2 { margin-bottom: 1rem; color: var(--oxblood); }
-/* Contact list: one line per contact, like the index of a book */
-.contact-list {
-  width: min(28rem, 100%);
-  margin: 2.5rem auto 0; padding: 0;
-  list-style: none;
+#contact { scroll-margin-top: var(--nav-h); }
+.correspondence h2 {
+  margin: 0 0 .75rem;
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: min(clamp(2.6rem, 1.5rem + 3.5vw, 4.6rem), 10.5vw);
+  letter-spacing: -.035em;
+  line-height: 1;
+  white-space: nowrap;   /* "Write to Laurie" always on one line */
+  color: var(--scarlet);
+}
+.correspondence__intro p { margin: 0; }
+.correspondence__inner { display: grid; gap: 1.75rem; width: min(62rem, 100%); }
+@media (min-width: 56rem) {
+  .correspondence__inner { grid-template-columns: auto minmax(0, 30rem); justify-content: space-between; align-items: center; gap: clamp(2.5rem, 6vw, 5rem); }
+  .correspondence__intro { text-align: left; }
+  .correspondence__intro .contact-links { justify-content: flex-start; }
+}
+/* Contact form: a sheet of letter paper */
+.letter-form {
+  width: min(34rem, 100%);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--paper);
+  border: 1px solid rgb(176 141 87 / .5);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .12), 0 14px 30px rgb(0 0 0 / .14);
   text-align: left;
 }
-.contact-list li + li { border-top: 1px solid var(--brass); }
-.contact-list a {
-  display: grid;
-  grid-template-columns: 8rem 1fr;
-  align-items: baseline;
-  gap: 1rem;
-  padding: .9rem .5rem;
+.letter-form__field { margin: 0 0 1.1rem; }
+.letter-form label {
+  display: block;
+  margin-bottom: .25rem;
+  font-family: var(--cover-sans);
+  font-weight: 600;
+  font-size: .68rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--scarlet);
+}
+.letter-form input,
+.letter-form textarea {
+  width: 100%;
+  padding: .35rem .1rem;
+  border: 0;
+  border-bottom: 1px solid var(--brass);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-family: var(--cover-sans);
+  font-size: .95rem;
+}
+.letter-form textarea { resize: vertical; height: 8rem; min-height: 4.5rem; border: 1px solid rgb(176 141 87 / .6); padding: .5rem .6rem; }
+.letter-form input:focus,
+.letter-form textarea:focus { outline: none; border-color: var(--oxblood); box-shadow: 0 1px 0 var(--oxblood); }
+.letter-form__send { display: flex; justify-content: flex-end; align-items: center; gap: .5rem 1rem; margin: .25rem 0 0; }
+.letter-form .req { color: var(--scarlet); }   /* the * after required fields */
+/* A field left empty (or an email that isn't one) after pressing Send */
+.letter-form [aria-invalid="true"] { border-color: var(--scarlet); box-shadow: 0 1px 0 var(--scarlet); }
+/* Phones: compact contact section + footer so both fit one screen */
+@media (max-width: 40rem) {
+  .correspondence__inner { gap: 1rem; }
+  .correspondence__intro .contact-links { margin-top: .75rem; }
+  .letter-form { padding: 1rem 1.1rem; }
+  .letter-form__field { margin-bottom: .6rem; }
+  .letter-form textarea { height: 5rem; }
+  footer.colophon { padding: 1rem var(--gutter) 1.25rem; }
+  footer.colophon p { margin: 0; }
+}
+/* Short screens (small laptops, phones): tighten so the section still fits */
+@media (max-height: 50rem) {
+  .correspondence h2 { font-size: clamp(2rem, 1.6rem + 2vw, 2.8rem); }
+  .letter-form__field { margin-bottom: .8rem; }
+  .letter-form textarea { height: 5.5rem; }
+}
+@media (max-height: 45rem) {
+  .correspondence { padding-top: calc(var(--inset) + 1rem); }
+  .letter-form__field { margin-bottom: .55rem; }
+  .letter-form textarea { height: 3.5rem; }
+}
+/* Short phones */
+@media (max-width: 40rem) and (max-height: 45rem) {
+  .correspondence h2 { font-size: 2rem; margin-bottom: .4rem; }
+  .correspondence { padding-bottom: .5rem; }
+  .correspondence__inner { gap: .6rem; }
+  .letter-form__field { margin-bottom: .4rem; }
+  .letter-form textarea { height: 2.75rem; min-height: 2.75rem; }
+}
+.letter-form button {
+  padding: .55rem 1.8rem;
+  border: 0;
+  border-radius: 2px;
+  background: var(--scarlet);
+  color: var(--cream);
+  font-family: var(--cover-sans);
+  font-weight: 600;
+  font-size: .72rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.letter-form button:hover { background: var(--claret); }
+.letter-form button:focus-visible { outline: 2px dashed var(--scarlet); outline-offset: 3px; }
+
+/* The spot shared by the form and the thank-you card: it keeps the form's size
+   after sending (set in js/main.js), and the card sits in its centre */
+.letter-slot { display: grid; place-items: center; }
+.letter-slot > * { grid-area: 1 / 1; }
+
+/* After sending: the same sheet of letter paper, with a short thank-you */
+.letter-sent {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+  width: min(34rem, 100%);   /* the same box as the form (its height is set in js/main.js) */
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background: var(--paper);
+  border: 1px solid rgb(176 141 87 / .5);
+  box-shadow: 0 1px 2px rgb(0 0 0 / .12), 0 14px 30px rgb(0 0 0 / .14);
+  text-align: center;
+  color: var(--scarlet);
+}
+.letter-sent[hidden] { display: none; }
+.letter-sent:focus { outline: none; }
+.letter-sent p { margin: 0; }
+.letter-sent__title {
+  font-family: var(--cover-script);
+  font-weight: 800;
+  font-style: italic;
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+.letter-form button:disabled { opacity: .6; cursor: wait; }
+.letter-form__note { flex: 1; font-size: .75rem; line-height: 1.35; text-align: left; color: var(--scarlet); }
+.letter-form__note[hidden] { display: none; }
+
+/* Email · LinkedIn */
+.contact-links {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline;
+  gap: .4rem 1.1rem;
+  margin: 1.5rem 0 0;
+  font-family: var(--cover-sans);
+  font-size: 1.05rem;
+}
+.contact-links a {
+  color: var(--scarlet);
   text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .25em;
 }
-.contact-list__label {
-  font-variant: small-caps;
-  letter-spacing: .14em;
-  font-size: 1rem;
-  color: var(--muted);
+/* Underlined only on hover / keyboard focus */
+.contact-links a:hover,
+.contact-links a:focus-visible { color: var(--scarlet); text-decoration: underline; text-decoration-color: var(--scarlet); }
+/* Small envelope / LinkedIn logos, drawn in the page (inline SVG) in the link colour */
+.contact-links .icon {
+  display: inline-block;
+  width: .8em; height: .8em;
+  margin-right: .35em;
+  vertical-align: -.05em;
 }
-.contact-list__value { font-style: italic; font-size: 1.15rem; transition: color .2s ease; }
-.contact-list a:hover .contact-list__value,
-.contact-list a:focus-visible .contact-list__value { color: var(--oxblood); }
-@media (max-width: 24rem) { .contact-list a { grid-template-columns: 6.5rem 1fr; gap: .5rem; } }
+.contact-links a + a::before {
+  content: "·";
+  display: inline-block;
+  margin-right: 1.1rem;
+  color: var(--scarlet);
+}
+
+/* Thank-you page after sending the form */
+.thanks { text-align: center; }
 
 /* =========================================================
    COLOPHON
    ========================================================= */
-.colophon { padding: 3rem var(--gutter) 4rem; text-align: center; font-size: .95rem; color: var(--muted); }
+.colophon { padding: 1.5rem var(--gutter) 2rem; text-align: center; font-family: var(--cover-sans); font-size: .8rem; color: var(--muted); }
 .colophon p { margin: .4rem 0; }
+/* Home page: the section frame runs down to the very end (band above the footer, side lines through it) */
+.colophon.framed { padding: var(--inset) 0; }
+.colophon.framed::after { content: none; }            /* the text itself sits in the band */
+.colophon.framed p {
+  margin: 0; padding: .6rem var(--gutter);
+  line-height: 1.4;
+  /* written like the rows on the title page: small spaced capitals */
+  font-weight: 600;
+  font-size: clamp(.6rem, .52rem + .25vw, .72rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--scarlet);
+  border-top: 1px solid var(--frame-line);   /* a single line above the footer text */
+}
+/* "Home" underlined only on hover / keyboard focus */
+.colophon a { text-decoration: none; text-underline-offset: .25em; }
+.colophon a:hover,
+.colophon a:focus-visible { color: var(--scarlet); text-decoration: underline; text-decoration-color: var(--scarlet); }
+
+/* =========================================================
+   FADE IN ON SCROLL — sections with class="fade" (see js/main.js)
+   ========================================================= */
+/* Only the contents fade: the section's own background (red, white…) is there
+   from the start, so the beige page never shows through between sections */
+.fade-ready .fade > * {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 1.6s ease, transform 1.6s ease;
+}
+.fade-ready .fade.is-visible > * { opacity: 1; transform: none; }
+.fade-ready .fade.fade-instant > * { transition: none !important; }   /* reached by scrolling up: no fade */
 
 /* =========================================================
    Reduced motion: fades only, no movement
    ========================================================= */
 @media (prefers-reduced-motion: reduce) {
+  .nav-fade-to-dark .site-nav, .nav-fade-to-red .site-nav { animation: none; }
+  .fade-ready .fade > * { transform: none; transition: opacity 1.2s ease !important; }   /* fade, no movement */
   @view-transition { navigation: none; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }

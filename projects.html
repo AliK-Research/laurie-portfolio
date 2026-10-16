@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects · Laurie Legault</title>
+  <meta name="description" content="Academic works and personal projects by Laurie Legault, writer.">
+  <meta name="theme-color" content="#1f1f1f">
+  <meta name="color-scheme" content="light">
+  <link rel="preload" href="assets/fonts/playfair-display-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/montserrat-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/reveal.js"></script>
+</head>
+<body class="works-page">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main">
+    <div class="site-nav__inner">
+      <a class="site-nav__name" href="index.html">Laurie <em>Legault</em></a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">Bio</a></li>
+        <li><a href="projects.html" aria-current="page">Projects</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="index.html#cv">CV</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- =====================================================
+       PROJECTS — after the Canva "featured works" slide: dark sheet,
+       big italic title, a row of pictures with captions, a small row at the bottom.
+       Each card: picture, then title + category, then one line of text.
+       The middle card ("work--feature") shows only its title. All cards are the same size
+       and grow a little when the pointer is over them.
+       To add a project: copy one <li class="work"> block and change the text.
+       A card with its own page has its content wrapped in <a class="work__link" href="…">.
+       ===================================================== -->
+  <main id="main">
+    <h1 class="visually-hidden">Projects</h1>
+
+    <section class="works framed framed--light framed--sides fade" aria-labelledby="academic-title">
+      <h2 class="works__title" id="academic-title">Academic works</h2>
+      <ul class="works__row">
+          <li class="work">
+            <a class="work__link" href="project-qwf-pitch.html">
+            <div class="work__img work__img--page"><img src="assets/docs/qwf-pitch-preview.webp" width="1081" height="1400" alt="" loading="lazy"></div>
+            <div class="work__cap"><h3 class="work__name">Guiding Quebec’s Emerging Writers</h3><p class="work__cat">Content pitch</p></div>
+            <p class="work__text">Three content ideas to help emerging writers find their way in Québec’s literary world: a resource hub, a podcast, and a live showcase.</p>
+            </a>
+          </li>
+          <li class="work">
+            <a class="work__link" href="project-student-profile.html">
+            <div class="work__img work__img--page"><img src="assets/docs/student-profile-preview.webp" width="1081" height="1400" alt="" loading="lazy"></div>
+            <div class="work__cap"><h3 class="work__name">No Map? No Problem!</h3><p class="work__cat">Student profile</p></div>
+            <p class="work__text">Third-year Journalism student Louis Paillier embraces the uncertainty of what comes next while exploring his interests in sports, writing, and cooking.</p>
+            </a>
+          </li>
+      </ul>
+      <div class="slide-row works__foot"><p>Laurie Legault</p><p>Academic</p></div>
+    </section>
+
+    <section class="works works--last framed framed--light framed--sides fade" aria-labelledby="personal-title">
+      <h2 class="works__title" id="personal-title">Personal projects</h2>
+      <ul class="works__row">
+          <li class="work">
+            <div class="work__img work__img--logo"><svg viewBox="0 0 24 24" role="img" aria-label="Wattpad logo" focusable="false"><path d="M13.034 3.09c-1.695.113-3.9 2.027-6.9 6.947.245-2.758.345-4.716-.857-5.743-.823-.702-2.764-.974-3.926.536C.18 6.349-.09 9.312.024 12.432c.238 6.518 2.544 8.487 4.59 8.487h.001c3.623 0 4.13-4.439 6.604-8.4-.09 1.416-.008 2.668.266 3.532 1.078 3.398 4.784 3.663 6.467.21 2.374-4.87 3.058-6.016 5.453-9.521 1.58-2.314-.252-3.812-2.374-2.735-1.09.554-2.86 1.935-5.065 4.867.387-2.23.28-5.996-2.932-5.782z"/></svg></div>
+            <div class="work__cap"><h3 class="work__name">Stories on Wattpad</h3><p class="work__cat">Online fiction</p></div>
+            <p class="work__text">Fiction shared on Wattpad, where her stories reached over ten thousand readers.</p>
+          </li>
+          <li class="work">
+            <a class="work__link" href="project-short-stories.html">
+            <div class="work__img work__img--cover"><img src="assets/img/short-stories-cover.webp" width="800" height="1277" alt="Book cover: “I woke up one day, and the world continued without me”, by Laurie Legault" loading="lazy"></div>
+            <div class="work__cap"><h3 class="work__name">A Collection of Short Stories</h3><p class="work__cat">In progress</p></div>
+            <p class="work__text">Stories of Québécois roots — of anger, grief, nostalgia, denial, and love.</p>
+            </a>
+          </li>
+      </ul>
+      <div class="slide-row works__foot"><p>Laurie Legault</p><p>Personal</p></div>
+    </section>
+  </main>
+
+  <footer class="colophon colophon--dark framed framed--light framed--sides">
+    <p>© <span id="year">2026</span> Laurie Legault · <a href="index.html">Home</a></p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

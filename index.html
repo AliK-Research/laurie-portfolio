@@ -5,14 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Laurie Legault — Writer</title>
   <meta name="description" content="Laurie Legault is an emerging English writer from Québec City, now based in Montréal. Short fiction and the stories of her Québécois roots.">
-  <meta name="theme-color" content="#5a1418">
+  <meta name="theme-color" content="#7a0000">
   <meta name="color-scheme" content="light">
   <link rel="preload" href="assets/fonts/eb-garamond-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/cormorant-garamond-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/playfair-display-latin-800-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/montserrat-latin-700-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/montserrat-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <!-- Don't show the page until the contact section (the last one) exists,
-       so a jump to #projects or #contact can happen before the first frame -->
+       so a jump to #cv or #contact can happen before the first frame -->
   <link rel="expect" href="#contact" blocking="render">
   <script src="js/reveal.js"></script>
 </head>
@@ -24,117 +28,161 @@
       <a class="site-nav__name" href="#top">Laurie <em>Legault</em></a>
       <ul>
         <li><a href="#top" aria-current="page">Home</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="cv.html">CV</a></li>
+        <li><a href="#about">Bio</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="#cv">CV</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- =====================================================
-       FRONTISPIECE — portrait plate + title page
+       COVER — copied from the "Creative Portfolio" Canva slide
+       (its top row is the red nav bar above, shared with every page)
        ===================================================== -->
-  <header class="frontispiece" id="top">
-    <div class="masthead title-page">
-      <h1 class="title-page__name">Laurie <span>Legault</span></h1>
-      <p class="title-page__sub"><em>Creative Writer — Portfolio</em></p>
-      <p class="title-page__place">Québec City · Montréal</p>
-    </div>
-
-    <figure class="plate">
-      <div class="plate__frame">
-        <img
-          src="assets/img/Laurie_photo-640.webp"
-          srcset="assets/img/Laurie_photo-640.webp 640w, assets/img/Laurie_photo-1000.webp 1000w"
-          sizes="(min-width: 60rem) 26rem, 72vw"
-          width="640" height="853"
-          alt="Portrait of Laurie Legault.">
-      </div>
-    </figure>
-
-    <div class="title-page">
-      <div class="prose title-page__bio">
-        <p class="dropcap">Born and raised in Québec City, Laurie Legault is an emerging English writer. Bilingual in French and English, she grew up on the Valcartier military base and attended the Dollard-des-Ormeaux English school, where she gained her writing confidence through yearly nominations for poetry slams.</p>
-        <p>Later, she began writing fiction on an online platform and gained over ten thousand readers, prompting her to pursue her writing more seriously. By the time she graduated high school, Laurie won the Quebec Chronicle Telegraph English Prize award and went on to complete a DEC in languages.</p>
-        <p>Today, Laurie lives in Montréal and is a third-year creative writing major with a minor in professional writing. She continues to expand and polish her narrative voice through a collection of short stories, one of which, <cite>Sandhill Cranes</cite>, has been featured in Humber College’s student-run literature and art magazine, <cite>Arrival</cite>. In her pieces, Laurie embraces her Québécois roots and explores themes of anger, grief, nostalgia, denial, and love, while continuing to draw inspiration from her and her family’s lives. She hopes to pursue a career in fiction writing and novel editing.</p>
+  <header class="cover" id="top">
+    <div class="cover__sheet">
+      <h1 class="cover__title">
+        <span class="cover__script">Writer</span>
+        <span class="cover__caps">Portfolio</span>
+      </h1>
+      <div class="slide-row cover__row">
+        <p>Writer</p>
+        <p class="dots" aria-hidden="true"><span></span><span></span><span></span></p>
+        <p>Montréal · Québec</p>
       </div>
     </div>
+    <!-- The photo band: set in css/style.css (.cover__photo), files in assets/img/cover-photo-*.webp -->
+    <div class="cover__photo" role="presentation"></div>
   </header>
 
   <main>
+  <!-- =====================================================
+       ABOUT ME — copied from the "About Me" Canva slide:
+       white sheet, text on the left, photo on the right
+       ===================================================== -->
+  <section class="about fade" id="about" aria-labelledby="about-title">
+    <!-- Empty top band between two fine red lines, as on the slide (no text) -->
+    <div class="about__head" aria-hidden="true"><div class="about__band"></div></div>
+    <div class="about__body">
+      <div class="about__text">
+        <h2 id="about-title" class="about__title">About Me</h2>
+        <div class="about__bio">
+          <p>Born and raised in Québec City, Laurie Legault is an emerging English writer. Bilingual in French and English, she grew up on the Valcartier military base and attended the Dollard-des-Ormeaux English school, where she gained her writing confidence through yearly nominations for poetry slams.</p>
+          <p>Later, she began writing fiction on an online platform and gained over ten thousand readers, prompting her to pursue her writing more seriously. By the time she graduated high school, Laurie won the Quebec Chronicle Telegraph English Prize and went on to complete a DEC in languages.</p>
+          <p>Today, Laurie lives in Montréal and is a third-year creative writing major with a minor in professional writing. She continues to expand and polish her narrative voice through a collection of short stories, one of which, <cite>Sandhill Cranes</cite>, has been featured in Humber College’s student-run literature and art magazine, <cite>Arrival</cite>. In her pieces, Laurie embraces her Québécois roots and explores themes of anger, grief, nostalgia, denial, and love, while continuing to draw inspiration from her and her family’s lives. She hopes to pursue a career in fiction writing and novel editing.</p>
+        </div>
+        <div class="about__more">
+          <p class="dots" aria-hidden="true"><span></span><span></span><span></span></p>
+          <a class="about__more-link" href="more-about-me.html">Read more about me</a>
+        </div>
+      </div>
+      <div class="about__photo">
+        <img
+          src="assets/img/Laurie_photo-640.webp"
+          srcset="assets/img/Laurie_photo-640.webp 640w, assets/img/Laurie_photo-1000.webp 1000w"
+          sizes="(min-width: 56rem) 44vw, 100vw"
+          width="640" height="853"
+          alt="Portrait of Laurie Legault.">
+      </div>
+    </div>
+  </section>
     <!-- =====================================================
-         II. PROJECTS — two columns: academic and personal
-         To add a project: copy one <li class="project"> block
-         into the right list and change the text.
+         CV & COVER LETTER — after the Canva "Working Experiences" slide:
+         red striped sheet, title on the left, the two documents
+         as tilted sheets of paper on the right (CV on top)
          ===================================================== -->
-    <section class="projects" id="projects" aria-labelledby="projects-title">
-      <div class="projects__inner">
-        <h2 id="projects-title">Projects</h2>
+    <section class="cv framed framed--light fade" id="cv" aria-labelledby="cv-title">
+      <div class="cv__text">
+        <h2 class="cv__title" id="cv-title">
+          <span class="cv__script">Working</span>
+          <span class="cv__caps">Experiences</span>
+        </h2>
+        <div class="cv__entry">
+          <h3 class="cv__entry-title">CV &amp;<br>Cover Letter</h3>
+          <p class="cv__links">
+            <a href="assets/docs/laurie-legault-cv.pdf" target="_blank" rel="noopener noreferrer">View CV</a>
+            <!-- TODO (placeholder): when the cover letter PDF arrives, turn this <span> into
+                 <a href="assets/docs/laurie-legault-cover-letter.pdf" target="_blank" rel="noopener noreferrer">View Cover Letter</a> -->
+            <span class="cv__pending" title="Coming soon">View Cover Letter</span>
+          </p>
+        </div>
+      </div>
 
-        <div class="projects__columns">
-          <div class="projects__group">
-            <h3>Academic</h3>
-            <ul class="projects__list">
-              <li class="project">
-                <p class="project__meta">Short story · Published in <cite>Arrival</cite></p>
-                <h4 class="project__title"><cite>Sandhill Cranes</cite></h4>
-                <p>Featured in <cite>Arrival</cite>, Humber College’s student-run literature and art magazine.</p>
-                <!-- TODO: add a link to the story or the issue -->
-              </li>
-              <li class="project">
-                <p class="project__meta">Content pitch · Quebec Writers’ Federation</p>
-                <h4 class="project__title"><a href="project-qwf-pitch.html">Guiding Quebec’s Emerging Writers</a></h4>
-                <p>Three content ideas to help emerging writers find their way in Québec’s literary world: a resource hub, a podcast, and a live showcase.</p>
-              </li>
-              <li class="project">
-                <p class="project__meta">Student profile</p>
-                <h4 class="project__title"><a href="project-student-profile.html">No Map? No Problem!</a></h4>
-                <p>Third-year Journalism student Louis Paillier embraces the uncertainty of what comes next while exploring his interests in sports, writing, and cooking.</p>
-              </li>
-              <li class="project">
-                <p class="project__meta">Award</p>
-                <h4 class="project__title">Quebec Chronicle Telegraph English Prize</h4>
-                <p>Won by the time she graduated high school.</p>
-              </li>
-            </ul>
-          </div>
-
-          <div class="projects__group">
-            <h3>Personal Projects</h3>
-            <ul class="projects__list">
-              <li class="project">
-                <p class="project__meta">Online fiction · Wattpad</p>
-                <h4 class="project__title">Stories on Wattpad</h4>
-                <p>Fiction shared on Wattpad, where her stories reached over ten thousand readers.</p>
-              </li>
-              <li class="project">
-                <p class="project__meta">Collection · In progress</p>
-                <h4 class="project__title">A Collection of Short Stories</h4>
-                <p>Stories of Québécois roots — of anger, grief, nostalgia, denial, and love.</p>
-              </li>
-            </ul>
+      <div class="cv__papers">
+        <svg class="cv__star cv__star--top" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 0C12.05 10.9 13.1 11.95 24 12 13.1 12.05 12.05 13.1 12 24 11.95 13.1 10.9 12.05 0 12 10.9 11.95 11.95 10.9 12 0Z"/></svg>
+        <svg class="cv__star cv__star--side" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 0C12.05 10.9 13.1 11.95 24 12 13.1 12.05 12.05 13.1 12 24 11.95 13.1 10.9 12.05 0 12 10.9 11.95 11.95 10.9 12 0Z"/></svg>
+        <!-- Back sheet: the cover letter.
+             TODO (placeholder): when it arrives, turn this <div> into
+             <a class="sheet sheet--letter" href="assets/docs/laurie-legault-cover-letter.pdf" target="_blank" rel="noopener noreferrer">
+             with <img src="assets/docs/cover-letter-preview.webp" alt="First page of Laurie Legault's cover letter"> inside. -->
+        <div class="sheet sheet--letter">
+          <div class="sheet__blank">
+            <p class="sheet__blank-name">Laurie Legault</p>
+            <p class="sheet__blank-title">Cover Letter</p>
+            <p class="sheet__blank-note">Coming soon</p>
           </div>
         </div>
+        <!-- Front sheet: the CV (phone number and address blurred; original kept in private/) -->
+        <a class="sheet sheet--cv" href="assets/docs/laurie-legault-cv.pdf" target="_blank" rel="noopener noreferrer">
+          <img src="assets/docs/cv-preview.webp" width="800" height="1035" alt="Laurie Legault's CV, first page (opens the PDF)">
+        </a>
       </div>
     </section>
 
     <!-- =====================================================
          III. CORRESPONDENCE — contact
          ===================================================== -->
-    <section class="correspondence" id="contact" aria-labelledby="corr-title">
-      <h2 id="corr-title">Write to Laurie</h2>
-      <p>Interested with my work? Let's get in touch!</p>
-      <!-- TODO (placeholders): replace with Laurie's real email and accounts.
-           One line per contact; copy a <li> to add one (e.g. Substack, Goodreads). -->
-      <ul class="contact-list" aria-label="Contact and social media">
-        <li><a href="mailto:hello@example.com"><span class="contact-list__label">Email</span> <span class="contact-list__value">hello@example.com</span></a></li>
-        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><span class="contact-list__label">Instagram</span> <span class="contact-list__value">@handle</span></a></li>
-        <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><span class="contact-list__label">LinkedIn</span> <span class="contact-list__value">Laurie Legault</span></a></li>
-      </ul>
+    <section class="correspondence framed fade" id="contact" aria-labelledby="corr-title">
+      <!-- Fits one screen: intro + direct links on the left, form on the right (stacked on phones) -->
+      <div class="correspondence__inner">
+        <div class="correspondence__intro">
+          <h2 id="corr-title">Write to Laurie</h2>
+          <p>Interested with my work? Let's get in touch!</p>
+          <p class="contact-links">            <a href="mailto:laurielegault002@gmail.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="m3.6 6.6 8.4 6.6 8.4-6.6"/></svg>Email</a>
+            <a href="https://www.linkedin.com/in/laurie-legault" target="_blank" rel="noopener noreferrer"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn</a>
+          </p>
+        </div>
+
+        <!-- Contact form, handled by Netlify Forms: messages appear in the Netlify dashboard
+             (Forms → "contact") and can be emailed to Laurie. "company" is a hidden spam trap. -->
+        <!-- The form and, once sent, the thank-you card share this spot (same size, nothing moves) -->
+        <div class="letter-slot">
+        <form class="letter-form" name="contact" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="company">
+          <input type="hidden" name="form-name" value="contact">
+          <p class="visually-hidden"><label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+          <p class="letter-form__field">
+            <label for="cf-name">Your name <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+          </p>
+          <p class="letter-form__field">
+            <label for="cf-email">Your email <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="200" required>
+          </p>
+          <p class="letter-form__field">
+            <label for="cf-message">Message <span class="req" aria-hidden="true">*</span></label>
+            <textarea id="cf-message" name="message" rows="5" maxlength="5000" required></textarea>
+          </p>
+          <!-- Notes (red) appear to the left of the button: a missing field, or a failed send -->
+          <p class="letter-form__send">
+            <span class="letter-form__note letter-form__missing" role="alert" hidden>Please fill all the required fields.</span>
+            <span class="letter-form__note letter-form__error" role="alert" hidden>Sorry, the message couldn't be sent. Please try again, or write by email.</span>
+            <button type="submit">Send</button>
+          </p>
+        </form>
+        <!-- Shown in place of the form once the message is sent (js/main.js).
+             Without JavaScript the form goes to thanks.html instead. -->
+        <div class="letter-sent" role="status" tabindex="-1" hidden>
+          <p class="letter-sent__title">Thank you!</p>
+          <p>I'll be in contact soon.</p>
+        </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="colophon">
+  <footer class="colophon framed fade">
     <p>© <span id="year">2026</span> Laurie Legault · <a href="#top">Home</a></p>
   </footer>
 
