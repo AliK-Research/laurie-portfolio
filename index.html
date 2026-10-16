@@ -146,12 +146,12 @@
         </div>
 
         <!-- Contact form, handled by Netlify Forms: messages appear in the Netlify dashboard
-             (Forms → "contact") and can be emailed to Laurie. "company" is a hidden spam trap. -->
+             (Forms → "contact") and can be emailed to Laurie. "bot-field" is a hidden spam trap (a name browsers never autofill). -->
         <!-- The form and, once sent, the thank-you card share this spot (same size, nothing moves) -->
         <div class="letter-slot">
-        <form class="letter-form" name="contact" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="company">
+        <form class="letter-form" name="contact" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact">
-          <p class="visually-hidden"><label>Leave this field empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+          <p class="visually-hidden"><label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
           <p class="letter-form__field">
             <label for="cf-name">Your name <span class="req" aria-hidden="true">*</span></label>
             <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required>

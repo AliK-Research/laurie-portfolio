@@ -153,3 +153,4 @@ What we've tried, what we kept, and what we dropped, so no idea gets tried twice
 - Awards: the line under the Quebec Chronicle Telegraph English Prize removed.
 - Awards: the prize card shows the certificate (photo turned upright, metadata removed: `assets/img/qct-english-prize.webp`; original in `private/`), whole in its box. Certificate details: Prize for Proficiency in the Secondary Five English Program, Dollard-des-Ormeaux School, June 2019.
 - Awards: the prize card opens the full certificate (`assets/img/qct-english-prize-full.webp`) in a new tab.
+- Contact form: spam-trap field renamed "company" → "bot-field". Browsers can autofill a "company" field (organisation), which made Netlify silently discard real messages as spam.
