@@ -127,6 +127,29 @@
     });
   }
 
+  /* ---- Email link: show and copy the address instead of opening a mail app ----
+     A mailto: link fails for visitors with no mail app set up (Gmail in the browser,
+     Windows asking "how do you want to open this?"). So clicking Email shows the address
+     and copies it; the address shown is itself a mailto: link for those who have a mail app.
+     Without JavaScript the Email link stays a plain mailto: link. */
+  const email = document.querySelector(".contact-email");
+  const copied = document.querySelector(".contact-copied");
+  if (email && copied) {
+    email.addEventListener("click", (e) => {
+      e.preventDefault();
+      const address = email.getAttribute("href").replace(/^mailto:/, "");
+      const link = document.createElement("a");
+      link.href = email.getAttribute("href");
+      link.textContent = address;
+      const status = document.createElement("span");
+      copied.replaceChildren(link, status);
+      copied.hidden = false;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(address).then(() => { status.textContent = " · copied"; }, () => {});
+      }
+    });
+  }
+
   /* ---- Current year in the colophon ---- */
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());

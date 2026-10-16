@@ -19,7 +19,7 @@
 
   // The red bar turns dark on the Projects pages. Coming from a page of the other
   // colour, fade the bar from the old colour to the new one.
-  const dark = /\/(project(s|-[\w-]+)|awards)(\.html)?\/?$/.test(location.pathname);   // Projects, each project page, Awards
+  const dark = /\/(project(s|-[\w-]+)|awards|award-[\w-]+)(\.html)?\/?$/.test(location.pathname);   // Projects, each project page, Awards, each award page
   let wasDark = null;
   try { wasDark = sessionStorage.getItem("nav-dark"); } catch {}
   if (wasDark !== null && (wasDark === "1") !== dark) root.classList.add(dark ? "nav-fade-to-dark" : "nav-fade-to-red");
