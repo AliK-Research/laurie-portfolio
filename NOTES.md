@@ -171,3 +171,5 @@ What we've tried, what we kept, and what we dropped, so no idea gets tried twice
 - Links: "Read the full work" → "View the work", "See the full certificate" → "View the certificate".
 - All "work-detail__links" link texts are now just "View" (pitch, profile, certificate); Sandhill Cranes keeps "Read it in Arrival".
 - README: Security section removed; link to the live site (https://laurie-legault.netlify.app) added.
+- Cover photo band: while the photo loads it now shows the cover red (--scarlet) instead of the olive green #6b6a3c, and the photo is preloaded in the <head> (1920 or 1200 version depending on the screen) so it appears sooner.
+- Sandhill Cranes page: crane picture a little smaller (max 22rem, and its height leaves room for the caption), so the page fits one screen. Checked 1024×768, 1280×680, 1280×800, 1366×768, 1440×900.

@@ -289,7 +289,7 @@ cite { font-style: italic; }
 }
 /* The photo band (ivy walls). To change it, replace the two cover-photo files in assets/img/ */
 .cover__photo {
-  background: url("../assets/img/cover-photo-1920.webp") center 45% / cover no-repeat, #6b6a3c;
+  background: url("../assets/img/cover-photo-1920.webp") center 45% / cover no-repeat, var(--scarlet);   /* red of the cover until the photo arrives */
 }
 /* Phones and small tablets: the lighter copy */
 @media (max-width: 48rem) {
@@ -603,7 +603,7 @@ cite { font-style: italic; }
   transition: transform .35s ease;
 }
 .work-detail__paper img { width: 100%; height: auto; }
-.work-detail__paper--plate { width: min(100%, 24rem, (100svh - var(--nav-h) - var(--footer-h) - 6rem) * .668); }   /* crane plate */
+.work-detail__paper--plate { width: min(100%, 22rem, (100svh - var(--nav-h) - var(--footer-h) - 11rem) * .668); }   /* crane plate: picture + its caption fit on one screen */
 .work-detail__paper--certificate { width: min(100%, 36rem); }   /* landscape certificate */
 .work-detail__paper--logo { display: grid; place-items: center; width: min(100%, 22rem); aspect-ratio: 1; }   /* on paper (.work-detail__paper), like its card on Projects */
 .work-detail__paper--logo svg { width: 45%; height: auto; fill: #ff500a; }
