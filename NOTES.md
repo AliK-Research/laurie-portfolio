@@ -180,3 +180,5 @@ What we've tried, what we kept, and what we dropped, so no idea gets tried twice
 - Awards: the Dean's List card opens https://www.concordia.ca/artsci/about/awards/deans-list.html in a new tab, scrolled to and highlighting "Laurie Legault" (text-fragment link; Chrome/Edge/Safari). The page currently shows the 2024–2025 list, where her name appears.
 - Dean's List card text: "Named to the Dean’s List during her time at Concordia University."
 - Dean's List link now points to a permanent Internet Archive snapshot (20 Oct 2026) of the 2024–2025 list, still highlighting her name; the live Concordia page changes every year. Backup screenshots (heading + her name) in `private/` (not published).
+- Dean's List card back on the official Concordia page (user's choice); the Internet Archive copy is kept as a note in awards.html for when the list changes.
+- Dean's List card: the cream sheet is smaller (78% of the box, centred, with a shadow, no box behind), like the crane and certificate pictures; title slightly smaller.
