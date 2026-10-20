@@ -546,6 +546,17 @@ cite { font-style: italic; }
 /* A logo instead of a picture (Wattpad: the "W" mark from Simple Icons, in Wattpad orange) */
 .work__img--logo { display: grid; place-items: center; background: #fbf8ea; }   /* on paper, like the pages of the works */
 .work__img--logo svg { width: 42%; height: auto; fill: #ff500a; }
+/* No picture: a sheet of paper with a name on it (Dean's List) */
+.work__img--note {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+  padding: 1rem;
+  background: #fbf8ea;
+  color: var(--scarlet);
+  text-align: center;
+}
+.work__img--note p { margin: 0; }
+.work__note-title { font-family: var(--cover-script); font-weight: 800; font-style: italic; font-size: clamp(1.4rem, 1rem + 1.4vw, 2.2rem); letter-spacing: -.02em; line-height: 1; }
+.work__note-sub { font-family: var(--cover-sans); font-weight: 600; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; }
 /* Cards with their own page: the whole card is the link */
 .work__link { display: block; color: inherit; text-decoration: none; }
 .work__link:hover { color: inherit; }
@@ -607,6 +618,7 @@ cite { font-style: italic; }
 .work-detail__paper--certificate { width: min(100%, 36rem); }   /* landscape certificate */
 .work-detail__paper--logo { display: grid; place-items: center; width: min(100%, 22rem); aspect-ratio: 1; }   /* on paper (.work-detail__paper), like its card on Projects */
 .work-detail__paper--logo svg { width: 45%; height: auto; fill: #ff500a; }
+.work-detail__paper--wide { width: min(100%, 38rem); }   /* a landscape page (slides) */
 .work-detail__paper--book { width: min(100%, 24rem, (100svh - var(--nav-h) - var(--footer-h) - 6rem) * .626); }   /* book proportions */
 a.work-detail__paper:hover,
 a.work-detail__paper:focus-visible { transform: translateY(-6px); }
