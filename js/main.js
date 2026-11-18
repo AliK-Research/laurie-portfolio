@@ -34,6 +34,71 @@
   setHeights();
   addEventListener("resize", setHeights);
 
+  /* ---- Galleries of cards (Projects, Awards): glide left / right like walking past paintings ----
+     Arrows appear only when there are more cards than fit. Swipe, trackpad and ← → keys work too.
+     Without JavaScript the row simply scrolls sideways. */
+  const svgNS = "http://www.w3.org/2000/svg";
+  const arrow = (d) => {
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", d);
+    svg.append(path);
+    return svg;
+  };
+  document.querySelectorAll(".gallery").forEach((gallery) => {
+    const track = gallery.querySelector(".works__row");
+    if (!track) return;
+    const cards = () => [...track.children];
+    const makeButton = (dir) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "gallery__btn gallery__btn--" + dir;
+      b.setAttribute("aria-label", dir === "prev" ? "Previous" : "Next");
+      b.append(arrow(dir === "prev" ? "M15 5l-7 7 7 7" : "M9 5l7 7-7 7"));
+      b.hidden = true;
+      gallery.append(b);
+      return b;
+    };
+    const prev = makeButton("prev");
+    const next = makeButton("next");
+    const step = () => {
+      const card = cards()[0];
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.8;
+    };
+    const glide = (dir) => track.scrollBy({ left: dir * step(), behavior: reduceMotion.matches ? "auto" : "smooth" });
+    prev.addEventListener("click", () => glide(-1));
+    next.addEventListener("click", () => glide(1));
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        e.preventDefault();
+        glide(e.key === "ArrowLeft" ? -1 : 1);
+      }
+    });
+    const update = () => {
+      const scrollable = track.scrollWidth > track.clientWidth + 2;
+      gallery.classList.toggle("is-scrollable", scrollable);
+      prev.hidden = next.hidden = !scrollable;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+      // Cards at least 3/4 in view are lit; the others are dimmed (CSS, only while the row glides).
+      // Measured from layout (offsetLeft), so a dimmed card's smaller size doesn't count.
+      const left = track.scrollLeft, right = left + track.clientWidth;
+      cards().forEach((c) => {
+        const a = c.offsetLeft, b = a + c.offsetWidth;
+        const shown = Math.max(0, Math.min(b, right) - Math.max(a, left));
+        c.classList.toggle("is-in-view", shown >= c.offsetWidth * 0.75);
+      });
+    };
+    track.addEventListener("scroll", update, { passive: true });
+    new ResizeObserver(update).observe(track);
+    // Cards added or removed later: check again
+    new MutationObserver(update).observe(track, { childList: true });
+    update();
+  });
+
   /* ---- Sections fade into view as you scroll (when scrolling down) ----
      Only sections marked class="fade". Without JavaScript they are simply visible. */
   const fading = document.querySelectorAll(".fade");

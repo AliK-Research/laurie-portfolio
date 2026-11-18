@@ -546,6 +546,7 @@ cite { font-style: italic; }
 /* A logo instead of a picture (Wattpad: the "W" mark from Simple Icons, in Wattpad orange) */
 .work__img--logo { display: grid; place-items: center; background: #fbf8ea; }   /* on paper, like the pages of the works */
 .work__img--logo svg { width: 42%; height: auto; fill: #ff500a; }
+.work__img--logo img { width: 52%; height: auto; object-fit: contain; }   /* a logo image (CAFC) on the same paper */
 /* No picture: a sheet of paper with a name on it (Dean's List) */
 .work__img--note {   /* like the other pictures: a smaller sheet standing in the box, no box behind it */
   display: grid; place-items: center;
@@ -599,6 +600,66 @@ cite { font-style: italic; }
   .work__text { text-align: left; }   /* justified leaves big gaps in narrow cards */
   .works__foot { gap: .5rem; letter-spacing: .1em; }
 }
+/* ---------- Gallery: a row of cards you glide through, like walking past paintings ----------
+   When all the cards fit, nothing changes. When there are more than fit (js/main.js adds
+   .is-scrollable), the row glides left/right: arrow buttons, swipe, trackpad or ← → keys,
+   one card at a time, each settling in place; cards at the edges fade into the dark and
+   cards not fully in view are dimmed. Phones: one big card at a time, the next one peeking. */
+.gallery { position: relative; width: min(62rem, 100%); margin: auto; }
+.gallery .works__row {
+  position: relative;               /* cards measure their place from the row (js/main.js) */
+  width: 100%;
+  margin: -1.25rem 0;                 /* room for a card growing on hover… */
+  padding: 1.25rem .75rem;            /* …without being cut by the scroll box */
+  justify-content: flex-start;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.gallery .works__row::-webkit-scrollbar { display: none; }
+.gallery .work { flex-shrink: 0; scroll-snap-align: center; transition: transform .35s ease, opacity .5s ease; }
+.gallery .work:first-child { margin-left: auto; }   /* centred while everything fits, */
+.gallery .work:last-child { margin-right: auto; }   /* still reachable once it overflows */
+.gallery.is-scrollable .works__row {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.gallery.is-scrollable .work:not(.is-in-view) { opacity: .4; transform: scale(.94); }
+/* Arrow buttons (added by js/main.js) */
+.gallery__btn {
+  position: absolute; top: 40%; z-index: 2;
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgb(252 242 219 / .35);
+  background: rgb(31 31 31 / .75);
+  color: var(--cream);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background-color .25s ease, color .25s ease, opacity .25s ease;
+}
+.gallery__btn svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.gallery__btn--prev { left: 0; }
+.gallery__btn--next { right: 0; }
+.gallery__btn:hover:not(:disabled) { background: var(--cream); color: var(--night); }
+.gallery__btn:focus-visible { outline: 2px dashed var(--cream); outline-offset: 3px; }
+.gallery__btn:disabled { opacity: .25; cursor: default; }
+.gallery__btn[hidden] { display: none; }
+@media (min-width: 72rem) {   /* wide screens: the arrows sit outside the row, like on a gallery wall */
+  .gallery__btn--prev { left: -4rem; }
+  .gallery__btn--next { right: -4rem; }
+}
+@media (max-width: 48rem) {   /* phones: swipe, one card at a time */
+  .gallery .works__row { flex-wrap: nowrap; gap: 1rem; padding-inline: 12%; }
+  .gallery .work { flex: 0 0 76%; }
+  .gallery__btn { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery .works__row { scroll-behavior: auto; }
+  .gallery .work { transition: none; }
+}
 #academic, #personal { scroll-margin-top: var(--nav-h); }   /* "← Academic works" / "← Personal works" land right under the bar */
 /* ---------- One project (project-*.html): preview left, details right ---------- */
 .work-detail {
@@ -624,6 +685,18 @@ cite { font-style: italic; }
 .work-detail__paper--certificate { width: min(100%, 36rem); }   /* landscape certificate */
 .work-detail__paper--logo { display: grid; place-items: center; width: min(100%, 22rem); aspect-ratio: 1; }   /* on paper (.work-detail__paper), like its card on Projects */
 .work-detail__paper--logo svg { width: 45%; height: auto; fill: #ff500a; }
+.work-detail__paper--logo img { width: 55%; height: auto; }
+/* No picture: a sheet of paper with the name of the honour (Dean's List), like its card on Awards */
+.work-detail__paper--note {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+  width: min(100%, 22rem); aspect-ratio: 8.5 / 11;
+  padding: 2rem;
+  color: var(--scarlet);
+  text-align: center;
+  text-decoration: none;
+}
+.work-detail__note-title { font-family: var(--cover-script); font-weight: 800; font-style: italic; font-size: clamp(2.2rem, 1.6rem + 2vw, 3.2rem); letter-spacing: -.02em; line-height: 1; }
+.work-detail__note-sub { font-family: var(--cover-sans); font-weight: 600; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; }
 .work-detail__paper--wide { width: min(100%, 38rem); }   /* a landscape page (slides) */
 .work-detail__paper--book { width: min(100%, 24rem, (100svh - var(--nav-h) - var(--footer-h) - 6rem) * .626); }   /* book proportions */
 a.work-detail__paper:hover,
@@ -666,6 +739,15 @@ a.work-detail__paper:focus-visible { outline: 2px dashed var(--cream); outline-o
 @media (min-width: 56rem) {
   .work-detail { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .work-detail__preview { justify-content: flex-end; }
+}
+/* Short laptop screens: tighter text so each project / award page still fits one screen */
+@media (min-width: 56rem) and (max-height: 45rem) {
+  .work-detail { padding-block: 1rem; }
+  .work-detail__back { margin-bottom: .9rem; }
+  .work-detail__course { margin-bottom: .6rem; font-size: clamp(2rem, 1.4rem + 2vw, 3rem); }
+  .work-detail__purpose { margin: 1rem 0 1.1rem; font-size: .88rem; line-height: 1.55; }
+  .work-detail__skills { line-height: 1.55; font-size: .85rem; }
+  .work-detail__links { margin-top: 1.1rem; }
 }
 
 /* Footer on the dark page */
