@@ -236,12 +236,22 @@
      outside, or a button) it stays closed until the page is reloaded. */
   const pop = document.getElementById("bib-pop");
   if (pop && typeof pop.show === "function") {
-    let closed = false;                             // forgotten on reload, so it comes back each time the page loads
+    // Shown once per visit, and again on every reload. Coming back to the page by a link or the Back button
+    // (e.g. from Laurie's portfolio) after it was already shown: not again. Also not right after the
+    // footer's "La bibitte à sucre" link (data-no-pop).
+    let closed = false;
+    const nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    const reloaded = !!nav && nav.type === "reload";
+    try {
+      if (sessionStorage.getItem("bib-no-pop") === "1") { closed = true; sessionStorage.removeItem("bib-no-pop"); }
+      else if (!reloaded && sessionStorage.getItem("bib-pop-seen") === "1") closed = true;
+    } catch (e) { /* storage blocked: just show it */ }
     const close = () => { closed = true; pop.close(); };
     const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
     const check = () => {
       if (closed || pop.open || !atBottom()) return;
       pop.showModal();                              // centred, page dimmed behind; focus goes into it
+      try { sessionStorage.setItem("bib-pop-seen", "1"); } catch (e) { /* ignore */ }
       pop.focus();                                  // start on the card itself, not on the × button
       window.removeEventListener("scroll", check);
     };
@@ -297,6 +307,12 @@
     player.addEventListener("cancel", (e) => { e.preventDefault(); closePlayer(); });   // Esc
     player.addEventListener("click", (e) => { if (e.target === player) closePlayer(); });
   }
+
+  /* ---- Links marked data-no-pop (the Bibitte footer's "La bibitte à sucre"): the page they open
+     doesn't show the subscribe pop-up that time ---- */
+  document.querySelectorAll("a[data-no-pop]").forEach((link) => {
+    link.addEventListener("click", () => { try { sessionStorage.setItem("bib-no-pop", "1"); } catch (e) { /* ignore */ } });
+  });
 
   /* ---- Current year in the colophon ---- */
   const year = document.getElementById("year");

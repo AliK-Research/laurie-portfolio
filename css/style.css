@@ -1523,9 +1523,6 @@ html:has(body.bibitte) { background: #2b170b; }   /* dark caramel behind it all 
 .bibitte .bib-pop__close { color: #7a5a44; }
 .bibitte .bib-pop__close:hover, .bibitte .bib-pop__close:focus-visible { background: rgb(58 36 20 / .08); color: #3a2414; }
 .bibitte .bib-pop__title { margin-top: .6rem; }   /* no small "Paid content" line above it any more */
-/* Footer: "La bibitte à sucre" takes you back up to the title page (smooth scroll from js/main.js) */
-.bibitte .bib-foot__top { text-decoration: none; }
-.bibitte .bib-foot__top:hover, .bibitte .bib-foot__top:focus-visible { text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px; }
 /* "See paid content": an outlined pill like the bar, leading to the Paid content page */
 .bibitte .bib-card__more {
   display: inline-block; margin-top: 1.4rem; padding: .6rem 1.5rem;
