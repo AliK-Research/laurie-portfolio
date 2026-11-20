@@ -723,6 +723,7 @@ a.work-detail__paper:focus-visible { outline: 2px dashed var(--cream); outline-o
 .work-detail__date,
 .work-detail__label {
   margin: 0;
+  font-family: var(--cover-sans);   /* the same Montserrat as the rest of the page's text (it was inheriting Cormorant) */
   font-weight: 600;
   font-size: .7rem;
   letter-spacing: .2em;
