@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La bibitte à sucre · Sweet bug</title>
+  <meta name="description" content="La bibitte à sucre (sweet bug): Laurie Legault’s newsletter and more.">
+  <meta name="theme-color" content="#2b170b">
+  <meta name="color-scheme" content="light">
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/oranienbaum-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/nunito-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/nunito-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <!-- Don't show the page until the last section exists, so a jump to #newsletter, #paid-content
+       or #about can happen before the first frame (as on the portfolio's home page) -->
+  <link rel="expect" href="#about" blocking="render">
+  <script src="../js/reveal.js"></script>
+</head>
+<!-- =====================================================
+     LA BIBITTE À SUCRE — Laurie's "sweet bug" corner: a little site of its own inside
+     the portfolio (folder bibitte/). Title screen and bar after Laurie's brand concept PDF
+     (caramel photo, Oranienbaum + Poppins, white pill bar); below it the newsletter colour chips,
+     then the peach band with rounded cards, wavy edges between the bands.
+     Styles: "BIBITTE" in css/style.css. Text marked "placeholder" is waiting for Laurie's words.
+     ===================================================== -->
+<body class="bibitte">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- The bar, after Laurie's brand concept ("LEGlaurie_La Bibitte A Sucre_Brand Concept.pdf"):
+       a white-outlined pill floating over the page — "Laurie Legault" (back to the portfolio) on the left,
+       "*Sweet Bug*" in the middle, the links on the right. Part of the title page: it scrolls away with it. -->
+  <nav class="bib-pill" aria-label="La bibitte à sucre">
+    <a class="bib-pill__me" href="../index.html">Laurie Legault</a>
+    <a class="bib-pill__brand" href="#top"><span aria-hidden="true">*</span>Sweet Bug<span aria-hidden="true">*</span></a>
+    <ul class="bib-pill__links">
+      <li><a href="#newsletter">Newsletter</a></li>
+      <li><a href="#paid-content">Paid content</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#top" aria-current="page">Home</a></li>
+    </ul>
+  </nav>
+
+  <!-- First screen, after the brand concept: the caramel photo (darkened) filling the screen, the name in
+       tall white capitals (Oranienbaum), "*Sweet Bug*" and a long thin line after "SUCRE" (Poppins). -->
+  <header class="bib-hero" id="top">
+    <h1 class="bib-hero__title">
+      <span class="bib-hero__line">La bibitte à</span>
+      <span class="bib-hero__line bib-hero__line--2"><span>Sucre</span><span class="bib-hero__sweet"><span aria-hidden="true">*</span>Sweet Bug<span aria-hidden="true">*</span></span><span class="bib-hero__rule" aria-hidden="true"></span></span>
+    </h1>
+  </header>
+
+
+    <main id="main">
+  <!-- NEWSLETTER — a copy of the Pantone croissant photo: white background, two columns of colour chips
+       touching each other (the right column set higher), each chip a flat colour swatch with a white label
+       below (bold capitals, then the name); the recipe photo sits half on the swatch, half off, sticking
+       out to the left in the left column and to the right in the right column.
+       The whole chip (photo included) is one link to that issue's PDF.
+       TO ADD AN ISSUE: put the PDF in assets/newsletters/ and the recipe photo (cut out, transparent .webp)
+       in assets/img/newsletters/, then add a block at the top of the list (newest first):
+         <li><a class="bib-issue bib-issue--almond" href="../assets/newsletters/issue-01.pdf" target="_blank" rel="noopener noreferrer">
+           <img class="bib-issue__photo" draggable="false" src="../assets/img/newsletters/issue-01.webp" width="…" height="…" alt="…" loading="lazy">
+           <span class="bib-issue__swatch"></span>
+           <span class="bib-issue__label"><span class="bib-issue__num">Issue 01</span><span class="bib-issue__name">Recipe name</span></span>
+         </a></li>
+       Swatch colours: --chocolate, --pistachio, --almond, --picante, --wheat, --sky. -->
+  <section class="bib-news fade" id="newsletter" aria-labelledby="newsletter-title">
+    <div class="bib-news__head">
+      <h2 class="bib-h2" id="newsletter-title">Newsletter</h2>
+      <!-- TODO (placeholder): what the newsletter is about and how often it comes out -->
+      <p class="bib-lead placeholder">Placeholder</p>
+      <!-- TODO: pick a newsletter service (e.g. Substack, Buttondown) and put its sign-up form here.
+           Its domain will need adding to _headers (form-action / connect-src). -->
+      <p class="bib-empty">Sign-up coming soon.</p>
+    </div>
+    <!-- Each chip links to assets/newsletters/issue-NN.pdf. Those PDFs are PLACEHOLDERS ("Coming soon"):
+         replace each file with the real newsletter under the same name. Issues 03–04 still need a recipe photo. -->
+    <ul class="bib-issues">
+      <!-- Issue 01: photo = pouding chômeur, TomMimo, Wikimedia Commons, CC0 (public domain), cut out. -->
+      <li><a class="bib-issue bib-issue--pistachio" href="../assets/newsletters/issue-01.pdf" target="_blank" rel="noopener noreferrer">
+        <img class="bib-issue__photo" draggable="false" src="../assets/img/newsletters/pouding-chomeur.webp" width="700" height="634" alt="A bowl of pouding chômeur with two scoops of vanilla ice cream" loading="lazy">
+        <span class="bib-issue__swatch"></span>
+        <span class="bib-issue__label"><span class="bib-issue__num">Issue 01</span><span class="bib-issue__name">Pouding chômeur</span></span>
+      </a></li>
+      <!-- Issue 02: photo = croustade aux pommes in little white dishes, Josianne Pinard, Unsplash
+           (Unsplash Licence: free, no credit required); one dish, cut out by the user
+           (macOS Remove Background, ~/Desktop/croustade.png), edges smoothed. https://unsplash.com/photos/dnDYryt_bQM -->
+      <li><a class="bib-issue bib-issue--chocolate" href="../assets/newsletters/issue-02.pdf" target="_blank" rel="noopener noreferrer">
+        <img class="bib-issue__photo" draggable="false" src="../assets/img/newsletters/croustade-aux-pommes.webp" width="760" height="674" alt="A little white dish of croustade aux pommes, seen from above" loading="lazy">
+        <span class="bib-issue__swatch"></span>
+        <span class="bib-issue__label"><span class="bib-issue__num">Issue 02</span><span class="bib-issue__name">Croustade aux pommes</span></span>
+      </a></li>
+      <li><a class="bib-issue bib-issue--picante" href="../assets/newsletters/issue-03.pdf" target="_blank" rel="noopener noreferrer">
+        <span class="bib-issue__slot">Recipe photo</span>
+        <span class="bib-issue__swatch"></span>
+        <span class="bib-issue__label"><span class="bib-issue__num">Issue 03</span><span class="bib-issue__name">Placeholder</span></span>
+      </a></li>
+      <li><a class="bib-issue bib-issue--almond" href="../assets/newsletters/issue-04.pdf" target="_blank" rel="noopener noreferrer">
+        <span class="bib-issue__slot">Recipe photo</span>
+        <span class="bib-issue__swatch"></span>
+        <span class="bib-issue__label"><span class="bib-issue__num">Issue 04</span><span class="bib-issue__name">Placeholder</span></span>
+      </a></li>
+    </ul>
+  </section>
+
+  <div class="bib-band">
+    <div class="bib-cards">
+      <section class="bib-card fade" id="paid-content" aria-labelledby="paid-title">
+        <h2 class="bib-h2" id="paid-title">Paid content</h2>
+        <!-- TODO (placeholder): what readers get with paid content, and the price -->
+        <p class="bib-lead placeholder">Placeholder</p>
+        <!-- TODO: pick a payment service (e.g. Ko-fi, Patreon, Substack paid subscriptions) and link to it here.
+             Payments happen on that service's site, never on this one. -->
+        <p class="bib-lead bib-empty">Coming soon.</p>
+      </section>
+
+      <section class="bib-card fade" id="about" aria-labelledby="about-title">
+        <h2 class="bib-h2" id="about-title">About</h2>
+        <!-- TODO (placeholder): Laurie's words about La bibitte à sucre (the name, the idea, who it's for) -->
+        <p class="bib-lead placeholder">Placeholder</p>
+      </section>
+    </div>
+  </div>
+  </main>
+
+  <footer class="colophon bib-foot fade">
+    <p>© <span id="year">2026</span> Laurie Legault · <em>La bibitte à sucre</em> · <a href="../index.html">Laurie’s portfolio</a></p>
+  </footer>
+
+  <!-- SUBSCRIBE POP-UP — appears in the middle of the screen when the reader reaches the end of the page
+       (once per page load: it comes back after a reload). Shown by js/main.js.
+       TODO: Laurie's Patreon address on "Become a patron"; "Subscribe for free" goes to the Newsletter
+       section (where the free sign-up form will go once a newsletter service is chosen). -->
+  <dialog class="bib-pop" id="bib-pop" aria-labelledby="bib-pop-title" tabindex="-1">
+    <button class="bib-pop__close" type="button" aria-label="Close">&times;</button>
+    <h2 class="bib-pop__title" id="bib-pop-title">Sweet tooth?</h2>
+    <!-- One clear choice: the paid option (Patreon). Subscribing to the free newsletter is offered
+         underneath as the small alternative.
+         TODO: put Laurie's Patreon page address on "Become a patron" (opens in a new tab), e.g.
+         href="https://www.patreon.com/…" target="_blank" rel="noopener noreferrer". Until then it goes to Paid content. -->
+    <p class="bib-pop__text">Become a patron to access more exclusive&nbsp;content</p>
+    <div class="bib-pop__actions">
+      <a class="bib-pop__btn" href="#paid-content">Become a patron</a>
+    </div>
+    <p class="bib-pop__free">Just want the newsletter? <a class="bib-pop__free-link" href="#newsletter">Subscribe for&nbsp;free</a></p>
+    <div class="bib-pop__actions bib-pop__actions--last">
+      <button class="bib-pop__later" type="button">Maybe later</button>
+    </div>
+  </dialog>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

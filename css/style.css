@@ -13,6 +13,18 @@
 @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
 @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: block; }
 @font-face { font-family: "EB Garamond"; src: url("../assets/fonts/eb-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+/* La bibitte à sucre (bibitte/): softer, homier fonts — Fraunces (soft, "wonky" italic; variable) for titles,
+   Nunito (rounded) for text. Both SIL OFL. */
+@font-face { font-family: "Fraunces"; src: url("../assets/fonts/fraunces-latin-full-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: block; }
+@font-face { font-family: "Nunito"; src: url("../assets/fonts/nunito-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Nunito"; src: url("../assets/fonts/nunito-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: "Nunito"; src: url("../assets/fonts/nunito-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+/* La bibitte à sucre title screen, after Laurie's brand concept: Oranienbaum (tall, narrow, high-contrast serif) for the name,
+   Poppins for the bar and small lines. Both SIL OFL. */
+@font-face { font-family: "Oranienbaum"; src: url("../assets/fonts/oranienbaum-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Poppins"; src: url("../assets/fonts/poppins-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Poppins"; src: url("../assets/fonts/poppins-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "Poppins"; src: url("../assets/fonts/poppins-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
 /* Cover only: the faces closest to the Canva "Creative Portfolio" slide */
 @font-face { font-family: "Playfair Display"; src: url("../assets/fonts/playfair-display-latin-800-italic.woff2") format("woff2"); font-weight: 800; font-style: italic; font-display: block; }
 @font-face { font-family: "Montserrat"; src: url("../assets/fonts/montserrat-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
@@ -1097,3 +1109,406 @@ a.sheet--cv:focus-visible { transform: rotate(-3deg) translateY(-12px); }
   @view-transition { navigation: none; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+/* =========================================================
+   BIBITTE — "La bibitte à sucre ~ sweet bug ~" (folder bibitte/):
+   Laurie's little site inside the portfolio. Same fonts and fine lines,
+   but a sugar-pink bar on cream, with the portfolio red as the accent.
+   ========================================================= */
+/* Its link in the portfolio's top bar: pink, in the site's own soft italic, so it reads as a door to another place */
+.site-nav ul .site-nav__bibitte a {
+  /* the same lettering as "Laurie Legault" on the left of the bar, so both ends match */
+  font-family: var(--cover-sans);
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: .24em !important;
+  font-size: clamp(.72rem, .65rem + .25vw, .85rem) !important;
+  line-height: inherit;
+  color: var(--cream) !important;
+}
+.site-nav__bibitte a:hover,
+.site-nav__bibitte a:focus-visible { color: #fff !important; }
+/* Phones: the bars have two rows of links; this link (and "← Portfolio" in the pink bar) gets a centred row of its own */
+@media (max-width: 48rem) {
+  .site-nav__bibitte,
+  .bib-nav__back { flex-basis: 100%; text-align: center; }
+}
+/* Text waiting for Laurie's words */
+.placeholder { font-style: italic; color: var(--muted); }
+
+.bibitte {
+  /* Style "C · Pastel bakery" (chosen 2026-11-19 from the user's inspiration pictures):
+     sage green and peach, an elegant serif title, round peach buttons, wavy edges, rounded cards */
+  --sage: #e3ead9;                    /* the first screen and the bar */
+  --sage-deep: #344030;               /* titles and text (11:1 on sage) */
+  --sage-soft: #5f6d56;               /* small text, outlines (5:1 on sage) */
+  --peach: #f8dfc9;                   /* the lower band */
+  --peach-btn: #efa071;               /* round buttons (dark text on it: 6.6:1) */
+  --apricot: #b8572f;                 /* accent words: "à sucre", "~ sweet bug ~" (4.6:1 on cream) */
+  --crust: #fffaf3;                   /* the cards */
+  --bib-title: "Cormorant Garamond", Georgia, serif;
+  --bib-text: "Nunito", "Helvetica Neue", Arial, sans-serif;
+  background: var(--sage);
+  color: var(--sage-deep);
+  font-family: var(--bib-text);
+}
+/* ---------- The bar, after the brand concept: a white-outlined pill floating over the page ---------- */
+.bibitte { --nav-h: 5.5rem; --cream-hi: #fbf6ef; }      /* room the bar takes on the title page */
+.bib-pill {
+  position: absolute; z-index: 20;                    /* part of the title page: scrolls away with it */
+  top: clamp(.75rem, 3.5vh, 2.2rem); left: 5%; right: 5%;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
+  padding: .6rem clamp(1rem, 1.8vw, 1.6rem);
+  border: 1.5px solid rgb(255 255 255 / .85);
+  border-radius: 999px;
+  color: #fff;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-weight: 400;
+  font-size: clamp(.85rem, .55rem + .7vw, 1.3rem);
+}
+
+.bib-pill a { color: inherit; text-decoration: none; }
+.bib-pill a:hover, .bib-pill a:focus-visible { text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px; }
+.bib-pill__me { justify-self: start; }
+.bib-pill__brand { font-weight: 600; letter-spacing: -.045em; font-size: 1.05em; }
+.bib-pill__links { justify-self: end; display: flex; gap: clamp(1rem, 2.2vw, 2.25rem); margin: 0; padding: 0; list-style: none; }
+
+/* ---------- Title screen, after the brand concept ---------- */
+.bib-hero {
+  position: relative;
+  display: flex; flex-direction: column; justify-content: flex-start;
+  min-height: 100vh; min-height: 100svh;
+  padding: max(calc(var(--nav-h) + 2rem), 42svh) 5.8% 22svh;        /* the name starts a little below the middle, as in the concept */
+  scroll-margin-top: 0;
+  /* the caramel photo (supplied by the user), darkened like the concept */
+  background:
+    linear-gradient(rgb(30 15 6 / .42), rgb(30 15 6 / .42)),
+    url("../assets/img/caramel.webp") center / cover no-repeat,
+    #5a3017;
+  color: #fff;
+}
+.bib-hero__title {
+  margin: 0;
+  font-family: "Oranienbaum", "Bodoni 72", "Didot", Georgia, serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(3.2rem, 1rem + 9.6vw, 11.5rem);
+  line-height: .88;
+  letter-spacing: -.035em;
+}
+.bib-hero__line { display: block; }
+.bib-hero__line--2 { display: flex; align-items: baseline; gap: 0 clamp(1rem, 2.2vw, 2rem); }
+.bib-hero__sweet {
+  flex: none;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-weight: 500; text-transform: none;
+  font-size: clamp(1.1rem, .45rem + 2.1vw, 2.6rem); letter-spacing: -.06em; line-height: 1;
+}
+.bib-hero__rule { flex: 1 1 auto; max-width: 36vw; height: 1.5px; background: rgb(255 255 255 / .85); align-self: baseline; }
+
+/* ---------- The peach band: one rounded card per section ---------- */
+.bib-band {
+  background: var(--peach);
+  padding: clamp(2rem, 6vh, 4rem) clamp(1.25rem, 6vw, 6rem) clamp(3rem, 9vh, 6rem);
+}
+.bib-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+  max-width: 76rem;
+  margin: 0 auto;
+}
+.bib-card {
+  padding: 2rem 1.75rem 2.25rem;
+  border-radius: 1.5rem;
+  background: var(--crust);
+  box-shadow: 0 .9rem 2rem rgb(150 90 50 / .12);
+  text-align: center;
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+}
+.bib-card__icon { display: block; width: 4.5rem; aspect-ratio: 1; margin: 0 auto 1rem; border-radius: 50%; background: var(--sage); }
+.bib-card:nth-child(2) .bib-card__icon { background: #f0c9b0; }
+.bib-card:nth-child(3) .bib-card__icon { background: #f3e3c6; }
+.bib-h2 { margin: 0; font-family: var(--bib-title); font-style: italic; font-weight: 500; font-size: clamp(2rem, 1.6rem + 1.2vw, 2.6rem); line-height: 1.05; }
+.bib-lead { margin: .75rem 0 0; font-size: 1rem; line-height: 1.65; }
+.bib-h3 {
+  margin: 1.4rem 0 .35rem;
+  font-family: var(--bib-text);
+  font-weight: 700; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--apricot);
+}
+.bib-empty { margin: 0; font-size: 1rem; color: var(--sage-soft); }
+.bibitte .placeholder,
+.bib-empty { font-family: var(--bib-title); font-style: italic; font-weight: 500; font-size: 1.15rem; color: var(--sage-soft); }
+
+/* ---------- Newsletter: a copy of the Pantone croissant photo ---------- */
+.bib-news {
+  background: #eaeced;                          /* the photo's pale grey-white table (sampled), plain */
+  padding: clamp(1.5rem, 5vh, 3rem) var(--gutter) clamp(4rem, 10vh, 6rem);
+  scroll-margin-top: var(--nav-h);
+  overflow: hidden;                             /* photos sticking out never cause sideways scrolling */
+}
+.bib-news__head { max-width: 36rem; margin: 0 auto; text-align: center; }
+.bib-news__head .bib-h2 { font-size: clamp(2.6rem, 2rem + 2vw, 3.6rem); }
+.bib-news__head .bib-empty { margin-top: .5rem; }
+/* Two columns of chips touching each other; the right column starts half a chip higher.
+   Each chip spans two grid rows; a spacer pushes the left column down by one row. */
+.bib-issues {
+  --w: clamp(5rem, 21vw, 12.5rem);              /* chip width */
+  --sw: var(--w);                               /* swatch height (square) */
+  --lb: calc(var(--w) * .48);                   /* label height */
+  --chocolate: #523325; --pistachio: #c1c99e; --almond: #cd7636; --picante: #ab3d1c; --wheat: #d9b28c; --sky: #e2e5e7;   /* sampled from the Pantone photo */
+  display: grid;
+  grid-template-columns: repeat(2, var(--w));
+  grid-auto-rows: calc((var(--sw) + var(--lb)) / 2);
+  column-gap: clamp(2.5rem, 8vw, 8rem);          /* space between the two columns of recipes */
+  row-gap: clamp(1.5rem, 4vw, 3.5rem);           /* and between the recipes in each column */
+  grid-auto-flow: dense;
+  justify-content: center;
+  margin: clamp(3rem, 8vh, 5rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.bib-issues::before { content: ""; grid-column: 1; grid-row: 1; }
+.bib-issues li { grid-row: span 2; position: relative; }
+.bib-issues li:nth-child(odd) { grid-column: 2; }
+.bib-issues li:nth-child(even) { grid-column: 1; }
+.bib-issue { display: block; position: relative; height: 100%; color: #231f1c; text-decoration: none; }
+/* Clicking and dragging doesn't select or pick up the desserts (or the chip) */
+.bib-issue, .bib-issue__photo { -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
+/* The colour inside each square looks like printed paper: a soft raised paper surface catching
+   the light (an embossed fibre texture, lightly multiplied into the colour — no speckled grain),
+   a little more light at the top and shade toward the bottom */
+.bib-issue__swatch {
+  display: block; height: var(--sw);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035 .06' numOctaves='5' seed='3' stitchTiles='stitch' result='t'/%3E%3CfeDiffuseLighting in='t' surfaceScale='1.6' diffuseConstant='1' lighting-color='%23fff'%3E%3CfeDistantLight azimuth='225' elevation='58'/%3E%3C/feDiffuseLighting%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='.4' intercept='.66'/%3E%3CfeFuncG type='linear' slope='.4' intercept='.66'/%3E%3CfeFuncB type='linear' slope='.4' intercept='.66'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E") 0 0 / 300px 300px,
+    radial-gradient(120% 90% at 30% 10%, rgb(255 255 255 / .12), transparent 60%),
+    radial-gradient(130% 110% at 70% 110%, rgb(0 0 0 / .14), transparent 60%),
+    var(--swatch);
+  background-blend-mode: multiply, normal, normal, normal;
+}
+.bib-issues li:nth-child(even) .bib-issue__swatch { background-position: 140px 90px, 0 0, 0 0, 0 0; }
+.bib-issue--chocolate { --swatch: var(--chocolate); }
+.bib-issue--pistachio { --swatch: var(--pistachio); }
+.bib-issue--almond { --swatch: var(--almond); }
+.bib-issue--picante { --swatch: var(--picante); }
+.bib-issue--wheat { --swatch: var(--wheat); }
+.bib-issue--sky { --swatch: var(--sky); }
+.bib-issue__label {
+  display: block; height: var(--lb);
+  padding: calc(var(--w) * .09) calc(var(--w) * .1) 0;
+  background: #f7f7f7;                          /* the photo's label paper */
+  box-shadow: 0 1px 2px rgb(0 0 0 / .06);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.bib-issue__num { display: block; font-weight: 700; font-size: calc(var(--w) * .095); letter-spacing: .02em; text-transform: uppercase; line-height: 1.15; }
+.bib-issue__name { display: block; font-size: calc(var(--w) * .078); line-height: 1.3; }
+/* The recipe photo: half on the swatch, half off — out to the left in the left column, to the right in the right one */
+.bib-issue__photo,
+.bib-issue__slot {
+  position: absolute; z-index: 1;
+  top: calc(var(--sw) * .5); width: var(--w); max-width: none; height: auto;   /* phones: as wide as the square (max-width: none lets desktop go bigger) */
+  transform: translateY(-50%);
+  /* a real shadow under each dessert: a tight dark one where it touches, and a soft one cast down to the right */
+  filter: drop-shadow(.15rem .35rem .25rem rgb(30 15 5 / .45)) drop-shadow(.7rem 1.5rem 1.2rem rgb(30 15 5 / .42));
+  transition: transform .3s ease;
+}
+li:nth-child(even) .bib-issue__photo,
+li:nth-child(even) .bib-issue__slot { right: 28%; }
+li:nth-child(odd) .bib-issue__photo,
+li:nth-child(odd) .bib-issue__slot { left: 28%; }
+a.bib-issue:hover .bib-issue__num,
+a.bib-issue:focus-visible .bib-issue__num { text-decoration: underline; text-underline-offset: .2em; }
+/* Placeholder: a dashed oval where the recipe photo will go */
+.bib-issue__slot {
+  aspect-ratio: 16 / 9;
+  display: grid; place-items: center;
+  border: 1.5px dashed rgb(35 31 28 / .35);
+  border-radius: 50%;
+  background: rgb(255 255 255 / .55);
+  filter: none;
+  font-family: var(--bib-text); font-size: calc(var(--w) * .07); font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: rgb(35 31 28 / .6);
+}
+@media (prefers-reduced-motion: reduce) { .bib-issue__photo { transition: none; } }
+/* Desktop: bigger food photos (the squares stay the same size); phones unchanged */
+@media (min-width: 56rem) { .bib-issue__photo, .bib-issue__slot { width: calc(var(--w) * 1.2); } }
+@media (min-width: 72rem) { .bib-issue__photo, .bib-issue__slot { width: calc(var(--w) * 1.3); } }
+/* Never taller than the colour square, so a photo never covers the label text (shrinks, never stretches) */
+.bib-issue__photo { max-height: calc(var(--sw) * .9); object-fit: contain; }
+
+/* Paid content + About: two cards side by side */
+@media (min-width: 56.01rem) { .bib-band > .bib-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 52rem; } }
+
+/* ---------- Subscribe pop-up (paid content), at the end of the page ---------- */
+.bib-pop {
+  position: fixed; inset: 0;                          /* centred in the screen */
+  width: min(24rem, calc(100vw - 2rem)); height: fit-content;
+  margin: auto; padding: 2rem 1.75rem 1.6rem;
+  border: 0; border-radius: 1.5rem;
+  background: var(--crust);
+  color: var(--sage-deep);
+  box-shadow: 0 1.2rem 2.6rem rgb(60 40 20 / .22), 0 0 0 1px rgb(52 64 48 / .06);
+  text-align: center;
+  font-family: var(--bib-text);
+  z-index: 50;
+  opacity: 0; transform: translateY(1.5rem);
+  transition: opacity .45s ease, transform .45s ease, display .45s allow-discrete, overlay .45s allow-discrete;
+}
+.bib-pop[open] { opacity: 1; transform: none; }
+.bib-pop::backdrop { background: rgb(52 64 48 / .35); }        /* the page dims a little behind it */
+@starting-style { .bib-pop[open] { opacity: 0; transform: translateY(1.5rem); } }
+.bib-pop::before {                                  /* a peach band across the top, like the cards */
+  content: ""; position: absolute; inset: 0 0 auto; height: .45rem; border-radius: 1.5rem 1.5rem 0 0; background: var(--peach-btn);
+}
+.bib-pop__close {
+  position: absolute; top: .55rem; right: .7rem;
+  width: 2.2rem; height: 2.2rem; border: 0; border-radius: 50%;
+  background: transparent; color: var(--sage-soft);
+  font: 400 1.6rem/1 var(--bib-text); cursor: pointer;
+}
+.bib-pop__close:hover, .bib-pop__close:focus-visible { background: var(--sage); color: var(--sage-deep); }
+.bib-pop:focus, .bib-pop__close:focus { outline: none; }                    /* no dotted ring around the cross */
+.bib-pop__close:focus-visible { box-shadow: 0 0 0 2px var(--sage-soft); }  /* keyboard users still see where they are */
+.bib-pop__kicker { margin: .3rem 0 0; font-weight: 700; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--apricot); }
+.bib-pop__title { margin: .5rem 0 0; font-family: var(--bib-title); font-weight: 500; font-size: 2.1rem; line-height: 1.05; }
+.bib-pop__text { margin: .7rem 0 0; font-family: var(--bib-title); font-style: italic; font-weight: 500; font-size: 1.2rem; line-height: 1.3; }
+.bib-pop__free { margin: 1.2rem 0 0; padding-top: 1rem; border-top: 1px solid rgb(52 64 48 / .15); font-size: .88rem; color: var(--sage-soft); }
+.bib-pop__free-link { color: var(--sage-deep); font-weight: 700; text-underline-offset: .2em; }
+.bib-pop__free-link:hover, .bib-pop__free-link:focus-visible { color: var(--apricot); }
+.bib-pop__actions--last { margin-top: .5rem; }
+.bib-pop__actions { display: flex; flex-direction: column; align-items: center; gap: .55rem; margin-top: 1.4rem; }
+.bib-pop__btn {
+  display: inline-block; padding: .85rem 2.2rem; border-radius: 999px;
+  background: var(--peach-btn); color: #3b2418;
+  font-weight: 700; font-size: .95rem; text-decoration: none;
+  transition: background-color .25s ease, color .25s ease;
+}
+.bib-pop__btn:hover, .bib-pop__btn:focus-visible { background: var(--sage-deep); color: var(--crust); }
+.bib-pop__later { border: 0; background: none; padding: .3rem .6rem; font: 600 .82rem var(--bib-text); color: var(--sage-soft); cursor: pointer; text-decoration: underline; text-underline-offset: .2em; }
+.bib-pop__later:hover, .bib-pop__later:focus-visible { color: var(--sage-deep); }
+@media (prefers-reduced-motion: reduce) { .bib-pop { transition: none; } }
+
+/* No bar follows you down this page, so a jump to a section lands right at its top */
+.bibitte .bib-news { scroll-margin-top: 0; }
+.bibitte .bib-card, .bibitte #about.bib-card { scroll-margin-top: 1.5rem; }
+
+/* ---------- Footer ---------- */
+.bib-foot { background: var(--sage); color: var(--sage-deep); font-family: var(--bib-text); }
+.bib-foot p { font-weight: 600; font-size: .78rem; letter-spacing: .06em; }
+.bib-foot em { font-family: var(--bib-title); font-style: italic; font-weight: 500; font-size: 1rem; }
+.bib-foot a { color: var(--sage-deep); }
+
+/* ---------- Tablets and phones ---------- */
+@media (max-width: 56rem) {
+  .bib-cards { grid-template-columns: minmax(0, 1fr); max-width: 34rem; }
+}
+@media (max-width: 48rem) {
+  /* the pill becomes a rounded box: name and *Sweet Bug* on top, the links underneath */
+  .bibitte { --nav-h: 7.5rem; }
+  .bib-pill { grid-template-columns: 1fr auto; row-gap: .35rem; border-radius: 1.4rem; font-size: .9rem; left: 4%; right: 4%; }
+  .bib-pill__brand { justify-self: end; }
+  .bib-pill__links { grid-column: 1 / -1; justify-self: stretch; justify-content: space-between; gap: .5rem; font-size: .82rem; }
+  .bib-hero__line--2 { flex-wrap: wrap; }
+  .bib-hero__sweet { margin-top: .6rem; }
+  .bib-hero__rule { flex-basis: 100%; max-width: none; margin-top: .9rem; }
+  }
+
+/* =========================================================
+   LA BIBITTE À SUCRE — one style from the title page to the bottom (after Laurie's brand concept):
+   the darkened caramel photo stays behind the whole page, white Poppins text, headings in the tall
+   narrow capitals (Oranienbaum), thin white outlines with rounded ends like the bar.
+   (These rules come last, so they override the earlier pastel colours.)
+   ========================================================= */
+.bibitte {
+  --sage-deep: #fff; --sage-soft: rgb(255 255 255 / .72); --apricot: #f3c9a6;
+  background: transparent;                         /* let the fixed caramel layer show */
+  color: #fff;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+}
+html:has(body.bibitte) { background: #2b170b; }   /* dark caramel behind it all (before the photo loads) */
+/* the caramel photo, fixed behind everything (a fixed layer, so it also works on phones) */
+.bibitte::before {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background:
+    linear-gradient(rgb(30 15 6 / .52), rgb(30 15 6 / .52)),
+    url("../assets/img/caramel.webp") center / cover no-repeat,
+    #5a3017;
+}
+.bibitte .bib-hero { background: none; }
+.bibitte .bib-news, .bibitte .bib-band, .bibitte .bib-foot { background: none; }
+
+/* Headings: like the name on the title page */
+.bibitte .bib-h2,
+.bibitte .bib-news__head .bib-h2 {
+  font-family: "Oranienbaum", "Bodoni 72", Didot, Georgia, serif; font-style: normal; font-weight: 400;
+  text-transform: uppercase; letter-spacing: -.02em; line-height: .95;
+  font-size: clamp(2.6rem, 1.6rem + 3.6vw, 5rem);
+  color: #fff;
+}
+.bibitte .bib-news__head { max-width: 40rem; }
+.bibitte .bib-lead,
+.bibitte .bib-empty,
+.bibitte .placeholder { font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-style: normal; font-weight: 400; font-size: .98rem; line-height: 1.65; color: rgb(255 255 255 / .78); }
+.bibitte .bib-news { padding-top: clamp(4rem, 12vh, 7rem); }
+.bibitte .bib-news__head .bib-h2::after,
+.bibitte .bib-card .bib-h2::after {               /* the thin white line, as after *Sweet Bug* on the title page */
+  content: ""; display: block; width: 4.5rem; height: 1.5px; margin: 1rem auto 0; background: rgb(255 255 255 / .85);
+}
+
+/* Paid content + About: outlined like the bar, no fill */
+.bibitte .bib-band { padding-top: clamp(1rem, 4vh, 3rem); }
+.bibitte .bib-card {
+  background: none;
+  border: 1.5px solid rgb(255 255 255 / .85);
+  border-radius: 2rem;
+  box-shadow: none;
+  padding: 2.4rem 2rem 2.2rem;
+}
+
+/* Footer: white Poppins over the caramel, a thin line above */
+.bibitte .bib-foot { color: #fff; border-top: 1px solid rgb(255 255 255 / .3); margin: 0 5.8%; }
+.bibitte .bib-foot p { font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-weight: 400; letter-spacing: 0; }
+.bibitte .bib-foot em { font-family: "Oranienbaum", Georgia, serif; font-style: normal; text-transform: uppercase; font-size: 1.05rem; }
+.bibitte .bib-foot a { color: #fff; }
+
+/* The subscribe pop-up: a dark caramel card with a white outline */
+.bibitte .bib-pop {
+  background: #3a2414; color: #fff;
+  border: 1.5px solid rgb(255 255 255 / .85); border-radius: 2rem;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
+}
+.bibitte .bib-pop::before { content: none; }
+.bibitte .bib-pop::backdrop { background: rgb(20 10 4 / .55); }
+.bibitte .bib-pop__kicker { color: rgb(255 255 255 / .75); font-weight: 500; }
+.bibitte .bib-pop__title { font-family: "Oranienbaum", "Bodoni 72", Didot, Georgia, serif; text-transform: uppercase; letter-spacing: -.02em; font-size: 2.3rem; line-height: .98; }
+.bibitte .bib-pop__text { font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-style: normal; font-size: .95rem; color: rgb(255 255 255 / .85); }
+.bibitte .bib-pop__btn { background: #fff; color: #3a2414; font-weight: 600; }
+.bibitte .bib-pop__btn:hover, .bibitte .bib-pop__btn:focus-visible { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px #fff; }
+.bibitte .bib-pop__free { color: rgb(255 255 255 / .7); border-top-color: rgb(255 255 255 / .25); }
+.bibitte .bib-pop__free-link { color: #fff; }
+.bibitte .bib-pop__later { color: rgb(255 255 255 / .7); font-family: inherit; }
+.bibitte .bib-pop__later:hover, .bibitte .bib-pop__later:focus-visible { color: #fff; }
+.bibitte .bib-pop__close { color: rgb(255 255 255 / .8); }
+.bibitte .bib-pop__close:hover, .bibitte .bib-pop__close:focus-visible { background: rgb(255 255 255 / .12); color: #fff; }
+
+/* Newsletter chip labels: the site's own text font (Poppins) instead of Helvetica */
+.bibitte .bib-issue__label { font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; }
+.bibitte .bib-issue__num { font-weight: 600; letter-spacing: .01em; }
+.bibitte .bib-issue__name { font-weight: 400; }
+
+/* The subscribe pop-up, lighter: a cream card with caramel-brown text */
+.bibitte .bib-pop { background: #f7efe5; color: #3a2414; border-color: rgb(58 36 20 / .25); box-shadow: 0 1.4rem 3rem rgb(20 10 4 / .35); }
+.bibitte .bib-pop::backdrop { background: rgb(20 10 4 / .35); }
+.bibitte .bib-pop__kicker { color: #8a5a3a; }
+.bibitte .bib-pop__title { color: #3a2414; }
+.bibitte .bib-pop__text { color: #5c3d27; }
+.bibitte .bib-pop__btn { background: #3a2414; color: #fff; }
+.bibitte .bib-pop__btn:hover, .bibitte .bib-pop__btn:focus-visible { background: transparent; color: #3a2414; box-shadow: inset 0 0 0 1.5px #3a2414; }
+.bibitte .bib-pop__free { color: #7a5a44; border-top-color: rgb(58 36 20 / .18); }
+.bibitte .bib-pop__free-link { color: #3a2414; }
+.bibitte .bib-pop__later { color: #7a5a44; }
+.bibitte .bib-pop__later:hover, .bibitte .bib-pop__later:focus-visible { color: #3a2414; }
+.bibitte .bib-pop__close { color: #7a5a44; }
+.bibitte .bib-pop__close:hover, .bibitte .bib-pop__close:focus-visible { background: rgb(58 36 20 / .08); color: #3a2414; }
+.bibitte .bib-pop__title { margin-top: .6rem; }   /* no small "Paid content" line above it any more */

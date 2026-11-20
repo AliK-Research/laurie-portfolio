@@ -231,6 +231,31 @@
     });
   }
 
+  /* ---- La bibitte à sucre: subscribe pop-up when the reader reaches the end of the page ----
+     Centred over the dimmed page. Once per page load: after closing it (×, "Maybe later", Esc, a click
+     outside, or a button) it stays closed until the page is reloaded. */
+  const pop = document.getElementById("bib-pop");
+  if (pop && typeof pop.show === "function") {
+    let closed = false;                             // forgotten on reload, so it comes back each time the page loads
+    const close = () => { closed = true; pop.close(); };
+    const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
+    const check = () => {
+      if (closed || pop.open || !atBottom()) return;
+      pop.showModal();                              // centred, page dimmed behind; focus goes into it
+      pop.focus();                                  // start on the card itself, not on the × button
+      window.removeEventListener("scroll", check);
+    };
+    pop.querySelector(".bib-pop__close").addEventListener("click", close);
+    pop.querySelector(".bib-pop__later").addEventListener("click", close);
+    pop.querySelectorAll(".bib-pop__btn, .bib-pop__free-link").forEach((b) => b.addEventListener("click", close));
+    pop.addEventListener("cancel", (e) => { e.preventDefault(); close(); });   // Esc
+    pop.addEventListener("click", (e) => {                                      // click on the dimmed page around it
+      const r = pop.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) close();
+    });
+    window.addEventListener("scroll", check, { passive: true });
+  }
+
   /* ---- Current year in the colophon ---- */
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
