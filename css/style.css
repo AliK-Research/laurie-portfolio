@@ -1154,17 +1154,17 @@ a.sheet--cv:focus-visible { transform: rotate(-3deg) translateY(-12px); }
   font-family: var(--bib-text);
 }
 /* ---------- The bar, after the brand concept: a white-outlined pill floating over the page ---------- */
-.bibitte { --nav-h: 5.5rem; --cream-hi: #fbf6ef; }      /* room the bar takes on the title page */
+.bibitte { --bar-top: clamp(.5rem, 1.6vh, 1rem); --nav-h: calc(var(--bar-top) + 3.35rem); --cream-hi: #fbf6ef; }      /* room the bar (and the slim strip behind it) takes */
 .bib-pill {
-  position: absolute; z-index: 20;                    /* part of the title page: scrolls away with it */
-  top: clamp(.75rem, 3.5vh, 2.2rem); left: 5%; right: 5%;
+  position: fixed; z-index: 21;                       /* stays at the top as you scroll, always the same */
+  top: var(--bar-top); left: 5%; right: 5%;
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1rem;
-  padding: .6rem clamp(1rem, 1.8vw, 1.6rem);
+  padding: .45rem clamp(1rem, 1.8vw, 1.6rem);
   border: 1.5px solid rgb(255 255 255 / .85);
   border-radius: 999px;
   color: #fff;
   font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-weight: 400;
-  font-size: clamp(.85rem, .55rem + .7vw, 1.3rem);
+  font-size: clamp(.82rem, .6rem + .5vw, 1.1rem);
 }
 
 .bib-pill a { color: inherit; text-decoration: none; }
@@ -1389,9 +1389,9 @@ a.bib-issue:focus-visible .bib-issue__num { text-decoration: underline; text-und
 .bib-pop__later:hover, .bib-pop__later:focus-visible { color: var(--sage-deep); }
 @media (prefers-reduced-motion: reduce) { .bib-pop { transition: none; } }
 
-/* No bar follows you down this page, so a jump to a section lands right at its top */
-.bibitte .bib-news { scroll-margin-top: 0; }
-.bibitte .bib-card, .bibitte #about.bib-card { scroll-margin-top: 1.5rem; }
+/* A jump to a section lands just under the bar */
+.bibitte .bib-news { scroll-margin-top: calc(var(--nav-h) - 3rem); }
+.bibitte .bib-card, .bibitte #about.bib-card { scroll-margin-top: calc(var(--nav-h) + 1rem); }
 
 /* ---------- Footer ---------- */
 .bib-foot { background: var(--sage); color: var(--sage-deep); font-family: var(--bib-text); }
@@ -1405,7 +1405,7 @@ a.bib-issue:focus-visible .bib-issue__num { text-decoration: underline; text-und
 }
 @media (max-width: 48rem) {
   /* the pill becomes a rounded box: name and *Sweet Bug* on top, the links underneath */
-  .bibitte { --nav-h: 7.5rem; }
+  .bibitte { --nav-h: calc(var(--bar-top) + 5rem); }
   .bib-pill { grid-template-columns: 1fr auto; row-gap: .35rem; border-radius: 1.4rem; font-size: .9rem; left: 4%; right: 4%; }
   .bib-pill__brand { justify-self: end; }
   .bib-pill__links { grid-column: 1 / -1; justify-self: stretch; justify-content: space-between; gap: .5rem; font-size: .82rem; }
@@ -1428,12 +1428,23 @@ a.bib-issue:focus-visible .bib-issue__num { text-decoration: underline; text-und
 }
 html:has(body.bibitte) { background: #2b170b; }   /* dark caramel behind it all (before the photo loads) */
 /* the caramel photo, fixed behind everything (a fixed layer, so it also works on phones) */
-.bibitte::before {
-  content: ""; position: fixed; inset: 0; z-index: -1;
+/* Both the page's photo layer and the strip behind the bar place the photo the same way, measured from the
+   top-left of the screen ("cover" for a 1103×736 photo, worked out by hand), so the strip is invisible */
+.bibitte::before,
+.bib-barbg {
+  --bw: max(100vw, 149.86vh);                         /* photo width when it covers the screen */
   background:
     linear-gradient(rgb(30 15 6 / .52), rgb(30 15 6 / .52)),
-    url("../assets/img/caramel.webp") center / cover no-repeat,
+    url("../assets/img/caramel.webp") calc((100vw - var(--bw)) / 2) calc((100vh - var(--bw) / 1.4986) / 2) / var(--bw) auto no-repeat,
     #5a3017;
+}
+.bibitte::before { content: ""; position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: -1; }
+.bib-barbg {
+  position: fixed; left: 0; top: 0; z-index: 20;
+  width: 100%; height: calc(var(--nav-h) + .25rem);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 calc(100% - .35rem), transparent);   /* a short soft edge, below the bar (never over it) */
+          mask-image: linear-gradient(#000 calc(100% - .35rem), transparent);
 }
 .bibitte .bib-hero { background: none; }
 .bibitte .bib-news, .bibitte .bib-band, .bibitte .bib-foot { background: none; }
@@ -1512,3 +1523,120 @@ html:has(body.bibitte) { background: #2b170b; }   /* dark caramel behind it all 
 .bibitte .bib-pop__close { color: #7a5a44; }
 .bibitte .bib-pop__close:hover, .bibitte .bib-pop__close:focus-visible { background: rgb(58 36 20 / .08); color: #3a2414; }
 .bibitte .bib-pop__title { margin-top: .6rem; }   /* no small "Paid content" line above it any more */
+/* Footer: "La bibitte à sucre" takes you back up to the title page (smooth scroll from js/main.js) */
+.bibitte .bib-foot__top { text-decoration: none; }
+.bibitte .bib-foot__top:hover, .bibitte .bib-foot__top:focus-visible { text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px; }
+/* "See paid content": an outlined pill like the bar, leading to the Paid content page */
+.bibitte .bib-card__more {
+  display: inline-block; margin-top: 1.4rem; padding: .6rem 1.5rem;
+  border: 1.5px solid rgb(255 255 255 / .85); border-radius: 999px;
+  color: #fff; text-decoration: none;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-weight: 500; font-size: .92rem;
+  transition: background-color .25s ease, color .25s ease;
+}
+.bibitte .bib-card__more:hover, .bibitte .bib-card__more:focus-visible { background: #fff; color: #3a2414; }
+
+/* =========================================================
+   LA BIBITTE À SUCRE — PAID CONTENT page (a secondary page)
+   ========================================================= */
+.bib-sub { padding: calc(var(--nav-h) + clamp(2.5rem, 8vh, 5rem)) 5.8% clamp(2rem, 5vh, 3rem); max-width: 80rem; margin: 0 auto; }
+.bib-sub__title {
+  margin: 0; color: #fff;
+  font-family: "Oranienbaum", "Bodoni 72", Didot, Georgia, serif; font-weight: 400;
+  text-transform: uppercase; letter-spacing: -.03em; line-height: .9;
+  font-size: clamp(3rem, 1.6rem + 5.5vw, 6.5rem);
+}
+.bib-sub__line { display: flex; align-items: center; gap: 1.2rem; margin: .8rem 0 0; color: #fff; }
+.bib-sub__line .bib-hero__rule { flex: 1 1 auto; max-width: 22rem; align-self: center; margin: 0; }
+.bib-sub .bib-lead { margin-top: 1.2rem; text-align: left; }
+
+.bib-paid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; max-width: 80rem; margin: 0 auto; padding: 0 5.8%; }
+/* Two videos in the left column, the zine beside them on the right */
+@media (min-width: 48.01rem) {
+  .bib-paid { grid-template-areas: "v1 zine" "v2 zine"; row-gap: clamp(2rem, 4vw, 3rem); }
+  .bib-paid__item--v1 { grid-area: v1; }
+  .bib-paid__item--v2 { grid-area: v2; }
+  .bib-paid__item--zine { grid-area: zine; position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+}
+.bib-paid__name { margin: 1rem 0 0; color: #fff; font-family: "Oranienbaum", "Bodoni 72", Didot, Georgia, serif; font-weight: 400; text-transform: uppercase; letter-spacing: -.01em; font-size: clamp(1.8rem, 1.3rem + 1.4vw, 2.6rem); line-height: 1; }
+.bib-paid__item .bib-lead { margin-top: .4rem; text-align: left; }
+
+/* The video card: 16:9, outlined like the bar */
+.bib-video__open {
+  position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0;
+  border: 1.5px solid rgb(255 255 255 / .85); border-radius: 1.25rem; overflow: hidden;
+  background: rgb(30 15 6 / .45) center / cover no-repeat;
+  cursor: pointer; color: #fff;
+}
+.bib-video__preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s ease; }
+.bib-video.is-previewing .bib-video__preview { opacity: 1; }
+.bib-video__soon, .bib-zine__soon {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif; font-size: .78rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+  color: rgb(255 255 255 / .75); white-space: nowrap;
+}
+.bib-video.is-ready .bib-video__soon { display: none; }
+.bib-video:not(.is-ready) .bib-video__open { cursor: default; }
+.bib-video__play {                                   /* a round play button in the corner */
+  position: absolute; left: 1rem; bottom: 1rem; width: 3.2rem; height: 3.2rem; border-radius: 50%;
+  border: 1.5px solid #fff; background: rgb(30 15 6 / .35);
+  transition: background-color .25s ease, transform .25s ease;
+}
+.bib-video__play::after { content: ""; position: absolute; left: 54%; top: 50%; transform: translate(-50%, -50%); border-style: solid; border-width: .55rem 0 .55rem .9rem; border-color: transparent transparent transparent #fff; }
+.bib-video.is-ready .bib-video__open:hover .bib-video__play,
+.bib-video.is-ready .bib-video__open:focus-visible .bib-video__play { background: #fff; transform: scale(1.05); }
+.bib-video.is-ready .bib-video__open:hover .bib-video__play::after,
+.bib-video.is-ready .bib-video__open:focus-visible .bib-video__play::after { border-left-color: #3a2414; }
+
+/* The zine: a cover, portrait */
+.bib-zine {
+  position: relative; display: block; aspect-ratio: 3 / 4;
+  border: 1.5px solid rgb(255 255 255 / .85); border-radius: 1.25rem; overflow: hidden;
+  background: rgb(30 15 6 / .45);
+  transition: transform .3s ease;
+}
+.bib-zine:hover, .bib-zine:focus-visible { transform: translateY(-.3rem); }
+.bib-zine__cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; }
+
+/* The third exclusive content, and "Become a patron" */
+.bib-paid__extra, .bib-paid__join {
+  max-width: calc(80rem - 11.6%); margin: clamp(2rem, 5vh, 3.5rem) auto 0;
+  padding: 2rem clamp(1.5rem, 3vw, 2.5rem);
+  border: 1.5px solid rgb(255 255 255 / .85); border-radius: 1.5rem;
+}
+@media (min-width: 48.01rem) { .bib-paid__extra, .bib-paid__join { margin-inline: 5.8%; } }
+@media (min-width: 88rem) { .bib-paid__extra, .bib-paid__join { margin-inline: auto; max-width: 70.7rem; } }
+.bib-paid__extra .bib-paid__name { margin-top: 0; }
+.bib-paid__extra .bib-lead { text-align: left; }
+.bib-paid__join { text-align: center; margin-bottom: clamp(3rem, 8vh, 5rem); border: 0; }
+.bib-paid__join .bib-h2::after { content: ""; display: block; width: 4.5rem; height: 1.5px; margin: 1rem auto 0; background: rgb(255 255 255 / .85); }
+
+/* The full-video player, over the dimmed page */
+.bib-player {
+  width: min(64rem, calc(100vw - 2rem)); padding: 0; border: 0; border-radius: 1rem; overflow: visible;
+  background: #000; color: #fff;
+}
+.bib-player::backdrop { background: rgb(15 8 3 / .82); }
+.bib-player__video { display: block; width: 100%; height: auto; max-height: 85vh; border-radius: 1rem; background: #000; }
+.bib-player__close {
+  position: absolute; top: -2.8rem; right: 0; width: 2.4rem; height: 2.4rem; border: 0; border-radius: 50%;
+  background: rgb(255 255 255 / .12); color: #fff; font: 400 1.6rem/1 "Poppins", Arial, sans-serif; cursor: pointer;
+}
+.bib-player__close:hover, .bib-player__close:focus-visible { background: #fff; color: #3a2414; }
+
+@media (max-width: 48rem) {
+  .bib-paid { grid-template-columns: minmax(0, 1fr); }
+  .bib-paid__item--zine { max-width: 18rem; }
+  .bib-paid__extra, .bib-paid__join { margin-inline: 5.8%; }
+}
+@media (prefers-reduced-motion: reduce) { .bib-video__preview, .bib-zine { transition: none; } }
+/* A card that is a link as a whole: the heading's link stretches over the entire card */
+.bibitte .bib-card--link { position: relative; transition: transform .3s ease; }
+.bibitte .bib-card__link { color: inherit; text-decoration: none; }
+.bibitte .bib-card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: 1; }
+.bibitte .bib-card--link:hover,
+.bibitte .bib-card--link:focus-within { transform: translateY(-.25rem); }   /* lifts a little; no colour change */
+.bibitte .bib-card__link:focus-visible { outline: none; }
+.bibitte .bib-card--link:focus-within { box-shadow: 0 0 0 2px #fff; }
+@media (prefers-reduced-motion: reduce) { .bibitte .bib-card--link { transition: none; } .bibitte .bib-card--link:hover, .bibitte .bib-card--link:focus-within { transform: none; } }
+

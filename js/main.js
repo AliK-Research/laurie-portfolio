@@ -256,6 +256,48 @@
     window.addEventListener("scroll", check, { passive: true });
   }
 
+  /* ---- La bibitte à sucre, Paid content: the videocast card ----
+     Hover (or keyboard focus): plays a short silent preview. Click: opens the full video in a player.
+     The addresses come from data-preview / data-full / data-poster; while they are empty the card just
+     says "Coming soon". On touch screens (no hover) a tap opens the full video straight away. */
+  document.querySelectorAll(".bib-video").forEach((card) => {
+    const open = card.querySelector(".bib-video__open");
+    const preview = card.querySelector(".bib-video__preview");
+    const player = document.getElementById("bib-player");
+    const full = card.dataset.full, clip = card.dataset.preview, poster = card.dataset.poster;
+    if (poster) open.style.setProperty("background-image", "url(\"" + poster + "\")");
+    if (!full || !player) return;                                   // nothing to play yet
+    card.classList.add("is-ready");
+    const video = player.querySelector(".bib-player__video");
+    const start = () => {
+      if (!clip || reduceMotion.matches) return;
+      if (!preview.src) preview.src = clip;
+      card.classList.add("is-previewing");
+      preview.play().catch(() => {});
+    };
+    const stop = () => { card.classList.remove("is-previewing"); preview.pause(); preview.currentTime = 0; };
+    open.addEventListener("mouseenter", start);
+    open.addEventListener("focus", start);
+    open.addEventListener("mouseleave", stop);
+    open.addEventListener("blur", stop);
+    open.addEventListener("click", () => {
+      stop();
+      if (video.getAttribute("src") !== full) video.src = full;
+      if (poster) video.poster = poster;
+      player.showModal();
+      video.play().catch(() => {});
+    });
+  });
+  // The one player, shared by all the video cards: close with ×, Esc or a click outside (pauses the video)
+  const player = document.getElementById("bib-player");
+  if (player) {
+    const video = player.querySelector(".bib-player__video");
+    const closePlayer = () => { video.pause(); player.close(); };
+    player.querySelector(".bib-player__close").addEventListener("click", closePlayer);
+    player.addEventListener("cancel", (e) => { e.preventDefault(); closePlayer(); });   // Esc
+    player.addEventListener("click", (e) => { if (e.target === player) closePlayer(); });
+  }
+
   /* ---- Current year in the colophon ---- */
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paid content · La bibitte à sucre</title>
+  <meta name="description" content="Paid content from La bibitte à sucre (sweet bug), by Laurie Legault.">
+  <meta name="theme-color" content="#2b170b">
+  <meta name="color-scheme" content="light">
+  <link rel="preload" href="../assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/oranienbaum-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/nunito-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/nunito-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/reveal.js"></script>
+</head>
+<!-- =====================================================
+     LA BIBITTE À SUCRE — PAID CONTENT page: a secondary page in the Bibitte style (caramel photo behind the
+     page, the white pill bar, a compact header; videocast + zine side by side, an extra, then "Become a patron"). Styles: "BIBITTE" in
+     css/style.css. Text marked "placeholder" is waiting for Laurie's words.
+     ===================================================== -->
+<body class="bibitte">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="bib-barbg" aria-hidden="true"></div>
+  <nav class="bib-pill" aria-label="La bibitte à sucre">
+    <a class="bib-pill__me" href="../index.html">Laurie Legault</a>
+    <a class="bib-pill__brand" href="index.html"><span aria-hidden="true">*</span>Sweet Bug<span aria-hidden="true">*</span></a>
+    <ul class="bib-pill__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#newsletter">Newsletter</a></li>
+      <li><a href="paid-content.html" aria-current="page">Paid content</a></li>
+      <li><a href="index.html#about">About Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- A secondary page: a compact header (not the full title screen), then the paid content.
+       Laurie's requirements (keep in mind when adding the files):
+         · a podcast or videocast — at least 10 minutes (two videos are planned)
+         · a zine (print or digital) — at least 16 pages
+         · another form of exclusive content -->
+  <header class="bib-sub" id="top">
+    <h1 class="bib-sub__title">Paid content</h1>
+    <p class="bib-sub__line"><span class="bib-hero__sweet"><span aria-hidden="true">*</span>Sweet Bug<span aria-hidden="true">*</span></span><span class="bib-hero__rule" aria-hidden="true"></span></p>
+    <!-- TODO (placeholder): a sentence from Laurie about what patrons get -->
+    <p class="bib-lead placeholder">Placeholder</p>
+  </header>
+
+  <main id="main">
+    <!-- The two recipe videos (the first two newsletter recipes being made: Issue 01 pouding chômeur, Issue 02 croustade aux pommes),
+         one above the other, with the zine beside them (all stacked on phones) -->
+    <div class="bib-paid fade">
+      <!-- VIDEOCAST. Hovering plays a short silent preview; clicking opens the full video in a player.
+           TO ADD IT: put the files in assets/paid/ and fill in the three data- addresses below
+             data-preview = a short, silent clip (5–10 s, small .mp4)
+             data-full    = the full episode (.mp4, at least 10 minutes)
+             data-poster  = a still image (.webp) shown before playing
+           Until then the card shows "Coming soon" and does nothing when clicked.
+           (Videos on this site are visible to everyone: for patrons-only, keep the full episode on Patreon
+           and link to it instead.) -->
+      <section class="bib-paid__item bib-paid__item--video bib-paid__item--v1" aria-labelledby="video1-title">
+        <div class="bib-video" data-preview="" data-full="" data-poster="">
+          <button class="bib-video__open" type="button" aria-label="Play the pouding chômeur recipe video">
+            <video class="bib-video__preview" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+            <span class="bib-video__soon">Coming soon</span>
+            <span class="bib-video__play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <h2 class="bib-paid__name" id="video1-title">Pouding chômeur</h2>
+        <!-- TODO (placeholder): episode title and a line about it -->
+        <p class="bib-lead placeholder">Placeholder</p>
+      </section>
+
+      <!-- VIDEO 2: the croustade aux pommes (newsletter Issue 02) being made; same as above, with its own three files -->
+      <section class="bib-paid__item bib-paid__item--video bib-paid__item--v2" aria-labelledby="video2-title">
+        <div class="bib-video" data-preview="" data-full="" data-poster="">
+          <button class="bib-video__open" type="button" aria-label="Play the croustade aux pommes recipe video">
+            <video class="bib-video__preview" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+            <span class="bib-video__soon">Coming soon</span>
+            <span class="bib-video__play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <h2 class="bib-paid__name" id="video2-title">Croustade aux pommes</h2>
+        <!-- TODO (placeholder): episode title and a line about it -->
+        <p class="bib-lead placeholder">Placeholder</p>
+      </section>
+
+      <!-- ZINE. Clicking opens it (a PDF). TO ADD IT: replace assets/paid/zine.pdf (at least 16 pages) and
+           put its cover in assets/paid/zine-cover.webp, then swap the "Zine cover" box for
+           <img class="bib-zine__cover" src="../assets/paid/zine-cover.webp" width="…" height="…" alt="…">
+           assets/paid/zine.pdf is a "Coming soon" placeholder for now. -->
+      <section class="bib-paid__item bib-paid__item--zine" aria-labelledby="zine-title">
+        <a class="bib-zine" href="../assets/paid/zine.pdf" target="_blank" rel="noopener noreferrer" aria-label="Read the zine (PDF)">
+          <span class="bib-zine__soon">Zine cover</span>
+        </a>
+        <h2 class="bib-paid__name" id="zine-title">Zine</h2>
+        <!-- TODO (placeholder): the zine's title and a line about it -->
+        <p class="bib-lead placeholder">Placeholder</p>
+      </section>
+    </div>
+
+    <!-- THE OTHER EXCLUSIVE CONTENT (to be decided by Laurie) -->
+    <section class="bib-paid__extra fade" aria-labelledby="extra-title">
+      <h2 class="bib-paid__name" id="extra-title">Exclusive extra</h2>
+      <!-- TODO (placeholder): what this third exclusive content is -->
+      <p class="bib-lead placeholder">Placeholder</p>
+    </section>
+
+    <!-- BECOME A PATRON -->
+    <section class="bib-paid__join fade" id="patron" aria-labelledby="patron-title">
+      <h2 class="bib-h2" id="patron-title">Become a patron</h2>
+      <!-- TODO (placeholder): the price / levels, in Laurie's words -->
+      <p class="bib-lead placeholder">Placeholder</p>
+      <!-- TODO: Laurie's Patreon page address here, e.g.
+           <a class="bib-card__more" href="https://www.patreon.com/…" target="_blank" rel="noopener noreferrer">Become a patron</a>
+           Payments happen on Patreon's site, never on this one. -->
+      <p class="bib-lead bib-empty">Coming soon.</p>
+    </section>
+  </main>
+
+  <!-- The full video opens here, over the page -->
+  <dialog class="bib-player" id="bib-player" aria-label="Videocast">
+    <button class="bib-player__close" type="button" aria-label="Close">&times;</button>
+    <video class="bib-player__video" controls playsinline preload="none"></video>
+  </dialog>
+
+  <footer class="colophon bib-foot fade">
+    <p>© <span id="year">2026</span> Laurie Legault · <a class="bib-foot__top" href="index.html"><em>La bibitte à sucre</em></a> · <a href="../index.html">Laurie’s portfolio</a></p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
